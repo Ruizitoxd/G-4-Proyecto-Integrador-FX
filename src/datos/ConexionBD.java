@@ -4,15 +4,15 @@ import java.sql.*;
 import java.util.logging.*;
 
 public class ConexionBD {
-    private String url = "jdbc:oracle:thin:constructoraG_4/constructoraG_4@localhost:1521:orcl"; // URL correcta para la base de datos Oracle
+    private String url = "jdbc:oracle:thin:@localhost:1521:XE"; // URL correcta para la base de datos Oracle
     public Connection con = null;
-    //private String user = "constructoraG_4"; // Nombre de usuario de Oracle
-    //private String password = "constructoraG_4"; // Contraseña de Oracle
+    private String user = "constructoraG_4"; // Nombre de usuario de Oracle
+    private String password = "constructoraG_4"; // Contraseña de Oracle
 
     public ConexionBD() {
         try {
             // Establecer la conexión
-            con = DriverManager.getConnection(url);
+            con = DriverManager.getConnection(url, user, password);
             if (con != null) {
                 DatabaseMetaData meta = con.getMetaData();
                 System.out.println("Base de datos conectada: " + meta.getDriverName());
