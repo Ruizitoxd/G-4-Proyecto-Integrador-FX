@@ -81,7 +81,6 @@ public class VistaLoginController implements Initializable {
        });
     }
 
-    @FXML
     private void IniciarSesion(ActionEvent event) {
         try {
             //Logica para iniciar sesion
