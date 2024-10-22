@@ -29,7 +29,6 @@ public class Main extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
-        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 

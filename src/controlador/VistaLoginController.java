@@ -1,5 +1,6 @@
 package controlador;
 
+import controlador.ValidarAdmin;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -25,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import modelo.RolUsuario;
 
 public class VistaLoginController implements Initializable {    
 
@@ -81,26 +85,46 @@ public class VistaLoginController implements Initializable {
        });
     }
 
+    @FXML
     private void IniciarSesion(ActionEvent event) {
-        try {
-            //Logica para iniciar sesion
+
+        String correo = txtCorreo.getText();
+        String contraseña = txtContraseña.getText();
+        if(!"".equals(correo)|| !"".equals(contraseña)){
+            RolUsuario RU = new RolUsuario();
+            ValidarAdmin Val = new ValidarAdmin();
+            RU = Val.validarAdmin(correo, contraseña);
+            if(RU.getCorreo()!=null || RU.getIdentificacion()!=null){
+                cargarVistaPrincipal(event);
+            }else{
+                Alert alerta = new Alert(AlertType.ERROR);
+                alerta.setTitle("Error de Inicio de Sesión");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Correo o contraseña incorrectos.");
+                alerta.showAndWait();
+            }
+        }
+    }        
             
             
             //Cargar vista principal
+    private void cargarVistaPrincipal(ActionEvent event){
+        try {
+            //Cargar vista principal
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPrincipal.fxml"));
-            Parent root = loader.load();   
-            
+            Parent root = loader.load();
+
             //Crear la escena
             Scene scene = new Scene(root);
-            
+
             //Obtener dimensiones del tamaño de la pantalla
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-            
+
             //Establecer tamaño de ventana
             Stage stage = new Stage();
             stage.setWidth(screenBounds.getWidth());
             stage.setHeight(screenBounds.getHeight());
-            
+
             //Mostrar la ventana
             Image icon = new Image(getClass().getResourceAsStream("/recursos/imagenes/Logo Chaux.png"));
             stage.getIcons().add(icon);
@@ -109,7 +133,7 @@ public class VistaLoginController implements Initializable {
             stage.setMaximized(true);
             stage.setScene(scene);
             stage.show();
-            
+
             //Cerar la ventana VistaLogin
             Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stageActual.close();
@@ -117,4 +141,6 @@ public class VistaLoginController implements Initializable {
             Logger.getLogger(VistaLoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 }

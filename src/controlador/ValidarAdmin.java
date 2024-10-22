@@ -1,10 +1,11 @@
-package datos;
+package controlador;
 
+import datos.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import controlador.RolUsuario;
+import modelo.RolUsuario;
 
 public class ValidarAdmin {
     Connection con;
@@ -12,9 +13,10 @@ public class ValidarAdmin {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
 
-    public boolean validarAdmin(String correo, String identificacion) {
-        String sql = "SELECT * FROM admin WHERE correoElectronico = ? AND identificacion = ?";
-        boolean esAdmin = false; // Iniciamos asumiendo que no es admin
+    public RolUsuario validarAdmin(String correo, String identificacion) {
+        RolUsuario RU = new RolUsuario();
+        String sql = "SELECT * FROM administrador WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+
 
         try {
             con = conexion.getConnection();
@@ -24,18 +26,15 @@ public class ValidarAdmin {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                esAdmin = true; 
 
-                
-                RolUsuario RU = new RolUsuario();
                 RU.setId(rs.getInt("id"));
                 RU.setNombre(rs.getString("nombre"));
                 RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
                 RU.setIdentificacion(rs.getString("identificacion"));
-                RU.setDirecion(rs.getString("direccion")); // Corrección de columna
-                RU.setTelefono(rs.getString("telefono"));
+                RU.setDireccion(rs.getString("direccion")); // Corrección de columna
 
-             
+
+
             }
 
         } catch (SQLException ex) {
@@ -45,9 +44,6 @@ public class ValidarAdmin {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        
-
-        return esAdmin; 
+        return RU ; 
     }
 }
-

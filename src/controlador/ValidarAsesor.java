@@ -1,10 +1,11 @@
-package datos;
+package controlador;
 
+import datos.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import controlador.RolUsuario;
+import modelo.RolUsuario;
 
 public class ValidarAsesor {
     Connection con;
@@ -32,8 +33,7 @@ public class ValidarAsesor {
                 RU.setNombre(rs.getString("nombre"));
                 RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
                 RU.setIdentificacion(rs.getString("identificacion"));
-                RU.setDirecion(rs.getString("direccion")); // Corrección de columna
-                RU.setTelefono(rs.getString("telefono"));
+                RU.setDireccion(rs.getString("direccion")); // Corrección de columna
 
                 
             }
