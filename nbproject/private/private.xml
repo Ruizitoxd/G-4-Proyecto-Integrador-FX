@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/datos/ValidarAsesor.java</file>
             <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/controlador/Main.java</file>
             <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/vista/vistalogin.css</file>
             <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/controlador/VistaLoginController.java</file>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/modelo/RolUsuario.java</file>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/modelo/Proyecto.java</file>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/datos/ValidarAdmin.java</file>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/ProyectoIntegradorFX%20-%20github/src/controlador/GestionProyecto.java</file>
         </group>
     </open-files>
 </project-private>

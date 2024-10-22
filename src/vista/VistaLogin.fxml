@@ -20,9 +20,9 @@
             <Image url="@../recursos/imagenes/Constructora%20Imagen.png" />
          </image>
       </ImageView>
-      <AnchorPane id="panelLogin" prefHeight="760.0" prefWidth="636.0" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="panelLogin" fx:id="paneLogin" prefHeight="760.0" prefWidth="636.0" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="btnEntrar" fx:id="btnEntrar" mnemonicParsing="false" prefHeight="58.0" prefWidth="353.0" styleClass="buttonDefault" stylesheets="@vistalogin.css" text="Entrar" AnchorPane.bottomAnchor="151.0" AnchorPane.leftAnchor="134.0" />
+            <Button id="btnEntrar" fx:id="btnEntrar" mnemonicParsing="false" prefHeight="58.0" prefWidth="353.0" styleClass="buttonDefault" stylesheets="@vistalogin.css" text="Entrar" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="134.0" />
             <ImageView fx:id="imgLogo" fitHeight="65.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="133.0" AnchorPane.topAnchor="103.0">
                <image>
                   <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
@@ -33,10 +33,10 @@
             <Label id="lblBienvenida" fx:id="lblBienvenida" styleClass="labelRegular" stylesheets="@vistalogin.css" text="Bienvenido a la compañía" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="182.0" />
             <Label id="lblCorreo" fx:id="lblCorreo" styleClass="labelRegular" stylesheets="@vistalogin.css" text="Correo electrónico" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="231.0" />
             <TextField id="txtCorreo" fx:id="txtCorreo" prefHeight="58.0" prefWidth="353.0" styleClass="textField" stylesheets="@vistalogin.css" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="265.0" />
-            <Label id="lblContraseña" fx:id="lblContraseña" styleClass="labelRegular" stylesheets="@vistalogin.css" text="Contraseña" AnchorPane.bottomAnchor="367.0" AnchorPane.leftAnchor="132.0" />
-            <TextField id="txtContraseña" fx:id="txtContraseña" prefHeight="58.0" prefWidth="353.0" styleClass="textField" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="132.0" />
-            <PasswordField id="txtContraseña" fx:id="txtContraseñaOculta" prefHeight="58.0" prefWidth="353.0" styleClass="passField" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="132.0" />
-            <CheckBox fx:id="ckBoxMostrarContraseña" mnemonicParsing="false" styleClass="checkBox" stylesheets="@vistalogin.css" text="Mostrar contraseña" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="132.0" />
+            <Label id="lblContraseña" fx:id="lblContraseña" styleClass="labelRegular" stylesheets="@vistalogin.css" text="Contraseña" AnchorPane.bottomAnchor="317.0" AnchorPane.leftAnchor="132.0" />
+            <TextField id="txtContraseña" fx:id="txtContraseña" prefHeight="58.0" prefWidth="353.0" styleClass="textField" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="132.0" />
+            <PasswordField id="txtContraseña" fx:id="txtContraseñaOculta" prefHeight="58.0" prefWidth="353.0" styleClass="passField" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="132.0" />
+            <CheckBox fx:id="ckBoxMostrarContraseña" mnemonicParsing="false" styleClass="checkBox" stylesheets="@vistalogin.css" text="Mostrar contraseña" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="132.0" />
          </children>
       </AnchorPane>
    </children>
