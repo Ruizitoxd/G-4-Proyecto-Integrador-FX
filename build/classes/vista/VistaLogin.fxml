@@ -22,7 +22,7 @@
       </ImageView>
       <AnchorPane id="panelLogin" fx:id="paneLogin" prefHeight="760.0" prefWidth="636.0" stylesheets="@vistalogin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="btnEntrar" fx:id="btnEntrar" mnemonicParsing="false" prefHeight="58.0" prefWidth="353.0" styleClass="buttonDefault" stylesheets="@vistalogin.css" text="Entrar" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="134.0" />
+            <Button id="btnEntrar" fx:id="btnEntrar" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="58.0" prefWidth="353.0" styleClass="buttonDefault" stylesheets="@vistalogin.css" text="Entrar" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="134.0" />
             <ImageView fx:id="imgLogo" fitHeight="65.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="133.0" AnchorPane.topAnchor="103.0">
                <image>
                   <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
