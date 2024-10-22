@@ -12,6 +12,7 @@
         <URL value="@vistaprincipal.css" />
     </stylesheets>
    <children>
+<<<<<<< HEAD
       <TabPane id="tabPaneBotones" fx:id="tabPaneBotones" prefHeight="200.0" prefWidth="200.0" styleClass="tabPane" stylesheets="@vistaprincipal.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
         <tabs>
           <Tab id="tabPaneChaux" fx:id="tabChaux" text="Chaux - Construction Group">
@@ -26,6 +27,21 @@
                      </children>
                   </AnchorPane>
             </content>
+=======
+      <TabPane id="tabPaneBotones" fx:id="tabPaneBotones" layoutX="100.0" layoutY="10.0" prefHeight="1080.0" prefWidth="1720.0" styleClass="tabPane" stylesheets="@vistaprincipal.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab id="tabPaneChaux" fx:id="tabChaux" text="Chaux - Construction Group">
+               <content>
+                  <Pane prefHeight="824.0" prefWidth="1635.0">
+                     <children>
+                        <Pane layoutY="40.0" prefHeight="880.0" prefWidth="1720.0" style="-fx-background-color: white; -fx-background-radius: 25px;">
+                           <children>
+                              <Pane layoutX="10.0" layoutY="10.0" prefHeight="860.0" prefWidth="1700.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-color: #060f22; -fx-border-width: 4px; -fx-border-radius: 36px;" />
+                           </children>
+                        </Pane>
+                     </children></Pane>
+               </content>
+>>>>>>> 648fc2df0bbfc1817d7267571d8f2759a6b0cf81
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                      <image>

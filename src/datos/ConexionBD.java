@@ -4,8 +4,12 @@ import java.sql.*;
 import java.util.logging.*;
 
 public class ConexionBD {
+<<<<<<< HEAD
     //private String url = "jdbc:oracle:thin:@localhost:1521:XE";
     private String url = "jdbc:oracle:thin:@192.168.254.215:1521/orcl";// URL correcta para la base de datos Oracle
+=======
+    private String url = "jdbc:oracle:thin:@localhost:1521:XE"; // URL correcta para la base de datos Oracle
+>>>>>>> 648fc2df0bbfc1817d7267571d8f2759a6b0cf81
     public Connection con = null;
     private String user = "constructoraG_4"; // Nombre de usuario de Oracle
     private String password = "constructoraG_4"; // Contraseña de Oracle
