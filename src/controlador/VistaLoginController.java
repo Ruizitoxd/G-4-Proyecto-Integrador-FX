@@ -95,7 +95,7 @@ public class VistaLoginController implements Initializable {
             ValidarAdmin Val = new ValidarAdmin();
             RU = Val.validarAdmin(correo, contraseña);
             if(RU.getCorreo()!=null || RU.getIdentificacion()!=null){
-                CargarVistaPrincipal(event);
+                CargarVistaPrincipal(event,RU.getId() );
             }else{
                 MostrarAlertaError("Correo o contraseña incorrectos.");
             }
@@ -106,7 +106,7 @@ public class VistaLoginController implements Initializable {
             
             
             //Cargar vista principal
-    private void CargarVistaPrincipal(ActionEvent event){
+    private void CargarVistaPrincipal(ActionEvent event, String id){
         try {
             //Cargar vista principal
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPrincipal.fxml"));
@@ -115,6 +115,8 @@ public class VistaLoginController implements Initializable {
             //Crear la escena
             Scene scene = new Scene(root);
 
+        // Pasar el ID del admin al controlador de la vista principal
+     
             //Obtener dimensiones del tamaño de la pantalla
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 

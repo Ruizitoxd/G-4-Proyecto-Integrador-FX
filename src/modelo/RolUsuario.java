@@ -5,7 +5,7 @@ public class RolUsuario {
     private String identificacion;
     private String correo;
     private String nombre;
-    private String direccion; // Cambiado "direcion" a "direccion" correctamente
+    private String direccion; 
 
     // Constructor vacío
     public RolUsuario() {

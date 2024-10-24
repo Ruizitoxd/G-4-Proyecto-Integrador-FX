@@ -26,7 +26,7 @@ public class ValidarAdmin {
 
             if (rs.next()) {
    
-                RU.setId(rs.getInt("id"));
+                RU.setId(rs.getString("id"));
                 RU.setNombre(rs.getString("nombre"));
                 RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
                 RU.setIdentificacion(rs.getString("identificacion"));

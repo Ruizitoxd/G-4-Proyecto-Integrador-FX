@@ -1,14 +1,30 @@
 package modelo;
 
 public class Proyecto {
-    private int id;
-    String nombre;
+    private String id;
+    private String nombre;
+    private int cantidadTorres;
+    private RolUsuario idAdmin;
 
-    public int getId() {
+    // Constructor vacío
+    public Proyecto() {
+        // Constructor sin implementación especial
+    }
+
+    // Constructor completo
+    public Proyecto(String id, String nombre, int cantidadTorres, RolUsuario idAdmin) {
+        this.id = id;
+        this.nombre = nombre;
+        this.cantidadTorres = cantidadTorres;
+        this.idAdmin = idAdmin;
+    }
+
+    // Getters y setters
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -20,8 +36,19 @@ public class Proyecto {
         this.nombre = nombre;
     }
 
-    public Proyecto(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    public int getCantidadTorres() {
+        return cantidadTorres;
+    }
+
+    public void setCantidadTorres(int cantidadTorres) {
+        this.cantidadTorres = cantidadTorres;
+    }
+
+    public RolUsuario getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(RolUsuario idAdmin) {
+        this.idAdmin = idAdmin;
     }
 }
