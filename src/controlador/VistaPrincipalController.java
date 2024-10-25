@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -16,6 +17,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
@@ -131,6 +134,38 @@ public class VistaPrincipalController implements Initializable {
     private Button btnCrearProyecto_Proyectos;
     @FXML
     private ImageView imgChauxFondo_Proyectos;
+    @FXML
+    private ImageView imgChauxFondo_Proyectos1;
+    @FXML
+    private AnchorPane anchorPaneInterior_ProyectosCrear;
+    @FXML
+    private AnchorPane panelRegistrarApartamento;
+    @FXML
+    private TextField txtNumeroApto;
+    @FXML
+    private Button btnAñadirProyecto;
+    @FXML
+    private TextField txtValorApto;
+    @FXML
+    private TextField txtMatriculaApto;
+    @FXML
+    private TextField txtAreaApto;
+    @FXML
+    private ChoiceBox<?> choiceBoxTipoUnidad;
+    @FXML
+    private Label lblRegistrar;
+    @FXML
+    private Label lblApartamento;
+    @FXML
+    private ChoiceBox<?> choiceBoxTorre;
+    @FXML
+    private AnchorPane panelRegistrarTorre;
+    @FXML
+    private Label lblRegistrarTorre;
+    @FXML
+    private Button btnAñadirProyecto1;
+    @FXML
+    private TextField txtNumeroTorre;
 
     /**
      * Initializes the controller class.
@@ -141,18 +176,22 @@ public class VistaPrincipalController implements Initializable {
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
         
-        System.out.println("Antes Conexión tabla");
-        ArrayList proyectosTabla = gestorProyectos.obtenerProyectosAdmin("1");
-        System.out.println("Dsps Conexión tabla");
+        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("1");
         ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(proyectosTabla);
         
-        //Setear los datos de las columnas de las tablas a los valores correspondientes
-        columnId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-        columnNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        columnCantTorres.setCellValueFactory(cellData -> cellData.getValue().cantidadTorresProperty().asObject());
+        //proyectos.forEach(proyecto -> System.out.println(proyecto.getId() + ", " + proyecto.getNombre()));
         
-        tableViewProyectos_Proyectos.setItems(proyectos);
-        tableViewProyectos_Proyectos.refresh();
+        //Setear los datos de las columnas de las tablas a los valores correspondientes
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnCantTorres.setCellValueFactory(new PropertyValueFactory<>("cantidadTorres"));
+        
+        /*ObservableList proyectos = FXCollections.observableArrayList(
+            new Proyecto(1, 2, "Goku"),
+            new Proyecto(2, 2, "Vegeta")
+        );*/
+        
+        tableViewProyectos_Proyectos.setItems(proyectos);    
         
         //Agregar botones en la columna de acciones|1
         columnAcciones.setCellFactory(columna -> new TableCell<Proyecto, Void>(){
@@ -187,13 +226,14 @@ public class VistaPrincipalController implements Initializable {
                     setGraphic(buttons);
                 }
             }
-        });      
+        });
         
         //Hacer pequeñas correciones de color a las imagenes
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1);
         colorAdjust.setBrightness(-0.1);
         imgChauxFondo_Proyectos.setEffect(colorAdjust);
+        imgChauxFondo_Proyectos1.setEffect(colorAdjust);
     }
 
     @FXML
@@ -202,11 +242,9 @@ public class VistaPrincipalController implements Initializable {
     }
     
     void ActualizarCantidadProyectos(){
-        System.out.println("Proyectos");
         lblCantidadProyectosNum.setText(gestorProyectos.obtenerTotalProyecto() + "");
     }
     void ActualizarCantidadApartamentos(){
-        System.out.println("Apartamentos");
         lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
     }
 }

@@ -13,7 +13,7 @@ public class ProyectoDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion;
     
     public ArrayList<Proyecto> MostrarProyectos(String idAdmin){
     
@@ -23,10 +23,8 @@ public class ProyectoDAO {
                     "LEFT JOIN torre t ON p.id = t.id_proy " +
                     "WHERE p.id_admin = ? " +
                     "GROUP BY p.id, p.nombre";
-        
         try{
-            System.out.println(idAdmin+"Cantidad");
-            System.out.println(((Object)idAdmin).getClass().getSimpleName());
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, idAdmin);
@@ -37,10 +35,9 @@ public class ProyectoDAO {
                 proyecto.setNombre(rs.getString("nombreProy"));
                 proyecto.setCantidadTorres(0);
                 proyectos.add(proyecto);
-                System.out.println(proyecto.toString());
             }
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage() + "Error de sexo");
+            System.out.println("Error: " + ex.getMessage());
         }
         finally {
             conexion.closeConnection();
@@ -53,6 +50,7 @@ public class ProyectoDAO {
         String sql="select count(*) as proyectos from proyecto";
         int TotalProyectos =0;
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery(sql);

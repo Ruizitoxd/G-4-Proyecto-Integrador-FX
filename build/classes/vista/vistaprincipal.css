@@ -200,4 +200,43 @@
     -fx-font-weight : bold;
 }
 
+.textField {
+    -fx-text-fill : gray;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 15px;
+    -fx-background-color: white;
+}
+
+.textField :selected {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 15px;
+    -fx-background-color: white;
+}
+
+#txtNumTorre {
+    -fx-text-fill : gray;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 60px;
+    -fx-background-color: white;
+}
+
+#txtNumTorre :focused {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 60px;
+    -fx-background-color: white;
+}
+
+.choiceBox {
+    -fx-text-fill : gray;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 15px;
+    -fx-background-color: white;
+}
 
