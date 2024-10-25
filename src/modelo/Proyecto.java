@@ -15,11 +15,14 @@ public class Proyecto {
         this.nombre = new SimpleStringProperty(nombre);
     }
     
-    public Proyecto(){        
+    public Proyecto() {        
+        this.id = new SimpleIntegerProperty(0);
+        this.cantidadTorres = new SimpleIntegerProperty(0);
+        this.nombre = new SimpleStringProperty("");
     }
     
     //Getters para los String y Integer Property
-        public IntegerProperty idProperty() {
+    public IntegerProperty idProperty() {
         return id;
     }
 
@@ -54,5 +57,10 @@ public class Proyecto {
 
     public void setCantidadTorres(int cantidadTorres) {
         this.cantidadTorres.set(cantidadTorres);
+    }
+
+    @Override
+    public String toString() {
+        return "Proyecto{" + "id=" + id + ", cantidadTorres=" + cantidadTorres + ", nombre=" + nombre + '}';
     }
 }

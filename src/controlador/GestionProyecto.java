@@ -1,13 +1,13 @@
 package controlador;
 
 import datos.ProyectoDAO;
-import java.util.List;
+import java.util.ArrayList;
 import modelo.Proyecto;
 
 public class GestionProyecto {
     ProyectoDAO proyectoDAO = new ProyectoDAO();
     
-    public List<Proyecto> obtenerProyectosAdimin(int id){
+    public ArrayList<Proyecto> obtenerProyectosAdmin(String id){
         return proyectoDAO.MostrarProyectos(id);
     }
     

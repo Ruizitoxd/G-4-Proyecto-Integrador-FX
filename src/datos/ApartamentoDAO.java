@@ -45,8 +45,7 @@ public class ApartamentoDAO {
     }
     
     public int CantidadApartamentos(){
-        String sql = " select count(*) as apartamento"
-                +"from apartamentos";
+        String sql = " select count(*) as apartamento from apartamento";
         int TotalApartamentos = 0;
         try{
             con = conexion.getConnection();

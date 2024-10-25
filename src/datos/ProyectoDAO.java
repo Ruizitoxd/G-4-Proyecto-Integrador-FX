@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Proyecto;
 
 
@@ -16,30 +15,32 @@ public class ProyectoDAO {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
     
-    public List<Proyecto> MostrarProyectos(int idAdmin){
+    public ArrayList<Proyecto> MostrarProyectos(String idAdmin){
     
-        List<Proyecto> proyectos = new ArrayList<>();
+        ArrayList<Proyecto> proyectos = new ArrayList<>();
         String sql ="SELECT p.id as idProy, p.nombre as nombreProy, COUNT(t.id) as cantidadTor " +
-                 "FROM proyecto p " +
-                 "LEFT JOIN torre t ON p.id = t.id_proyecto " +
-                 "WHERE p.id_admin = ? " +
-                 "GROUP BY p.id, p.nombre";
+                    "FROM proyecto p " +
+                    "LEFT JOIN torre t ON p.id = t.id_proy " +
+                    "WHERE p.id_admin = ? " +
+                    "GROUP BY p.id, p.nombre";
         
         try{
+            System.out.println(idAdmin+"Cantidad");
+            System.out.println(((Object)idAdmin).getClass().getSimpleName());
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idAdmin); 
+            ps.setString(1, idAdmin);
             rs = ps.executeQuery();
             while(rs.next()){
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId(rs.getInt("idProy"));
-                proyecto.setNombre(rs.getString("idProy"));
                 proyecto.setNombre(rs.getString("nombreProy"));
-                proyecto.setCantidadTorres(rs.getInt("cantidadTor"));
+                proyecto.setCantidadTorres(0);
                 proyectos.add(proyecto);
+                System.out.println(proyecto.toString());
             }
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage() + "Error de sexo");
         }
         finally {
             conexion.closeConnection();
@@ -49,7 +50,7 @@ public class ProyectoDAO {
     
     
     public int CantidadProyectos(){
-        String sql="select count(*) as proyectos from proyectos";
+        String sql="select count(*) as proyectos from proyecto";
         int TotalProyectos =0;
         try{
             con = conexion.getConnection();
@@ -69,7 +70,7 @@ public class ProyectoDAO {
     
     public boolean CrearProyecto(Proyecto pr, int idAdmin) {
         String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
-                    " VALUES (?, ?, ?)";
+                     "VALUES (?, ?, ?)";
 
         try {
             con = conexion.getConnection();
@@ -128,6 +129,9 @@ public class ProyectoDAO {
         }
     }
     
-    
-    
+    public static void main(String[] args) {
+        ProyectoDAO dao = new ProyectoDAO();
+        ArrayList proyectos = dao.MostrarProyectos("1");
+        System.out.println(proyectos);
+    }
 }

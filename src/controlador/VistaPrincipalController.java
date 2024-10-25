@@ -1,9 +1,11 @@
 package controlador;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,15 +20,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+
+//Modelos
 import modelo.Proyecto;
-
-/**
- * FXML Controller class
- *
- * @author juanc
- */
+import modelo.RolUsuario;
+        
 public class VistaPrincipalController implements Initializable {
-
+    //ControladorProyectos
+    GestionProyecto gestorProyectos = new GestionProyecto();
+    GestionApartamento gestorApartamentos = new GestionApartamento();
+    
+    //Componentes FXML
     @FXML
     private TabPane tabPaneBotones;
     @FXML
@@ -133,12 +137,24 @@ public class VistaPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Setear datos ventana principal
+        ActualizarCantidadProyectos();
+        ActualizarCantidadApartamentos();
+        
+        System.out.println("Antes Conexión tabla");
+        ArrayList proyectosTabla = gestorProyectos.obtenerProyectosAdmin("1");
+        System.out.println("Dsps Conexión tabla");
+        ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(proyectosTabla);
+        
         //Setear los datos de las columnas de las tablas a los valores correspondientes
         columnId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         columnNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         columnCantTorres.setCellValueFactory(cellData -> cellData.getValue().cantidadTorresProperty().asObject());
         
-        //Agregar botones en la columna de acciones
+        tableViewProyectos_Proyectos.setItems(proyectos);
+        tableViewProyectos_Proyectos.refresh();
+        
+        //Agregar botones en la columna de acciones|1
         columnAcciones.setCellFactory(columna -> new TableCell<Proyecto, Void>(){
             private final Button btnEditar = new Button("Editar");
             private final Button btnBorrar = new Button("Borrar");
@@ -171,21 +187,26 @@ public class VistaPrincipalController implements Initializable {
                     setGraphic(buttons);
                 }
             }
-        });
-        
-        ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(
-            new Proyecto(1, 2, "Edificio DaVinci"),
-            new Proyecto(2, 1, "Edificio Tramonti"),
-            new Proyecto(3, 4, "Edificio Villa Juliana"),
-            new Proyecto(4, 1, "Conjunto Residencial Aldia Universidad")
-        );
-
-        tableViewProyectos_Proyectos.setItems(proyectos);
+        });      
         
         //Hacer pequeñas correciones de color a las imagenes
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1);
         colorAdjust.setBrightness(-0.1);
         imgChauxFondo_Proyectos.setEffect(colorAdjust);
+    }
+
+    @FXML
+    private void CrearProyectoNuevo(ActionEvent event) {
+        //Logica para crear el proyecto
+    }
+    
+    void ActualizarCantidadProyectos(){
+        System.out.println("Proyectos");
+        lblCantidadProyectosNum.setText(gestorProyectos.obtenerTotalProyecto() + "");
+    }
+    void ActualizarCantidadApartamentos(){
+        System.out.println("Apartamentos");
+        lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
     }
 }
