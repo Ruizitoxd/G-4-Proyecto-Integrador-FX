@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package datos;
 
 import java.sql.Connection;
@@ -9,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Proyecto;
 
 
@@ -18,28 +13,27 @@ public class ProyectoDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion;
     
-    public List<Proyecto> mostrarProyectos(int idAdmin){
+    public ArrayList<Proyecto> MostrarProyectos(String idAdmin){
     
-        List<Proyecto> proyectos = new ArrayList<>();
+        ArrayList<Proyecto> proyectos = new ArrayList<>();
         String sql ="SELECT p.id as idProy, p.nombre as nombreProy, COUNT(t.id) as cantidadTor " +
-                 "FROM proyecto p " +
-                 "LEFT JOIN torre t ON p.id = t.id_proyecto " +
-                 "WHERE p.id_admin = ? " +
-                 "GROUP BY p.id, p.nombre";
-        
+                    "FROM proyecto p " +
+                    "LEFT JOIN torre t ON p.id = t.id_proy " +
+                    "WHERE p.id_admin = ? " +
+                    "GROUP BY p.id, p.nombre";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idAdmin); 
+            ps.setString(1, idAdmin);
             rs = ps.executeQuery();
             while(rs.next()){
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId(rs.getInt("idProy"));
-                proyecto.setNombre(rs.getString("idProy"));
                 proyecto.setNombre(rs.getString("nombreProy"));
-                proyecto.setCantidadTorres(rs.getInt("cantidadTor"));
+                proyecto.setCantidadTorres(0);
                 proyectos.add(proyecto);
             }
         } catch (SQLException ex) {
@@ -52,10 +46,11 @@ public class ProyectoDAO {
     }
     
     
-    public int cantidadProyectos(){
-        String sql="select count(*) as proyectos from proyectos";
+    public int CantidadProyectos(){
+        String sql="select count(*) as proyectos from proyecto";
         int TotalProyectos =0;
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery(sql);
@@ -71,9 +66,9 @@ public class ProyectoDAO {
     }
     
     
-    public boolean crearProyecto(Proyecto pr, int idAdmin) {
+    public boolean CrearProyecto(Proyecto pr, int idAdmin) {
         String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
-                    " VALUES (?, ?, ?)";
+                     "VALUES (?, ?, ?)";
 
         try {
             con = conexion.getConnection();
@@ -95,7 +90,7 @@ public class ProyectoDAO {
         return false;
     }
     
-    public boolean editarProyecto(int id, String nombre) {
+    public boolean EditarProyecto(int id, String nombre) {
         String sql = "UPDATE proyecto " +  
                      "SET nombre = ? " +
                      "WHERE id = ?";
@@ -132,6 +127,9 @@ public class ProyectoDAO {
         }
     }
     
-    
-    
+    public static void main(String[] args) {
+        ProyectoDAO dao = new ProyectoDAO();
+        ArrayList proyectos = dao.MostrarProyectos("1");
+        System.out.println(proyectos);
+    }
 }
