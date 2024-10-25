@@ -14,7 +14,7 @@ public class ApartamentoDAO {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
     
-    public List<Apartamento> mostrarApartamento(String idtorre)  {
+    public List<Apartamento> MostrarApartamento(int idtorre)  {
         List<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, " +
                      "a.area as AreaApa, a.matricula as matricula " +
@@ -24,7 +24,7 @@ public class ApartamentoDAO {
         try {
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, idtorre);
+            ps.setInt(1, idtorre);
             rs = ps.executeQuery(); 
 
             while (rs.next()) {
@@ -44,7 +44,7 @@ public class ApartamentoDAO {
         return apartamentos;
     }
     
-    public int cantidadApartamentos(){
+    public int CantidadApartamentos(){
         String sql = " select count(*) as apartamento"
                 +"from apartamentos";
         int TotalApartamentos = 0;
@@ -65,7 +65,7 @@ public class ApartamentoDAO {
     }
     
     
-    public boolean crearApartamento(Apartamento a ,String idTorre, String idTipoUnidad) {
+    public boolean CrearApartamento(Apartamento a ,int idTorre, int idTipoUnidad) {
         String sql = " insert into apartamento (id,numero, valor,area,matricula,fechaEscritura,id_tipouni,id_torre)"+
                     "values (?,?,?,?,?,?,?,?)";
         try{
@@ -77,8 +77,8 @@ public class ApartamentoDAO {
             ps.setString(4, a.getArea());
             ps.setString(5, a.getMatricula());
             ps.setDate(6, null);
-            ps.setString(7, idTipoUnidad);
-            ps.setString(7, idTorre);
+            ps.setInt(7, idTipoUnidad);
+            ps.setInt(7, idTorre);
             int resultado = ps.executeUpdate();
 
             if (resultado > 0) {
@@ -93,7 +93,7 @@ public class ApartamentoDAO {
             
     }
     
-    public boolean editarApartamento(String id , String numero, double valor, String area ){
+    public boolean EditarApartamento(int id , String numero, double valor, String area ){
         String sql = "update apartamento"+
                     "set numero = ? , valor = ?, area = ?"+
                     "where id= id";
@@ -103,7 +103,7 @@ public class ApartamentoDAO {
             ps.setString(1,numero);
             ps.setDouble(2, valor);
             ps.setString(3, area);
-            ps.setString(4, id);
+            ps.setInt(4, id);
             ps.executeUpdate();                      
             return true; 
         }catch (SQLException ex) {
@@ -114,13 +114,13 @@ public class ApartamentoDAO {
         }
     }
     
-    public boolean EliminarApartamento(String id){
+    public boolean EliminarApartamento(int id){
         String sql ="delete apartamento"+
                     "where id = id";
         try{
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, id);
+            ps.setInt(1, id);
             ps.executeUpdate();
             return true;
         }catch(SQLException ex){

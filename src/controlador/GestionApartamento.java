@@ -9,19 +9,19 @@ public class GestionApartamento {
     ApartamentoDAO apartamentoDAO= new ApartamentoDAO();
     
     public List<Apartamento> obtenerApartamento(int id){
-        return apartamentoDAO.mostrarApartamento(id);
+        return apartamentoDAO.MostrarApartamento(id);
     }
     
     public int obtenerApartamentos(){
-        return apartamentoDAO.cantidadApartamentos();
+        return apartamentoDAO.CantidadApartamentos();
     }
     
-    public boolean guardarApartamento(Apartamento a ,int idTorre, String idTipoUnidad){
-        return apartamentoDAO.crearApartamento(a, idTorre, idTipoUnidad);
+    public boolean guardarApartamento(Apartamento a ,int idTorre, int idTipoUnidad){
+        return apartamentoDAO.CrearApartamento(a, idTorre, idTipoUnidad);
     }
     
     public boolean ActualizarApartamento(int id , String numero, double valor, String area){
-        return apartamentoDAO.editarApartamento(id, numero, valor, area);
+        return apartamentoDAO.EditarApartamento(id, numero, valor, area);
     }
     
     public boolean borrarApartamento(int id){

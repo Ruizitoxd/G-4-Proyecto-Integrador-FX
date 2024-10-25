@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package datos;
 
 import java.sql.Connection;
@@ -20,7 +16,7 @@ public class ProyectoDAO {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
     
-    public List<Proyecto> mostrarProyectos(int idAdmin){
+    public List<Proyecto> MostrarProyectos(int idAdmin){
     
         List<Proyecto> proyectos = new ArrayList<>();
         String sql ="SELECT p.id as idProy, p.nombre as nombreProy, COUNT(t.id) as cantidadTor " +
@@ -52,7 +48,7 @@ public class ProyectoDAO {
     }
     
     
-    public int cantidadProyectos(){
+    public int CantidadProyectos(){
         String sql="select count(*) as proyectos from proyectos";
         int TotalProyectos =0;
         try{
@@ -71,7 +67,7 @@ public class ProyectoDAO {
     }
     
     
-    public boolean crearProyecto(Proyecto pr, int idAdmin) {
+    public boolean CrearProyecto(Proyecto pr, int idAdmin) {
         String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
                     " VALUES (?, ?, ?)";
 
@@ -95,7 +91,7 @@ public class ProyectoDAO {
         return false;
     }
     
-    public boolean editarProyecto(int id, String nombre) {
+    public boolean EditarProyecto(int id, String nombre) {
         String sql = "UPDATE proyecto " +  
                      "SET nombre = ? " +
                      "WHERE id = ?";
