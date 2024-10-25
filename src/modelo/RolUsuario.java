@@ -1,11 +1,11 @@
 package modelo;
 
 public class RolUsuario {
-    private int id;
+    private String id;
     private String identificacion;
     private String correo;
     private String nombre;
-    private String direccion; // Cambiado "direcion" a "direccion" correctamente
+    private String direccion; 
 
     // Constructor vacío
     public RolUsuario() {
@@ -13,7 +13,7 @@ public class RolUsuario {
     }
 
     // Constructor con parámetros
-    public RolUsuario(int id, String identificacion, String correo, String nombre, String direccion) {
+    public RolUsuario(String id, String identificacion, String correo, String nombre, String direccion) {
         this.id = id;
         this.identificacion = identificacion;
         this.correo = correo;
@@ -22,11 +22,11 @@ public class RolUsuario {
     }
 
     // Getters y Setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
