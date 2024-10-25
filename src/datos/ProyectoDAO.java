@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Proyecto;
-import modelo.RolUsuario;
 
 
 
@@ -21,10 +20,10 @@ public class ProyectoDAO {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
     
-    public List<Proyecto> mostrarProyectos(String idAdmin){
+    public List<Proyecto> mostrarProyectos(int idAdmin){
     
         List<Proyecto> proyectos = new ArrayList<>();
-        String sql ="SELECT p.id, p.nombre, COUNT(t.id) AS numTorres " +
+        String sql ="SELECT p.id as idProy, p.nombre as nombreProy, COUNT(t.id) as cantidadTor " +
                  "FROM proyecto p " +
                  "LEFT JOIN torre t ON p.id = t.id_proyecto " +
                  "WHERE p.id_admin = ? " +
@@ -33,13 +32,14 @@ public class ProyectoDAO {
         try{
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, idAdmin); 
+            ps.setInt(1, idAdmin); 
             rs = ps.executeQuery();
             while(rs.next()){
                 Proyecto proyecto = new Proyecto();
-                proyecto.setId(rs.getString("id"));
-                proyecto.setNombre(rs.getString("nombre"));
-                proyecto.setCantidadTorres(rs.getInt("COUNT(t.id)"));
+                proyecto.setId(rs.getInt("idProy"));
+                proyecto.setNombre(rs.getString("idProy"));
+                proyecto.setNombre(rs.getString("nombreProy"));
+                proyecto.setCantidadTorres(rs.getInt("cantidadTor"));
                 proyectos.add(proyecto);
             }
         } catch (SQLException ex) {
@@ -71,30 +71,31 @@ public class ProyectoDAO {
     }
     
     
-    public boolean crearProyecto(Proyecto pr, String idAdmin) {
-        String sql = "INSERT INTO proyecto(id, nombre, id_admin) VALUES (?, ?, ?)";
+    public boolean crearProyecto(Proyecto pr, int idAdmin) {
+        String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
+                    " VALUES (?, ?, ?)";
 
         try {
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pr.getId());
+            ps.setInt(1, pr.getId());
             ps.setString(2, pr.getNombre());
-            ps.setString(3, idAdmin);
+            ps.setInt(3, idAdmin);
 
             int resultado = ps.executeUpdate();
 
             if (resultado > 0) {
                 return true;
             }
-        } catch (SQLException sqlex) {
-            System.out.println("ERROR: " + sqlex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
         return false;
     }
     
-    public boolean editarProyecto(String id, String nombre) {
+    public boolean editarProyecto(int id, String nombre) {
         String sql = "UPDATE proyecto " +  
                      "SET nombre = ? " +
                      "WHERE id = ?";
@@ -103,7 +104,7 @@ public class ProyectoDAO {
             con = conexion.getConnection();           
             ps = con.prepareStatement(sql);           
             ps.setString(1, nombre);                  
-            ps.setString(2, id);                      
+            ps.setInt(2, id);                      
             ps.executeUpdate();                      
             return true;                              
         } catch (SQLException ex) {
@@ -114,7 +115,22 @@ public class ProyectoDAO {
         }
     }
 
-
+    public boolean EliminarProyecto(int id){
+        String sql ="delete from proyecto "+
+                    "where id = ?";
+        try{
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        }catch(SQLException ex){
+            System.out.println("Error al borrar proyecto: " + ex.getMessage());
+            return false;
+        }finally{
+            conexion.closeConnection();
+        }
+    }
     
     
     

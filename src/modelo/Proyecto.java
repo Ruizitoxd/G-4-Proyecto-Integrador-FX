@@ -1,30 +1,27 @@
 package modelo;
 
 public class Proyecto {
-    private String id;
+    private int id; // Mantener como int o cambiar a String
     private String nombre;
     private int cantidadTorres;
-    private RolUsuario idAdmin;
 
-    // Constructor vacío
-    public Proyecto() {
-        // Constructor sin implementación especial
-    }
-
-    // Constructor completo
-    public Proyecto(String id, String nombre, int cantidadTorres, RolUsuario idAdmin) {
+    // Constructor que acepta todos los parámetros
+    public Proyecto(int id, String nombre, int cantidadTorres) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadTorres = cantidadTorres;
-        this.idAdmin = idAdmin;
     }
 
-    // Getters y setters
-    public String getId() {
+    // Constructor por defecto
+    public Proyecto() {
+    }
+
+    // Métodos getter y setter
+    public int getId() { // Cambiado a int
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) { // Cambiado a int
         this.id = id;
     }
 
@@ -42,13 +39,5 @@ public class Proyecto {
 
     public void setCantidadTorres(int cantidadTorres) {
         this.cantidadTorres = cantidadTorres;
-    }
-
-    public RolUsuario getIdAdmin() {
-        return idAdmin;
-    }
-
-    public void setIdAdmin(RolUsuario idAdmin) {
-        this.idAdmin = idAdmin;
     }
 }
