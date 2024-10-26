@@ -2,12 +2,15 @@ package controlador;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -36,6 +39,10 @@ public class VistaPrincipalController implements Initializable {
     private GestionApartamento gestorApartamentos = new GestionApartamento();
     private RolUsuario usuario;
     
+    //Atributos de la vista
+    ObservableList<Proyecto> proyectos;
+    Proyecto proyectoTemporal; //Esta variable se usa como almacenador general del proyecto que se está creando o modificando
+    
     //Componentes FXML
     @FXML
     private TabPane tabPaneBotones;
@@ -57,8 +64,6 @@ public class VistaPrincipalController implements Initializable {
     private Separator separatorUsuario;
     @FXML
     private Label lblRol;
-    @FXML
-    private Label lblCorreo;
     @FXML
     private AnchorPane anchorPaneBaseChaux;
     @FXML
@@ -160,7 +165,7 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Label lblApartamento;
     @FXML
-    private ChoiceBox<?> choiceBoxTorre;
+    private ChoiceBox<String> choiceBoxTorre;
     @FXML
     private AnchorPane panelRegistrarTorre;
     @FXML
@@ -172,11 +177,11 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Button btnCerrarCrearProyecto;
     @FXML
-    private TableView<?> tableViewTorres;
+    private TableView<Torre> tableViewTorres;
     @FXML
-    private TableColumn<?, ?> columnNumeroTorre;
+    private TableColumn<Torre, String> columnNumeroTorre;
     @FXML
-    private TableColumn<?, ?> columnApartamentos;
+    private TableColumn<Torre, Integer> columnApartamentos;
     @FXML
     private Label lblNombreProyecto;
     @FXML
@@ -187,12 +192,9 @@ public class VistaPrincipalController implements Initializable {
     private Button btnGuardarProyecto;
     @FXML
     private Label lblCantidadDeTorresNum;
+    @FXML
+    private Label lblCorreoUsuario;
 
-    public void setIdUsuario(RolUsuario usuario){
-        this.usuario = usuario;
-        System.out.println("Usuario: "+usuario.getId());
-    }
-    
     /**
      * Initializes the controller class.
      */
@@ -202,20 +204,17 @@ public class VistaPrincipalController implements Initializable {
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
         
-        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("3");
-        ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(proyectosTabla);
-        System.out.println(proyectos);
-                
-        //Setear los datos de las columnas de las tablas a los valores correspondientes
+        //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnCantTorres.setCellValueFactory(new PropertyValueFactory<>("cantidadTorres"));
         
-        tableViewProyectos_Proyectos.setItems(proyectos);    
+        //Setear los datos de las columnas de la tabla torres a los valores correspondientes
+        columnNumeroTorre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnApartamentos.setCellValueFactory(new PropertyValueFactory<>("cantidadApartamentos"));
         
         //Añadir valores al choiceBox
-        ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
-        choiceBoxTipoUnidad.setItems(tipoUnidades);
+        ActualizarChoiceBoxVentana();
         
         //Agregar botones en la columna de acciones|1
         columnAcciones.setCellFactory(columna -> new TableCell<Proyecto, Void>(){
@@ -229,13 +228,20 @@ public class VistaPrincipalController implements Initializable {
                 
                 btnEditar.setOnAction(event -> {
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
-                    // Lógica para editar el proyecto
+                    // Lógica para editar el proyecto 
                 });
                 
                 btnBorrar.setOnAction(event -> {
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
+                    
                     //Logica para eliminar el proyecto
-                    getTableView().getItems().remove(proyecto);
+                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());                    
+                    
+                    if(elim){
+                        getTableView().getItems().remove(proyecto);
+                    }else{
+                        MostrarAlertaError("No se pudo eliminar el proyecto correctamente");
+                    }         
                 });
             }
             
@@ -258,6 +264,18 @@ public class VistaPrincipalController implements Initializable {
         colorAdjust.setBrightness(-0.1);
         imgChauxFondo_Proyectos.setEffect(colorAdjust);
         imgChauxFondo_Proyectos1.setEffect(colorAdjust);
+    }    
+    
+    //Funcion para obtener el usuario registrado en el login y sus dependencias
+    public void SetIdUsuario(RolUsuario usuarioParam){
+        this.usuario = usuarioParam;
+        System.out.println(usuario.getId());
+        lblNombreUsuario.setText(usuario.getNombre().toUpperCase());
+        lblRolUsuario.setText(usuario.getRol());
+        lblCorreoUsuario.setText(usuario.getCorreo());
+        
+        //Información de los proyectos del administrador
+        ActualizarTablaProyectos();
     }
 
     void ActualizarCantidadProyectos(){
@@ -266,10 +284,32 @@ public class VistaPrincipalController implements Initializable {
     void ActualizarCantidadApartamentos(){
         lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
     }
+    
+    void ActualizarTablaProyectos(){
+        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin(Integer.parseInt(usuario.getId()));
+        this.proyectos = FXCollections.observableArrayList(proyectosTabla);
+        tableViewProyectos_Proyectos.setItems(proyectos);
+    }
+
+    private void ActualizarChoiceBoxVentana() {
+        ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
+        choiceBoxTipoUnidad.getItems().add("Tipo unidad");
+        choiceBoxTipoUnidad.setItems(tipoUnidades);
+        choiceBoxTorre.getItems().add("Torre");
+    }
 
     @FXML
     private void AbrirVentanaProyectoNuevo(ActionEvent event) {
         anchorPaneInterior_ProyectosCrear.setVisible(true);
+        txtNombreProyecto.setText("");
+        txtNumeroTorre.setText("");
+        txtNumeroApto.setText("");
+        txtValorApto.setText("");
+        txtMatriculaApto.setText("");
+        txtAreaApto.setText("");
+        choiceBoxTipoUnidad.setValue("Tipo unidad");
+        choiceBoxTorre.setValue("Torre");
+        proyectoTemporal = new Proyecto();
     }
     
     @FXML
@@ -279,14 +319,29 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void GuardarProyecto(ActionEvent event) {
-        Proyecto proyectoNuevo = new Proyecto();
-        proyectoNuevo.setNombre(txtNombreProyecto.getText());
+        proyectoTemporal.setNombre(txtNombreProyecto.getText());
+        proyectos.add(proyectoTemporal);
+
+        boolean agregado = gestorProyectos.guardarProyecto(proyectoTemporal, Integer.parseInt(usuario.getId()));
+        if (agregado){
+            ActualizarTablaProyectos();
+            CerrarVentanarProyectoNuevo(event);
+        } else {
+            MostrarAlertaError("No se ha podido agregar el proyecto correctamente");
+        }
     }
 
     @FXML
     private void AñadirTorre(ActionEvent event) {
         Torre torreNueva = new Torre();
         torreNueva.setNombre(txtNumeroTorre.getText());
+        
+        proyectoTemporal.añadirTorre(torreNueva);
+        lblCantidadDeTorresNum.setText(proyectoTemporal.getCantidadTorres() + "");
+        choiceBoxTorre.getItems().add(torreNueva.getNombre());
+        
+        ObservableList<Torre> torresTabla = FXCollections.observableArrayList(proyectoTemporal.obtenerTorres());
+        tableViewTorres.setItems(torresTabla);
     }
 
     @FXML
@@ -297,6 +352,16 @@ public class VistaPrincipalController implements Initializable {
         apartamentoNuevo.setMatricula(txtMatriculaApto.getText());
         apartamentoNuevo.setArea(txtAreaApto.getText());
         apartamentoNuevo.setTipoUnidad(choiceBoxTipoUnidad.getValue() + "");
-        apartamentoNuevo.setIdTorre(choiceBoxTorre.getValue() + "");  
+        apartamentoNuevo.setIdTorre(choiceBoxTorre.getValue() + "");
+        
+        
+    }
+    
+    private void MostrarAlertaError(String mensaje){
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

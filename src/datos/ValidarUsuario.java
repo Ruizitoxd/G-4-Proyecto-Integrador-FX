@@ -12,49 +12,53 @@ public class ValidarUsuario {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
 
-    public RolUsuario validarAdmin(String correo, String identificacion) {
+    public RolUsuario validarAdminOAsesor(String correo, String identificacion) {
         RolUsuario RU = new RolUsuario();
-        String sql = "SELECT * FROM ? WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+        String sqlAdmin = "SELECT ID, IDENTIFICACION, NOMBRE, DIRECCION, CORREOELECTRONICO FROM ADMINISTRADOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+        String sqlAsesor = "SELECT ID, IDENTIFICACION, NOMBRE, DIRECCION, CORREOELECTRONICO FROM ASESOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
 
         try {
+            // Búsqueda en la tabla ADMINISTRADOR
             con = conexion.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, "administrador");
-            ps.setString(2, correo);
-            ps.setString(3, identificacion);
+            ps = con.prepareStatement(sqlAdmin);
+            ps.setString(1, correo);
+            ps.setString(2, identificacion);
             rs = ps.executeQuery();
 
-            if (rs.next()) {   
-                RU.setId(rs.getString("id"));
-                RU.setNombre(rs.getString("nombre"));
-                RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
-                RU.setIdentificacion(rs.getString("identificacion"));
-                RU.setDireccion(rs.getString("direccion")); // Corrección de columna
+            if (rs.next()) {
+                // Si encuentra en ADMINISTRADOR
+                RU.setId(rs.getString("ID"));
+                RU.setIdentificacion(rs.getString("IDENTIFICACION"));
+                RU.setNombre(rs.getString("NOMBRE"));
+                RU.setDireccion(rs.getString("DIRECCION"));
+                RU.setCorreo(rs.getString("CORREOELECTRONICO"));
                 RU.setRol("Administrador");
             } else {
-                ps = con.prepareStatement(sql);
-                ps.setString(1, "asesor");
-                ps.setString(2, correo);
-                ps.setString(3, identificacion);
+                // Si no encuentra en ADMINISTRADOR, buscar en ASESOR
+                ps = con.prepareStatement(sqlAsesor);
+                ps.setString(1, correo);
+                ps.setString(2, identificacion);
                 rs = ps.executeQuery();
-                if (rs.next()){
-                    RU.setId(rs.getString("id"));
-                    RU.setNombre(rs.getString("nombre"));
-                    RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
-                    RU.setIdentificacion(rs.getString("identificacion"));
-                    RU.setDireccion(rs.getString("direccion")); // Corrección de columna
-                    RU.setRol("Administrador");
+
+                if (rs.next()) {
+                    // Si encuentra en ASESOR
+                    RU.setId(rs.getString("ID"));
+                    RU.setIdentificacion(rs.getString("IDENTIFICACION"));
+                    RU.setNombre(rs.getString("NOMBRE"));
+                    RU.setDireccion(rs.getString("DIRECCION"));
+                    RU.setCorreo(rs.getString("CORREOELECTRONICO"));
+                    RU.setRol("Asesor");
                 }
             }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
-        }  catch (RuntimeException rex) {
+        } catch (RuntimeException rex) {
             System.out.println(rex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
-        return RU ; 
+        return RU;
     }
 }

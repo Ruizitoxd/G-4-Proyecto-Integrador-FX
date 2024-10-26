@@ -15,7 +15,7 @@ public class ProyectoDAO {
     ResultSet rs;
     ConexionBD conexion;
     
-    public ArrayList<Proyecto> MostrarProyectos(String idAdmin){
+    public ArrayList<Proyecto> MostrarProyectos(int idAdmin){
         ArrayList<Proyecto> proyectos = new ArrayList<>();
         String sql ="SELECT p.id as idProy, p.nombre as nombreProy, COUNT(t.id) as cantidadTor " +
                     "FROM proyecto p " +
@@ -26,13 +26,13 @@ public class ProyectoDAO {
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, idAdmin);
+            ps.setInt(1, idAdmin);
             rs = ps.executeQuery();
             while(rs.next()){
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId(rs.getInt("idProy"));
                 proyecto.setNombre(rs.getString("nombreProy"));
-                proyecto.setCantidadTorres(0);
+                proyecto.setCantidadTorres(rs.getInt("cantidadTor"));
                 proyectos.add(proyecto);
             }
         } catch (SQLException ex) {
@@ -65,18 +65,17 @@ public class ProyectoDAO {
     
     public boolean CrearProyecto(Proyecto pr, int idAdmin) {
         String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
-                     "VALUES (?, ?, ?)";
-
+                     "VALUES (SEQ_IDADMINISTRADOR.NEXTVAL, ?, ?)";
         try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pr.getId());
-            ps.setString(2, pr.getNombre());
-            ps.setInt(3, idAdmin);
+            ps.setString(1, pr.getNombre());
+            ps.setInt(2, idAdmin);
 
             int resultado = ps.executeUpdate();
 
-            if (resultado > 0) {
+            if (resultado > 0) { 
                 return true;
             }
         } catch (SQLException ex) {
@@ -93,6 +92,7 @@ public class ProyectoDAO {
                      "WHERE id = ?";
 
         try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();           
             ps = con.prepareStatement(sql);           
             ps.setString(1, nombre);                  
@@ -111,6 +111,7 @@ public class ProyectoDAO {
         String sql ="delete from proyecto "+
                     "where id = ?";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);

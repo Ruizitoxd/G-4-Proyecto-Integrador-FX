@@ -18,12 +18,13 @@ public class RolUsuario {
     }
 
     // Constructor con parámetros
-    public RolUsuario(String id, String identificacion, String correo, String nombre, String direccion) {
+    public RolUsuario(String id, String identificacion, String correo, String nombre, String direccion, String rol) {
         this.id = id;
         this.identificacion = identificacion;
         this.correo = correo;
         this.nombre = nombre;
         this.direccion = direccion;
+        this.rol = rol;
     }
 
     // Getters y Setters

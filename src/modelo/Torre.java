@@ -1,16 +1,18 @@
 
 package modelo;
 
+import java.util.ArrayList;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Torre {
-    private IntegerProperty id;
+    private IntegerProperty id; 
     private StringProperty nombre;
     private StringProperty id_proy;
     private IntegerProperty cantidadApartamentos;
+    private ArrayList<Apartamento> apartamentos;
     
     public Torre(int id, String nombre, String id_proy, int cantidadApartamentos) {
         this.id = new SimpleIntegerProperty(id);
@@ -51,11 +53,11 @@ public class Torre {
         this.id_proy.set(id_proy);
     }
 
-    public int getCantidadAparta() {
+    public int getCantidadApartamentos() {
         return cantidadApartamentos.get();
     }
 
-    public void setCantidadAparta(int cantidadApartamentos) {
+    public void setCantidadApartamentos(int cantidadApartamentos) {
         this.cantidadApartamentos.set(cantidadApartamentos);
     }
 }

@@ -64,7 +64,6 @@ public class ApartamentoDAO {
        return TotalApartamentos;
     }
     
-    
     public boolean CrearApartamento(Apartamento a ,int idTorre, int idTipoUnidad) {
         String sql = " insert into apartamento (id,numero, valor,area,matricula,fechaEscritura,id_tipouni,id_torre)"+
                     "values (?,?,?,?,?,?,?,?)";
@@ -112,7 +111,7 @@ public class ApartamentoDAO {
             System.out.println("Error al actualizar proyecto: " + ex.getMessage());
             return false;                            
         } finally {
-           conexion.closeConnection(); 
+           conexion.closeConnection();
         }
     }
     
@@ -129,7 +128,7 @@ public class ApartamentoDAO {
         }catch(SQLException ex){
             System.out.println("Error al borrar proyecto: " + ex.getMessage());
             return false;
-        }finally{
+        }finally{ 
             conexion.closeConnection();
         }
     }

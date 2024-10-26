@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controlador;
 
 import datos.TorreDAO;
@@ -12,7 +8,7 @@ public class GestionTorre {
     TorreDAO torreDAO = new TorreDAO();
     
     public List<Torre> obtenerTorre(int id){
-        return torreDAO.mostrarTorre(id);
+        return torreDAO.MostrarTorre(id);
     }
     
     public int obtenerTotalProyecto(){
@@ -20,11 +16,11 @@ public class GestionTorre {
     }
     
     public boolean guardarTorre(Torre tr,int idProy){
-        return torreDAO.crearTorre(tr, idProy);
+        return torreDAO.CrearTorre(tr, idProy);
     }
     
     public boolean actualizarTorre(int idTorre, String nombre){
-        return torreDAO.editarProyecto(idTorre,nombre);
+        return torreDAO.EditarTorre(idTorre,nombre);
     }
     
     public boolean borrarTorre(int id){
