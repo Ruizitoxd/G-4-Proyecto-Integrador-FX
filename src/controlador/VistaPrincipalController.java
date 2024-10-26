@@ -214,15 +214,13 @@ public class VistaPrincipalController implements Initializable {
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
                     //Logica para eliminar el proyecto
 
-                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());
-                     
+                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());                    
                     
                     if(elim){
                         getTableView().getItems().remove(proyecto);
                     }else{
                          MostrarAlertaError("No se pudo eliminar el proyecto correctamente");
-                    }
-                    
+                    }                  
                 });
             }
             

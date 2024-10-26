@@ -129,10 +129,4 @@ public class ProyectoDAO {
             conexion.closeConnection();
         }
     }
-    
-    public static void main(String[] args) {
-        ProyectoDAO dao = new ProyectoDAO();
-        ArrayList proyectos = dao.MostrarProyectos("1");
-        System.out.println(proyectos);
-    }
 }
