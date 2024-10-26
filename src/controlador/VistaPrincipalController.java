@@ -23,15 +23,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import modelo.Apartamento;
 
 //Modelos
 import modelo.Proyecto;
 import modelo.RolUsuario;
+import modelo.Torre;
         
 public class VistaPrincipalController implements Initializable {
-    //ControladorProyectos
-    GestionProyecto gestorProyectos = new GestionProyecto();
-    GestionApartamento gestorApartamentos = new GestionApartamento();
+    //Controladores
+    private GestionProyecto gestorProyectos = new GestionProyecto();
+    private GestionApartamento gestorApartamentos = new GestionApartamento();
+    private RolUsuario usuario;
     
     //Componentes FXML
     @FXML
@@ -151,7 +154,7 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private TextField txtAreaApto;
     @FXML
-    private ChoiceBox<?> choiceBoxTipoUnidad;
+    private ChoiceBox<String> choiceBoxTipoUnidad;
     @FXML
     private Label lblRegistrar;
     @FXML
@@ -163,10 +166,33 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Label lblRegistrarTorre;
     @FXML
-    private Button btnAñadirProyecto1;
-    @FXML
     private TextField txtNumeroTorre;
+    @FXML
+    private Button btnAñadirTorre;
+    @FXML
+    private Button btnCerrarCrearProyecto;
+    @FXML
+    private TableView<?> tableViewTorres;
+    @FXML
+    private TableColumn<?, ?> columnNumeroTorre;
+    @FXML
+    private TableColumn<?, ?> columnApartamentos;
+    @FXML
+    private Label lblNombreProyecto;
+    @FXML
+    private TextField txtNombreProyecto;
+    @FXML
+    private Label lblCantidadDeTorres;
+    @FXML
+    private Button btnGuardarProyecto;
+    @FXML
+    private Label lblCantidadDeTorresNum;
 
+    public void setIdUsuario(RolUsuario usuario){
+        this.usuario = usuario;
+        System.out.println("Usuario: "+usuario.getId());
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -176,22 +202,20 @@ public class VistaPrincipalController implements Initializable {
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
         
-        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("1");
+        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("3");
         ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(proyectosTabla);
-        
-        //proyectos.forEach(proyecto -> System.out.println(proyecto.getId() + ", " + proyecto.getNombre()));
-        
+        System.out.println(proyectos);
+                
         //Setear los datos de las columnas de las tablas a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnCantTorres.setCellValueFactory(new PropertyValueFactory<>("cantidadTorres"));
         
-        /*ObservableList proyectos = FXCollections.observableArrayList(
-            new Proyecto(1, 2, "Goku"),
-            new Proyecto(2, 2, "Vegeta")
-        );*/
-        
         tableViewProyectos_Proyectos.setItems(proyectos);    
+        
+        //Añadir valores al choiceBox
+        ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
+        choiceBoxTipoUnidad.setItems(tipoUnidades);
         
         //Agregar botones en la columna de acciones|1
         columnAcciones.setCellFactory(columna -> new TableCell<Proyecto, Void>(){
@@ -236,15 +260,43 @@ public class VistaPrincipalController implements Initializable {
         imgChauxFondo_Proyectos1.setEffect(colorAdjust);
     }
 
-    @FXML
-    private void CrearProyectoNuevo(ActionEvent event) {
-        //Logica para crear el proyecto
-    }
-    
     void ActualizarCantidadProyectos(){
         lblCantidadProyectosNum.setText(gestorProyectos.obtenerTotalProyecto() + "");
     }
     void ActualizarCantidadApartamentos(){
         lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
+    }
+
+    @FXML
+    private void AbrirVentanaProyectoNuevo(ActionEvent event) {
+        anchorPaneInterior_ProyectosCrear.setVisible(true);
+    }
+    
+    @FXML
+    private void CerrarVentanarProyectoNuevo(ActionEvent event) {
+        anchorPaneInterior_ProyectosCrear.setVisible(false);
+    }
+
+    @FXML
+    private void GuardarProyecto(ActionEvent event) {
+        Proyecto proyectoNuevo = new Proyecto();
+        proyectoNuevo.setNombre(txtNombreProyecto.getText());
+    }
+
+    @FXML
+    private void AñadirTorre(ActionEvent event) {
+        Torre torreNueva = new Torre();
+        torreNueva.setNombre(txtNumeroTorre.getText());
+    }
+
+    @FXML
+    private void AñadirApartamento(ActionEvent event) {
+        Apartamento apartamentoNuevo = new Apartamento();
+        apartamentoNuevo.setNumero(txtNumeroApto.getText());
+        apartamentoNuevo.setValor(Integer.parseInt(txtValorApto.getText()));
+        apartamentoNuevo.setMatricula(txtMatriculaApto.getText());
+        apartamentoNuevo.setArea(txtAreaApto.getText());
+        apartamentoNuevo.setTipoUnidad(choiceBoxTipoUnidad.getValue() + "");
+        apartamentoNuevo.setIdTorre(choiceBoxTorre.getValue() + "");  
     }
 }
