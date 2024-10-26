@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -176,7 +178,7 @@ public class VistaPrincipalController implements Initializable {
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
         
-        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("1");
+        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("2");
         ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(proyectosTabla);
         
         //proyectos.forEach(proyecto -> System.out.println(proyecto.getId() + ", " + proyecto.getNombre()));
@@ -211,7 +213,16 @@ public class VistaPrincipalController implements Initializable {
                 btnBorrar.setOnAction(event -> {
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
                     //Logica para eliminar el proyecto
-                    getTableView().getItems().remove(proyecto);
+
+                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());
+                     
+                    
+                    if(elim){
+                        getTableView().getItems().remove(proyecto);
+                    }else{
+                         MostrarAlertaError("No se pudo eliminar el proyecto correctamente");
+                    }
+                    
                 });
             }
             
@@ -246,5 +257,13 @@ public class VistaPrincipalController implements Initializable {
     }
     void ActualizarCantidadApartamentos(){
         lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
+    }
+    
+    private void MostrarAlertaError(String mensaje){
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle("Error de Inicio de Sesión");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

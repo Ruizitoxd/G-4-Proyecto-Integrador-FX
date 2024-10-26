@@ -71,6 +71,7 @@ public class ProyectoDAO {
                      "VALUES (?, ?, ?)";
 
         try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, pr.getId());
@@ -96,6 +97,7 @@ public class ProyectoDAO {
                      "WHERE id = ?";
 
         try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();           
             ps = con.prepareStatement(sql);           
             ps.setString(1, nombre);                  
@@ -114,6 +116,7 @@ public class ProyectoDAO {
         String sql ="delete from proyecto "+
                     "where id = ?";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
