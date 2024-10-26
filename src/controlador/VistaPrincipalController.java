@@ -204,11 +204,7 @@ public class VistaPrincipalController implements Initializable {
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
         
-<<<<<<< HEAD
-        ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("2");
-=======
         ArrayList<Proyecto> proyectosTabla = gestorProyectos.obtenerProyectosAdmin("3");
->>>>>>> 9567d7a377f780cd888e5fb4cceaf41e0a682991
         ObservableList<Proyecto> proyectos = FXCollections.observableArrayList(proyectosTabla);
         System.out.println(proyectos);
                 
@@ -242,13 +238,13 @@ public class VistaPrincipalController implements Initializable {
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
                     //Logica para eliminar el proyecto
 
-                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());                    
-                    
+                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());
+
                     if(elim){
                         getTableView().getItems().remove(proyecto);
                     }else{
-                         MostrarAlertaError("No se pudo eliminar el proyecto correctamente");
-                    }                  
+                        MostrarAlertaError("No se pudo eliminar el proyecto correctamente");
+                    }
                 });
             }
             
@@ -279,15 +275,6 @@ public class VistaPrincipalController implements Initializable {
     void ActualizarCantidadApartamentos(){
         lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
     }
-<<<<<<< HEAD
-    
-    private void MostrarAlertaError(String mensaje){
-        Alert alerta = new Alert(AlertType.ERROR);
-        alerta.setTitle("Error de Inicio de Sesión");
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-=======
 
     @FXML
     private void AbrirVentanaProyectoNuevo(ActionEvent event) {
@@ -320,6 +307,13 @@ public class VistaPrincipalController implements Initializable {
         apartamentoNuevo.setArea(txtAreaApto.getText());
         apartamentoNuevo.setTipoUnidad(choiceBoxTipoUnidad.getValue() + "");
         apartamentoNuevo.setIdTorre(choiceBoxTorre.getValue() + "");  
->>>>>>> 9567d7a377f780cd888e5fb4cceaf41e0a682991
+    }
+    
+    private void MostrarAlertaError(String mensaje){
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle("Error de Inicio de Sesión");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

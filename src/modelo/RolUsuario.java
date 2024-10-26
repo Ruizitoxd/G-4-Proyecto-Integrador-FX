@@ -10,7 +10,11 @@ public class RolUsuario {
 
     // Constructor vacío
     public RolUsuario() {
-        // Constructor vacío sin excepción
+        this.id = "";
+        this.identificacion = "";
+        this.correo = "";
+        this.nombre = "";
+        this.direccion = "";
     }
 
     // Constructor con parámetros
@@ -69,5 +73,6 @@ public class RolUsuario {
 
     public void setRol(String rol) {
         this.rol = rol;
-    }    
+    
+    }
 }

@@ -1,27 +1,26 @@
-
 package datos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Apartamento;
 
 public class ApartamentoDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion;
     
-    public List<Apartamento> MostrarApartamento(int idtorre)  {
-        List<Apartamento> apartamentos = new ArrayList<>();
+    public ArrayList<Apartamento> MostrarApartamento(int idtorre)  {
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, " +
                      "a.area as AreaApa, a.matricula as matricula " +
-                     "FROM apartamento a JOIN torre t ON a.idTorre = t.id " +  // Asegúrate de que 't.id' es el correcto
+                     "FROM apartamento a JOIN torre t ON a.idTorre = t.id " +  // AsegÃºrate de que 't.id' es el correcto
                      "WHERE a.id_torre = ?";
 
         try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, idtorre);
@@ -48,6 +47,7 @@ public class ApartamentoDAO {
         String sql = " select count(*) as apartamento from apartamento";
         int TotalApartamentos = 0;
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -68,6 +68,7 @@ public class ApartamentoDAO {
         String sql = " insert into apartamento (id,numero, valor,area,matricula,fechaEscritura,id_tipouni,id_torre)"+
                     "values (?,?,?,?,?,?,?,?)";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, a.getId());
@@ -97,6 +98,7 @@ public class ApartamentoDAO {
                     "set numero = ? , valor = ?, area = ?"+
                     "where id= id";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1,numero);
@@ -117,6 +119,7 @@ public class ApartamentoDAO {
         String sql ="delete apartamento"+
                     "where id = id";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -128,5 +131,24 @@ public class ApartamentoDAO {
         }finally{
             conexion.closeConnection();
         }
+    }
+    
+    public ArrayList<String> ObtenerTipoUnidad(){
+        ArrayList<String> tipoUnidades = new ArrayList<>();
+        String sql = "SELECT nombre as unidad FROM tipounidad";
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                tipoUnidades.add(rs.getString("unidad"));
+            }
+        } catch (SQLException ex){
+            System.out.println("Error al borrar proyecto: " + ex.getMessage());
+        }finally{
+            conexion.closeConnection();
+        }
+        return tipoUnidades;
     }
 }
