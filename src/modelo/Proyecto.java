@@ -57,6 +57,10 @@ public class Proyecto {
         this.cantidadTorres.set(cantidadTorres);
     }
     
+    public void modificarTorres(ArrayList<Torre> listaTorres){
+        this.torres = listaTorres;
+    }
+    
     public void añadirTorre(Torre torre){
         this.torres.add(torre);
         this.cantidadTorres.set(this.cantidadTorres.get() + 1);

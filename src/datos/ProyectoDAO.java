@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Proyecto;
 
-
-
 public class ProyectoDAO {
     Connection con;
     PreparedStatement ps;

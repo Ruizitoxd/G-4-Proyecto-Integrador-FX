@@ -127,32 +127,33 @@
                               </AnchorPane>
                               <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_ProyectosCrear" layoutX="30.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                  <children>
-                                    <ImageView fx:id="imgChauxFondo_Proyectos1" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="imgChauxFondo_Proyectos_Crear" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
                                        </image>
                                     </ImageView>
-                                    <Button id="buttonCerrar" fx:id="btnCerrarCrearProyecto" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanarProyectoNuevo" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                    <Label fx:id="lblNombreProyecto" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="65.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Nombre proyecto" textAlignment="CENTER" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="80.0" />
-                                    <TextField id="txtNumTorre" fx:id="txtNombreProyecto" alignment="CENTER" layoutX="64.0" layoutY="115.0" maxWidth="800.0" prefHeight="35.0" prefWidth="400.0" promptText="Proyecto" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="123.0" />
-                                    <Label fx:id="lblCantidadDeTorres" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="299.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Cantidad de torres:" textAlignment="CENTER" AnchorPane.leftAnchor="74.0" AnchorPane.topAnchor="240.0" />
-                                    <TableView fx:id="tableViewTorres" editable="true" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="280.0">
+                                    <Button id="buttonCerrar" fx:id="btnCerrarCrearProyecto" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanaProyectoNuevo" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                    <Label fx:id="lblNombreProyecto_Crear" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="65.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Nombre proyecto" textAlignment="CENTER" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="80.0" />
+                                    <TextField id="txtNumTorre" fx:id="txtNombreProyecto_Crear" alignment="CENTER" layoutX="64.0" layoutY="115.0" maxWidth="800.0" prefHeight="35.0" prefWidth="400.0" promptText="Proyecto" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="123.0" />
+                                    <Label fx:id="lblCantidadDeTorres_Crear" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="299.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Cantidad de torres:" textAlignment="CENTER" AnchorPane.leftAnchor="74.0" AnchorPane.topAnchor="240.0" />
+                                    <Label fx:id="lblCantidadDeTorresNum_Crear" alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="244.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="0" textAlignment="CENTER" AnchorPane.topAnchor="240.0" />
+                                    <TableView fx:id="tableViewTorres_Crear" editable="true" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="280.0">
                                       <columns>
-                                        <TableColumn fx:id="columnNumeroTorre" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Numero Torre" />
-                                        <TableColumn fx:id="columnApartamentos" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Apartamentos" />
+                                        <TableColumn fx:id="columnNumeroTorre_Crear" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Numero Torre" />
+                                        <TableColumn fx:id="columnApartamentos_Crear" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Apartamentos" />
                                       </columns>
                                     </TableView>
                                     <AnchorPane fx:id="panelRegistrarApartamento" prefHeight="200.0" prefWidth="500.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="210.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0">
                                        <children>
                                           <Label fx:id="lblRegistrar" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Registrar" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
                                           <Label fx:id="lblApartamento" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="30.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="83.0" />
-                                          <TextField fx:id="txtNumeroApto" prefHeight="70.0" promptText="Numero" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="163.0" />
-                                          <TextField fx:id="txtValorApto" prefHeight="70.0" promptText="Valor" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="163.0" />
-                                          <TextField fx:id="txtMatriculaApto" prefHeight="70.0" promptText="Matricula" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="253.0" />
-                                          <TextField fx:id="txtAreaApto" layoutX="24.0" layoutY="220.0" prefHeight="70.0" promptText="Área" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
-                                          <ChoiceBox fx:id="choiceBoxTipoUnidad" layoutX="260.0" layoutY="430.0" prefHeight="70.0" prefWidth="221.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" />
-                                          <ChoiceBox fx:id="choiceBoxTorre" layoutX="280.0" layoutY="340.0" prefHeight="70.0" prefWidth="150.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" />
-                                          <Button fx:id="btnAñadirProyecto" mnemonicParsing="false" onAction="#AñadirApartamento" prefWidth="280.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Añadir apartamento" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
+                                          <TextField fx:id="txtNumeroApto_Crear" prefHeight="70.0" promptText="Numero" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="163.0" />
+                                          <TextField fx:id="txtValorApto_Crear" prefHeight="70.0" promptText="Valor" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="163.0" />
+                                          <TextField fx:id="txtMatriculaApto_Crear" prefHeight="70.0" promptText="Matricula" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="253.0" />
+                                          <TextField fx:id="txtAreaApto_Crear" layoutX="24.0" layoutY="220.0" prefHeight="70.0" promptText="Área" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
+                                          <ChoiceBox fx:id="choiceBoxTipoUnidad_Crear" layoutX="260.0" layoutY="430.0" prefHeight="70.0" prefWidth="221.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" />
+                                          <ChoiceBox fx:id="choiceBoxTorre_Crear" layoutX="280.0" layoutY="340.0" prefHeight="70.0" prefWidth="150.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" />
+                                          <Button fx:id="btnAñadirProyecto_Crear" mnemonicParsing="false" onAction="#AñadirApartamento" prefWidth="290.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Añadir apartamento" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -161,15 +162,61 @@
                                     <AnchorPane fx:id="panelRegistrarTorre" layoutX="1156.0" layoutY="54.0" prefHeight="200.0" prefWidth="500.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.rightAnchor="560.0" AnchorPane.topAnchor="40.0">
                                        <children>
                                           <Label fx:id="lblRegistrarTorre" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="33.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Registrar Torre" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0" />
-                                          <TextField id="txtNumTorre" fx:id="txtNumeroTorre" alignment="CENTER" maxWidth="200.0" prefHeight="70.0" promptText="Numero" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
-                                          <Button fx:id="btnAñadirTorre" mnemonicParsing="false" onAction="#AñadirTorre" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Añadir Torre" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
+                                          <TextField id="txtNumTorre" fx:id="txtNumeroTorre_Crear" alignment="CENTER" maxWidth="200.0" prefHeight="70.0" promptText="Numero" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+                                          <Button fx:id="btnAñadirTorre_Crear" mnemonicParsing="false" onAction="#AñadirTorre" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Añadir Torre" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
                                     </AnchorPane>
-                                    <Button fx:id="btnGuardarProyecto" layoutX="491.0" layoutY="730.0" mnemonicParsing="false" onAction="#GuardarProyecto" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Guardar proyecto" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="490.0" />
-                                    <Label fx:id="lblCantidadDeTorresNum" alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="244.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="0" textAlignment="CENTER" AnchorPane.topAnchor="240.0" />
+                                    <Button fx:id="btnGuardarProyecto_Crear" layoutX="491.0" layoutY="730.0" mnemonicParsing="false" onAction="#GuardarProyecto" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Guardar proyecto" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="490.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_ProyectosEditar" layoutX="30.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <ImageView fx:id="imgChauxFondo_Proyectos_Editar" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button id="buttonCerrar" fx:id="btnCerrarEditarProyecto" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanarProyectoEditar" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                    <Label fx:id="lblNombreProyecto_Editar" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="65.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Nombre proyecto" textAlignment="CENTER" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="80.0" />
+                                    <TextField id="txtNumTorre" fx:id="txtNombreProyecto_Editar" alignment="CENTER" layoutX="64.0" layoutY="115.0" maxWidth="800.0" prefHeight="35.0" prefWidth="400.0" promptText="Proyecto" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="123.0" />
+                                    <Label fx:id="lblCantidadDeTorres_Editar" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="299.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Cantidad de torres:" textAlignment="CENTER" AnchorPane.leftAnchor="74.0" AnchorPane.topAnchor="240.0" />
+                                    <Label fx:id="lblCantidadDeTorresNum_Editar" alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="244.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="0" textAlignment="CENTER" AnchorPane.topAnchor="240.0" />
+                                    <TableView fx:id="tableViewTorres_Editar" editable="true" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="280.0">
+                                       <columns>
+                                          <TableColumn fx:id="columnNumeroTorre_Editar" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Numero Torre" />
+                                          <TableColumn fx:id="columnAccionesTorre_Editar" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Acciones" />
+                                       </columns>
+                                    </TableView>
+                                    <AnchorPane fx:id="panelEditarApartamento" prefHeight="200.0" prefWidth="500.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="210.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0">
+                                       <children>
+                                          <Label fx:id="lblEditar" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Editar" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                                          <Label fx:id="lblApartamento_Editar" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="30.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="83.0" />
+                                          <TextField fx:id="txtNumeroApto_Editar" prefHeight="70.0" promptText="Numero" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="163.0" />
+                                          <TextField fx:id="txtValorApto_Editar" prefHeight="70.0" promptText="Valor" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="163.0" />
+                                          <TextField fx:id="txtMatriculaApto_Editar" prefHeight="70.0" promptText="Matricula" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="253.0" />
+                                          <TextField fx:id="txtAreaApto_Editar" layoutX="24.0" layoutY="220.0" prefHeight="70.0" promptText="Área" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
+                                          <ChoiceBox fx:id="choiceBoxTipoUnidad_Editar" layoutX="260.0" layoutY="430.0" prefHeight="70.0" prefWidth="221.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" />
+                                          <ChoiceBox fx:id="choiceBoxTorre_Editar" layoutX="280.0" layoutY="340.0" prefHeight="70.0" prefWidth="150.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" />
+                                          <Button fx:id="btnAñadirProyecto_Editar" mnemonicParsing="false" onAction="#GuardarApartamento" prefWidth="290.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Guardar apartamento" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="panelEditarTorre" layoutX="1156.0" layoutY="54.0" prefHeight="200.0" prefWidth="500.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.rightAnchor="560.0" AnchorPane.topAnchor="40.0">
+                                       <children>
+                                          <Label fx:id="lblEditarTorre" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="33.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Editar Torre" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0" />
+                                          <TextField id="txtNumTorre" fx:id="txtNumeroTorre_Editar" alignment="CENTER" maxWidth="200.0" prefHeight="70.0" promptText="Numero" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+                                          <Button fx:id="btnAñadirTorre_Editar" mnemonicParsing="false" onAction="#GuardarTorre" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Guardar torre" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </AnchorPane>
+                                    <Button fx:id="btnGuardarProyecto_Editar" layoutX="491.0" layoutY="730.0" mnemonicParsing="false" onAction="#GuardarProyecto" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Guardar proyecto" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="490.0" />
                                  </children>
                               </AnchorPane>
                            </children>

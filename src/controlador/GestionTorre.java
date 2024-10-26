@@ -1,13 +1,13 @@
 package controlador;
 
 import datos.TorreDAO;
-import java.util.List;
+import java.util.ArrayList;
 import modelo.Torre;
 
 public class GestionTorre {
     TorreDAO torreDAO = new TorreDAO();
     
-    public List<Torre> obtenerTorre(int id){
+    public ArrayList<Torre> obtenerTorre(int id){
         return torreDAO.MostrarTorre(id);
     }
     

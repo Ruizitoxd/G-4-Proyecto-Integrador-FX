@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Torre;
 
 public class TorreDAO {
@@ -15,14 +14,14 @@ public class TorreDAO {
     ResultSet rs;
     ConexionBD conexion;
     
-    public List<Torre> MostrarTorre(int id){
-        List<Torre> torres = new ArrayList();
-        String sql = "select t.id as idTorre, t.numero as numTorre, count(a.id) as cantidadApa"+
-                    "from torre t"+
-                    "left join apartamento a"+
-                    "on t.id = id_torre"+
-                    "where id_proy= ?"+
-                    "group by t.id, t.numero";
+    public ArrayList<Torre> MostrarTorre(int id){
+        ArrayList<Torre> torres = new ArrayList();
+        String sql = "select t.id as idTorre, t.numero as numTorre, count(a.id) as cantidadApa "+
+                    "from torre t "+
+                    "left join apartamento a "+
+                    "on t.id = id_torre "+
+                    "where id_proy = ? "+
+                    "group by t.id, t.numero ";
         
         try{
             conexion = new ConexionBD();
