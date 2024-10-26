@@ -2,13 +2,13 @@
 package controlador;
 
 import datos.ApartamentoDAO;
-import java.util.List;
+import java.util.ArrayList;
 import modelo.Apartamento;
 
 public class GestionApartamento {
     ApartamentoDAO apartamentoDAO= new ApartamentoDAO();
     
-    public List<Apartamento> obtenerApartamento(int id){
+    public ArrayList<Apartamento> obtenerApartamento(int id){
         return apartamentoDAO.MostrarApartamento(id);
     }
     
@@ -26,5 +26,9 @@ public class GestionApartamento {
     
     public boolean borrarApartamento(int id){
         return apartamentoDAO.EliminarApartamento(id);
+    }
+    
+    public ArrayList<String> obtenerTipoUnidades(){
+        return apartamentoDAO.ObtenerTipoUnidad();
     }
 }

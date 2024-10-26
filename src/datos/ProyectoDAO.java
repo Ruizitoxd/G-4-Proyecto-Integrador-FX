@@ -16,7 +16,6 @@ public class ProyectoDAO {
     ConexionBD conexion;
     
     public ArrayList<Proyecto> MostrarProyectos(String idAdmin){
-    
         ArrayList<Proyecto> proyectos = new ArrayList<>();
         String sql ="SELECT p.id as idProy, p.nombre as nombreProy, COUNT(t.id) as cantidadTor " +
                     "FROM proyecto p " +
@@ -45,7 +44,6 @@ public class ProyectoDAO {
         return proyectos;
     }
     
-    
     public int CantidadProyectos(){
         String sql="select count(*) as proyectos from proyecto";
         int TotalProyectos =0;
@@ -64,7 +62,6 @@ public class ProyectoDAO {
         }
     return TotalProyectos;    
     }
-    
     
     public boolean CrearProyecto(Proyecto pr, int idAdmin) {
         String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
@@ -125,11 +122,5 @@ public class ProyectoDAO {
         }finally{
             conexion.closeConnection();
         }
-    }
-    
-    public static void main(String[] args) {
-        ProyectoDAO dao = new ProyectoDAO();
-        ArrayList proyectos = dao.MostrarProyectos("1");
-        System.out.println(proyectos);
     }
 }
