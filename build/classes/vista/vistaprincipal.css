@@ -78,14 +78,22 @@
 }
 
 #InformacionGeneralExt {
-    -fx-background-color : white;
+    -fx-background-color : #ececec;
     -fx-background-radius : 25px;
 }
 
 #InformacionGeneralInt {
-    -fx-background-color : white;
+    -fx-background-color : #ececec;
     -fx-background-radius : 15px;
     -fx-border-color : #060f22;
+    -fx-border-width : 4px;
+    -fx-border-radius :36px;
+}
+
+#MenuCrearProyecto {
+    -fx-background-color : #ececec;
+    -fx-background-radius : 15px;
+    -fx-border-color : #ececec;
     -fx-border-width : 4px;
     -fx-border-radius :36px;
 }
@@ -109,6 +117,12 @@
     -fx-font-weight : bold;
 }
 
+.tituloLabelMid {
+   -fx-text-fill : #060f22;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 1.8em;
+    -fx-font-weight : bold; 
+}
 
 .tituloLabelBlanco {
     -fx-text-fill : #ececec;
@@ -167,6 +181,21 @@
     -fx-background-radius : 12px;
 }
 
+#buttonCerrar {
+    -fx-text-fill : black;
+    -fx-font-family : 'Poppins';
+    -fx-font-weight : bold;
+    -fx-font-size : 2em;
+    -fx-background-color : transparent;
+}
+
+#buttonCerrar:pressed {
+    -fx-text-fill : #f9560b;
+    -fx-font-family : 'Poppins';
+    -fx-font-weight : bold;
+    -fx-font-size : 2.1em;
+    -fx-background-color : transparent;
+}
 
 .hboxBotones {
     -fx-spacing : 10;
@@ -208,8 +237,8 @@
     -fx-background-color: white;
 }
 
-.textField :selected {
-    -fx-text-fill : white;
+.textField:focused {
+    -fx-text-fill : black;
     -fx-font-family : 'Poppins';
     -fx-font-size : 18 em;
     -fx-background-radius : 15px;
@@ -224,8 +253,8 @@
     -fx-background-color: white;
 }
 
-#txtNumTorre :focused {
-    -fx-text-fill : white;
+#txtNumTorre:focused {
+    -fx-text-fill : black;
     -fx-font-family : 'Poppins';
     -fx-font-size : 18 em;
     -fx-background-radius : 60px;
@@ -239,4 +268,3 @@
     -fx-background-radius : 15px;
     -fx-background-color: white;
 }
-

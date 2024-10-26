@@ -163,9 +163,25 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Label lblRegistrarTorre;
     @FXML
-    private Button btnAñadirProyecto1;
-    @FXML
     private TextField txtNumeroTorre;
+    @FXML
+    private Button btnAñadirTorre;
+    @FXML
+    private Button btnCerrarCrearProyecto;
+    @FXML
+    private Label lblProyectos_Proyectos1;
+    @FXML
+    private Label lblRegistrarTorre1;
+    @FXML
+    private TextField txtNumeroTorre1;
+    @FXML
+    private Label lblRegistrarTorre11;
+    @FXML
+    private TableView<?> tableViewTorres;
+    @FXML
+    private TableColumn<?, ?> columnNumeroTorre;
+    @FXML
+    private TableColumn<?, ?> columnApartamentos;
 
     /**
      * Initializes the controller class.
@@ -236,15 +252,21 @@ public class VistaPrincipalController implements Initializable {
         imgChauxFondo_Proyectos1.setEffect(colorAdjust);
     }
 
-    @FXML
-    private void CrearProyectoNuevo(ActionEvent event) {
-        //Logica para crear el proyecto
-    }
-    
     void ActualizarCantidadProyectos(){
         lblCantidadProyectosNum.setText(gestorProyectos.obtenerTotalProyecto() + "");
     }
     void ActualizarCantidadApartamentos(){
         lblCantidadApartamentosNum.setText(gestorApartamentos.obtenerApartamentos() + "");
+    }
+
+    @FXML
+    private void CrearProyectoNuevo(ActionEvent event) {
+        anchorPaneInterior_ProyectosCrear.setVisible(true);
+        //Logica para crear el proyecto
+    }
+    
+    @FXML
+    private void CerrarCrearProyectos(ActionEvent event) {
+        anchorPaneInterior_ProyectosCrear.setVisible(false);
     }
 }
