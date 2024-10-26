@@ -86,15 +86,14 @@ public class VistaLoginController implements Initializable {
 
     @FXML
     private void IniciarSesion(ActionEvent event) {
-
         String correo = txtCorreo.getText();
         String contraseña = txtContraseña.getText();
-        if(!"".equals(correo)|| !"".equals(contraseña)){
+        if(!"".equals(correo) && !"".equals(contraseña)){
             RolUsuario RU = new RolUsuario();
             ValidarUsuario Val = new ValidarUsuario();
-            RU = Val.validarAdmin(correo, contraseña);
-            if(RU.getCorreo()!=null || RU.getIdentificacion()!=null){
-                CargarVistaPrincipal(event);
+            RU = Val.validarAdminOAsesor(correo, contraseña);
+            if(RU.getCorreo()!= "" && RU.getIdentificacion()!= ""){
+                CargarVistaPrincipal(event, RU);
             }else{
                 MostrarAlertaError("Correo o contraseña incorrectos.");
             }
@@ -104,12 +103,16 @@ public class VistaLoginController implements Initializable {
     }        
             
             
-            //Cargar vista principal
-    private void CargarVistaPrincipal(ActionEvent event){
+    //Cargar vista principal
+    private void CargarVistaPrincipal(ActionEvent event, RolUsuario usuario){
         try {
             //Cargar vista principal
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPrincipal.fxml"));
             Parent root = loader.load();
+            
+            //Obtener controlador de la vista principal
+            VistaPrincipalController vistaPrinController = loader.getController();
+            vistaPrinController.SetIdUsuario(usuario);
 
             //Crear la escena
             Scene scene = new Scene(root);
