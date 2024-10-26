@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.RolUsuario;
 
-public class ValidarAdmin {
+public class ValidarUsuario {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -16,7 +16,6 @@ public class ValidarAdmin {
         RolUsuario RU = new RolUsuario();
         String sql = "SELECT * FROM administrador WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
 
-
         try {
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
@@ -24,24 +23,41 @@ public class ValidarAdmin {
             ps.setString(2, identificacion);
             rs = ps.executeQuery();
 
+<<<<<<< HEAD:src/datos/ValidarAdmin.java
             if (rs.next()) {
    
+=======
+            if (rs.next()) {   
+>>>>>>> 7a334b8097fd190c412dbccea12952a9f52f7f5d:src/datos/ValidarUsuario.java
                 RU.setId(rs.getString("id"));
                 RU.setNombre(rs.getString("nombre"));
                 RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
                 RU.setIdentificacion(rs.getString("identificacion"));
                 RU.setDireccion(rs.getString("direccion")); // Corrección de columna
-         
-
-             
+                RU.setRol("Administrador");
+            } else {
+                sql = "SELECT * FROM asesor WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, correo);
+                ps.setString(2, identificacion);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    RU.setId(rs.getString("id"));
+                    RU.setNombre(rs.getString("nombre"));
+                    RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
+                    RU.setIdentificacion(rs.getString("identificacion"));
+                    RU.setDireccion(rs.getString("direccion")); // Corrección de columna
+                    RU.setRol("Asesor");
+                }
             }
-
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }  catch (RuntimeException rex) {
             System.out.println(rex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            conexion.closeConnection();
         }
         return RU ; 
     }

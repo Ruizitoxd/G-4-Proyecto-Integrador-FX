@@ -1,6 +1,6 @@
 package controlador;
 
-import datos.ValidarAdmin;
+import datos.ValidarUsuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,7 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -92,7 +91,7 @@ public class VistaLoginController implements Initializable {
         String contraseña = txtContraseña.getText();
         if(!"".equals(correo)|| !"".equals(contraseña)){
             RolUsuario RU = new RolUsuario();
-            ValidarAdmin Val = new ValidarAdmin();
+            ValidarUsuario Val = new ValidarUsuario();
             RU = Val.validarAdmin(correo, contraseña);
             if(RU.getCorreo()!=null || RU.getIdentificacion()!=null){
                 CargarVistaPrincipal(event,RU.getId() );
