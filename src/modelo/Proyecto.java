@@ -21,6 +21,7 @@ public class Proyecto {
         this.nombre = new SimpleStringProperty("");
     }
     
+<<<<<<< HEAD
     //Getters para los String y Integer Property
     public IntegerProperty idProperty() {
         return id;
@@ -35,6 +36,9 @@ public class Proyecto {
     }
 
     // Métodos convencionales para obtener y establecer valores de los tipos int y String directamente
+=======
+    //Getters y Setters
+>>>>>>> 9567d7a377f780cd888e5fb4cceaf41e0a682991
     public int getId() {
         return id.get();
     }
