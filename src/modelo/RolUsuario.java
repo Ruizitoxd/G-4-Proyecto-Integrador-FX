@@ -6,14 +6,15 @@ public class RolUsuario {
     private String correo;
     private String nombre;
     private String direccion; 
-<<<<<<< HEAD
-=======
     private String rol;
->>>>>>> 7a334b8097fd190c412dbccea12952a9f52f7f5d
 
     // Constructor vacío
     public RolUsuario() {
-        // Constructor vacío sin excepción
+        this.id = "";
+        this.identificacion = "";
+        this.correo = "";
+        this.nombre = "";
+        this.direccion = "";
     }
 
     // Constructor con parámetros
@@ -65,8 +66,6 @@ public class RolUsuario {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-<<<<<<< HEAD
-=======
 
     public String getRol() {
         return rol;
@@ -75,5 +74,4 @@ public class RolUsuario {
     public void setRol(String rol) {
         this.rol = rol;
     }    
->>>>>>> 7a334b8097fd190c412dbccea12952a9f52f7f5d
 }
