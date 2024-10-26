@@ -14,21 +14,17 @@ public class ValidarUsuario {
 
     public RolUsuario validarAdmin(String correo, String identificacion) {
         RolUsuario RU = new RolUsuario();
-        String sql = "SELECT * FROM administrador WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+        String sql = "SELECT * FROM ? WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
 
         try {
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, correo);
-            ps.setString(2, identificacion);
+            ps.setString(1, "administrador");
+            ps.setString(2, correo);
+            ps.setString(3, identificacion);
             rs = ps.executeQuery();
 
-<<<<<<< HEAD:src/datos/ValidarAdmin.java
-            if (rs.next()) {
-   
-=======
             if (rs.next()) {   
->>>>>>> 7a334b8097fd190c412dbccea12952a9f52f7f5d:src/datos/ValidarUsuario.java
                 RU.setId(rs.getString("id"));
                 RU.setNombre(rs.getString("nombre"));
                 RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
@@ -36,18 +32,18 @@ public class ValidarUsuario {
                 RU.setDireccion(rs.getString("direccion")); // Corrección de columna
                 RU.setRol("Administrador");
             } else {
-                sql = "SELECT * FROM asesor WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
                 ps = con.prepareStatement(sql);
-                ps.setString(1, correo);
-                ps.setString(2, identificacion);
+                ps.setString(1, "asesor");
+                ps.setString(2, correo);
+                ps.setString(3, identificacion);
                 rs = ps.executeQuery();
-                if (rs.next()) {
+                if (rs.next()){
                     RU.setId(rs.getString("id"));
                     RU.setNombre(rs.getString("nombre"));
                     RU.setCorreo(rs.getString("correoElectronico")); // Corrección de columna
                     RU.setIdentificacion(rs.getString("identificacion"));
                     RU.setDireccion(rs.getString("direccion")); // Corrección de columna
-                    RU.setRol("Asesor");
+                    RU.setRol("Administrador");
                 }
             }
         } catch (SQLException ex) {
