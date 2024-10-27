@@ -2,7 +2,6 @@ package controlador;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -334,9 +333,17 @@ public class VistaPrincipalController implements Initializable {
 
                 btnBorrarTorre.setOnAction(event -> {
                     //Obtener torre
-                    Torre torre = getTableView().getItems().remove(getIndex());
+                    Torre torre = getTableView().getItems().get(getIndex());
+                    System.out.println(torre + "Sexo:" + torre.getId());
 
                     //Logica para eliminar la torre
+                    boolean elim = gestorTorres.borrarTorre(torre.getId());
+                    if (elim){
+                        getTableView().getItems().remove(torre);
+                    }else{
+                        MostrarAlertaError("no se pudo eliminar correctamente la torre");
+
+                    }
                 });
             }
             
@@ -428,6 +435,7 @@ public class VistaPrincipalController implements Initializable {
         anchorPaneInterior_ProyectosCrear.setVisible(false);
     }
     
+    @FXML
     private void AbrirVentanaProyectoEditar(ActionEvent event, Proyecto proyecto) {
         //Informacion de la vista
         anchorPaneInterior_ProyectosEditar.setVisible(true);

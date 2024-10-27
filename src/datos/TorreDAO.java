@@ -45,7 +45,7 @@ public class TorreDAO {
     }
     
     public int CantidadTorre(){
-        String sql = "select count(*) as torres"+
+        String sql = "select count(*) as torres "+
                     "from torre";
         int TotalTorres = 0;
         try{
@@ -64,7 +64,7 @@ public class TorreDAO {
     }  
     
     public boolean CrearTorre(Torre tr, int idProy){
-        String sql= "insert into torre(id, numero ,idProy)"+
+        String sql= "insert into torre(id, numero ,idProy) "+
                     "values (?,?,?)";
         try{
             conexion = new ConexionBD();
@@ -87,8 +87,8 @@ public class TorreDAO {
     }
     
     public boolean EditarTorre(int idTorre, String nombre){
-        String sql = "update torre"+
-                    "set numero = ?"+
+        String sql = "update torre "+
+                    "set numero = ? "+
                     "where id = ?";
         try{
             conexion = new ConexionBD();
@@ -107,7 +107,7 @@ public class TorreDAO {
     }
     
     public boolean EliminarTorre(int id){
-        String sql = " delete from torre"+
+        String sql = "delete from torre "+
                     "where id = ?";
         try{
             conexion = new ConexionBD();
