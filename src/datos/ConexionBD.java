@@ -37,19 +37,4 @@ public class ConexionBD {
             }
         }
     }
-    
-    public static void main(String[] args) {
-        // Crear una instancia de la clase ConexionBD
-        ConexionBD conexionBD = new ConexionBD();
-
-        // Verificar si la conexión se ha establecido
-        if (conexionBD.getConnection() != null) {
-            System.out.println("La conexión a la base de datos se estableció con éxito.");
-        } else {
-            System.out.println("No se pudo establecer la conexión a la base de datos.");
-        }
-
-        // Cerrar la conexión
-        conexionBD.closeConnection();
-    }
 }

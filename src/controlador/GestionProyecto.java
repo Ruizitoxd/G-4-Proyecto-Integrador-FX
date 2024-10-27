@@ -7,7 +7,7 @@ import modelo.Proyecto;
 public class GestionProyecto {
     ProyectoDAO proyectoDAO = new ProyectoDAO();
     
-    public ArrayList<Proyecto> obtenerProyectosAdmin(String id){
+    public ArrayList<Proyecto> obtenerProyectosAdmin(int id){
         return proyectoDAO.MostrarProyectos(id);
     }
     

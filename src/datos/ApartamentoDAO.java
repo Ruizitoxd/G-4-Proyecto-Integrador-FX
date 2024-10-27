@@ -1,3 +1,4 @@
+
 package datos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ public class ApartamentoDAO {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, " +
                      "a.area as AreaApa, a.matricula as matricula " +
-                     "FROM apartamento a JOIN torre t ON a.idTorre = t.id " +  // AsegÃºrate de que 't.id' es el correcto
+                     "FROM apartamento a JOIN torre t ON a.idTorre = t.id " +  // Asegúrate de que 't.id' es el correcto
                      "WHERE a.id_torre = ?";
 
         try {
@@ -62,7 +63,6 @@ public class ApartamentoDAO {
         }
        return TotalApartamentos;
     }
-    
     
     public boolean CrearApartamento(Apartamento a ,int idTorre, int idTipoUnidad) {
         String sql = " insert into apartamento (id,numero, valor,area,matricula,fechaEscritura,id_tipouni,id_torre)"+
@@ -111,7 +111,7 @@ public class ApartamentoDAO {
             System.out.println("Error al actualizar proyecto: " + ex.getMessage());
             return false;                            
         } finally {
-           conexion.closeConnection(); 
+           conexion.closeConnection();
         }
     }
     
@@ -128,7 +128,7 @@ public class ApartamentoDAO {
         }catch(SQLException ex){
             System.out.println("Error al borrar proyecto: " + ex.getMessage());
             return false;
-        }finally{
+        }finally{ 
             conexion.closeConnection();
         }
     }

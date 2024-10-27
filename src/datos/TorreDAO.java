@@ -6,25 +6,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Torre;
 
 public class TorreDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion;
     
-    public List<Torre> mostrarTorre(int id){
-        List<Torre> torres = new ArrayList();
-        String sql = "select t.id as idTorre, t.numero as numTorre, count(a.id) as cantidadApa"+
-                    "from torre t"+
-                    "left join apartamento a"+
-                    "on t.id = id_torre"+
-                    "where id_proy= ?"+
-                    "group by t.id, t.numero";
+    public ArrayList<Torre> MostrarTorre(int id){
+        ArrayList<Torre> torres = new ArrayList();
+        String sql = "select t.id as idTorre, t.numero as numTorre, count(a.id) as cantidadApa "+
+                    "from torre t "+
+                    "left join apartamento a "+
+                    "on t.id = id_torre "+
+                    "where id_proy = ? "+
+                    "group by t.id, t.numero ";
         
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -33,7 +33,7 @@ public class TorreDAO {
                 Torre torre = new Torre();
                 torre.setId(rs.getInt("idTorre"));
                 torre.setNombre(rs.getString("numTorre"));
-                torre.setCantidadAparta(rs.getInt("cantidadApa"));
+                torre.setCantidadApartamentos(rs.getInt("cantidadApa"));
                 torres.add(torre);
             }
         }catch(SQLException ex){
@@ -44,12 +44,12 @@ public class TorreDAO {
         return torres;
     }
     
-    
     public int CantidadTorre(){
         String sql = "select count(*) as torres"+
                     "from torre";
         int TotalTorres = 0;
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery(sql);
@@ -63,11 +63,11 @@ public class TorreDAO {
         return TotalTorres;
     }  
     
-    
-    public boolean crearTorre(Torre tr, int idProy){
+    public boolean CrearTorre(Torre tr, int idProy){
         String sql= "insert into torre(id, numero ,idProy)"+
                     "values (?,?,?)";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, tr.getId());
@@ -86,12 +86,12 @@ public class TorreDAO {
         return false;
     }
     
-    
-    public boolean editarProyecto(int idTorre, String nombre){
+    public boolean EditarTorre(int idTorre, String nombre){
         String sql = "update torre"+
                     "set numero = ?"+
                     "where id = ?";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
@@ -106,11 +106,11 @@ public class TorreDAO {
         }
     }
     
-    
     public boolean EliminarTorre(int id){
-        String sql = " delete from torre"+
+        String sql = " delete from torre "+
                     "where id = ?";
         try{
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -123,6 +123,4 @@ public class TorreDAO {
             conexion.closeConnection();
         }
     }
-    
-    
 }
