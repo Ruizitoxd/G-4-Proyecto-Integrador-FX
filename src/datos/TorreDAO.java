@@ -106,7 +106,7 @@ public class TorreDAO {
     }
     
     public boolean EliminarTorre(int id){
-        String sql = " delete from torre "+
+        String sql = "delete from torre "+
                     "where id = ?";
         try{
             conexion = new ConexionBD();
