@@ -62,8 +62,8 @@ public class ProyectoDAO {
     }
     
     public boolean CrearProyecto(Proyecto pr, int idAdmin) {
-        String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
-                     "VALUES (SEQ_IDADMINISTRADOR.NEXTVAL, ?, ?)";
+        String sql = "INSERT INTO proyecto(id, nombre, id_admin) "+
+                     "VALUES (SEQ_IDPROYECTO.NEXTVAL, ?, ?)";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -122,4 +122,18 @@ public class ProyectoDAO {
             conexion.closeConnection();
         }
     }
+    /*public static void main(String[] args) {
+    
+    ProyectoDAO pDAO = new ProyectoDAO();
+    
+    boolean edit = pDAO.EditarProyecto(1, "Davinci");
+    if (edit){
+        System.out.println("si lo edito");
+    }else{
+        System.out.println("no lo");
+    }
+    
+    }*/
+
+    
 }

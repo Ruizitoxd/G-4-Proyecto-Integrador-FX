@@ -43,8 +43,11 @@ public class VistaPrincipalController implements Initializable {
 
     //Atributos de la vista
     ObservableList<Proyecto> proyectos;
+    ObservableList<Torre> torres;
     Proyecto proyectoTemporal; //Esta variable se usa como almacenador general del proyecto que se está creando o modificando
+    Torre torreTemporal;
 
+    
     //Componentes FXML
     @FXML
     private TabPane tabPaneBotones;
@@ -282,10 +285,21 @@ public class VistaPrincipalController implements Initializable {
                 btnEditar.setOnAction(event -> {
                     //Obtener proyecto
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
-
+                    
                     // Lógica para editar el proyecto
                     AbrirVentanaProyectoEditar(event, proyecto);
+                    
+                    String nuevoNombreProyecto = txtNombreProyecto_Editar.getText();
+                    proyectoTemporal.setNombre(nuevoNombreProyecto);
+                    
+                    boolean edit = gestorProyectos.actualizarProyecto(proyecto.getId(), nuevoNombreProyecto);
+                    if(edit){
+                        MostrarMensajeConfirmacion("el proyecto se edito correctamente");
+                        ActualizarTablaProyectos();
+                    }else{
+                        MostrarAlertaError("Error no se puedo editar el proyecto correctamente ");
 
+                    }
                 });
 
                 btnBorrar.setOnAction(event -> {
@@ -293,12 +307,12 @@ public class VistaPrincipalController implements Initializable {
                     Proyecto proyecto = getTableView().getItems().get(getIndex());
 
                     //Logica para eliminar el proyecto
-                    boolean elim = gestorProyectos.borrarProyecto(proyecto.getId());
+                    boolean elimP = gestorProyectos.borrarProyecto(proyecto.getId());
 
-                    if (elim) {
+                    if (elimP) {
                         getTableView().getItems().remove(proyecto);
                     } else {
-                        MostrarAlertaError("No se pudo eliminar el proyecto correctamente");
+                        MostrarAlertaError("Error no se pudo eliminar el proyecto correctamente");
                     }
                 });
             }
@@ -330,6 +344,16 @@ public class VistaPrincipalController implements Initializable {
                     Torre torre = getTableView().getItems().get(getIndex());
 
                     // Lógica para editar la torre
+                    String nuevoNombreTorre =txtNumeroTorre_Editar.getText(); 
+                    torreTemporal.setNombre(nuevoNombreTorre);
+                    
+                    boolean editT = gestorTorres.actualizarTorre(torre.getId(), nuevoNombreTorre);
+                    if(editT){
+                        ActualizarTablaTorres();
+                    }else{
+                        MostrarAlertaError("Error no se pudo editar la torre correctamente");
+                    }
+                   
                 });
 
                 btnBorrarTorre.setOnAction(event -> {
@@ -393,6 +417,14 @@ public class VistaPrincipalController implements Initializable {
         this.proyectos = FXCollections.observableArrayList(proyectosTabla);
         tableViewProyectos_Proyectos.setItems(proyectos);
     }
+    
+    //actualizar tabla torre
+    void ActualizarTablaTorres(){
+        ArrayList<Torre> torresTabla = gestorTorres.obtenerTorre(proyectoTemporal.getId());
+        this.torres = FXCollections.observableArrayList(torresTabla);
+        tableViewTorres_Crear.setItems(torres);
+        
+    }
 
     private void ActualizarChoiceBoxVentana() {
         //Actualizar ChoiceBox ventana Crear
@@ -414,6 +446,14 @@ public class VistaPrincipalController implements Initializable {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+    
+    public void MostrarMensajeConfirmacion(String mensaje) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Confirmación");
+    alert.setHeaderText(null);
+    alert.setContentText(mensaje);
+    alert.showAndWait();
+}
     
     //Abrir la ventana para crear un proyecto
     @FXML
@@ -462,12 +502,13 @@ public class VistaPrincipalController implements Initializable {
     }
 
     @FXML
+    //logica para agregar proyecto
     private void GuardarProyecto(ActionEvent event) {
         proyectoTemporal.setNombre(txtNombreProyecto_Crear.getText());
         proyectos.add(proyectoTemporal);
 
-        boolean agregado = gestorProyectos.guardarProyecto(proyectoTemporal, Integer.parseInt(usuario.getId()));
-        if (agregado) {
+        boolean agregadoP = gestorProyectos.guardarProyecto(proyectoTemporal, Integer.parseInt(usuario.getId()));
+        if (agregadoP) {
             ActualizarTablaProyectos();
             CerrarVentanaProyectoNuevo(event);
         } else {
@@ -476,6 +517,7 @@ public class VistaPrincipalController implements Initializable {
     }
 
     @FXML
+    //logica para añadir torre
     private void AñadirTorre(ActionEvent event) {
         Torre torreNueva = new Torre();
         torreNueva.setNombre(txtNumeroTorre_Crear.getText());
@@ -501,6 +543,15 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void GuardarApartamento(ActionEvent event) {
+        torreTemporal.setNombre(txtNumeroTorre_Crear.getText());
+        torres.add(torreTemporal);
+        
+        boolean agregarT = gestorTorres.guardarTorre(torreTemporal, proyectoTemporal.getId());
+        if(agregarT){
+        
+        }else{
+            MostrarAlertaError("No se ha podido agregar la torre correctamente");
+        }
     }
 
     @FXML

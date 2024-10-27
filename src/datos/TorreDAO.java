@@ -64,15 +64,14 @@ public class TorreDAO {
     }  
     
     public boolean CrearTorre(Torre tr, int idProy){
-        String sql= "insert into torre(id, numero ,idProy)"+
-                    "values (?,?,?)";
+        String sql= "insert into torre(id, numero ,idProy) "+
+                    "values (SEQ_IDTORRE.NEXTVAL,?,?)";
         try{
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, tr.getId());
-            ps.setString(2, tr.getNombre());
-            ps.setInt(3, idProy);
+            ps.setString(1, tr.getNombre());
+            ps.setInt(2, idProy);
             
             int resultado = ps.executeUpdate();
             if(resultado > 0){
@@ -87,9 +86,9 @@ public class TorreDAO {
     }
     
     public boolean EditarTorre(int idTorre, String nombre){
-        String sql = "update torre"+
-                    "set numero = ?"+
-                    "where id = ?";
+        String sql = "update torre "+
+                    "set numero = ? "+
+                    "where id = ? ";
         try{
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -122,5 +121,18 @@ public class TorreDAO {
         }finally{
             conexion.closeConnection();
         }
+    }
+    
+    public static void main(String[] args) {
+    
+    TorreDAO toDAO = new TorreDAO();
+    
+    boolean edit = toDAO.EditarTorre(1, "1");
+    if (edit){
+        System.out.println("si lo edito");
+    }else{
+        System.out.println("no lo");
+    }
+    
     }
 }
