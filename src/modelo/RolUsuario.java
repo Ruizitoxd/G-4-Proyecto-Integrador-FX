@@ -74,5 +74,6 @@ public class RolUsuario {
 
     public void setRol(String rol) {
         this.rol = rol;
-    }    
+    
+    }
 }
