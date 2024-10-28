@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Torre;
 
 public class TorreDAO {
@@ -15,14 +14,14 @@ public class TorreDAO {
     ResultSet rs;
     ConexionBD conexion;
     
-    public List<Torre> MostrarTorre(int id){
-        List<Torre> torres = new ArrayList();
-        String sql = "select t.id as idTorre, t.numero as numTorre, count(a.id) as cantidadApa"+
-                    "from torre t"+
-                    "left join apartamento a"+
-                    "on t.id = id_torre"+
-                    "where id_proy= ?"+
-                    "group by t.id, t.numero";
+    public ArrayList<Torre> MostrarTorre(int id){
+        ArrayList<Torre> torres = new ArrayList();
+        String sql = "select t.id as idTorre, t.numero as numTorre, count(a.id) as cantidadApa "+
+                    "from torre t "+
+                    "left join apartamento a "+
+                    "on t.id = id_torre "+
+                    "where id_proy = ? "+
+                    "group by t.id, t.numero ";
         
         try{
             conexion = new ConexionBD();
@@ -65,15 +64,14 @@ public class TorreDAO {
     }  
     
     public boolean CrearTorre(Torre tr, int idProy){
-        String sql= "insert into torre(id, numero ,idProy)"+
-                    "values (?,?,?)";
+        String sql= "insert into torre(id, numero ,id_Proy) "+
+                    "values (SEQ_IDTORRE.NEXTVAL,?,?)";
         try{
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, tr.getId());
-            ps.setString(2, tr.getNombre());
-            ps.setInt(3, idProy);
+            ps.setString(1, tr.getNombre());
+            ps.setInt(2, idProy);
             
             int resultado = ps.executeUpdate();
             if(resultado > 0){
@@ -88,9 +86,9 @@ public class TorreDAO {
     }
     
     public boolean EditarTorre(int idTorre, String nombre){
-        String sql = "update torre"+
-                    "set numero = ?"+
-                    "where id = ?";
+        String sql = "update torre "+
+                    "set numero = ? "+
+                    "where id = ? ";
         try{
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -108,7 +106,7 @@ public class TorreDAO {
     }
     
     public boolean EliminarTorre(int id){
-        String sql = " delete from torre"+
+        String sql = "delete from torre "+
                     "where id = ?";
         try{
             conexion = new ConexionBD();
@@ -123,5 +121,18 @@ public class TorreDAO {
         }finally{
             conexion.closeConnection();
         }
+    }
+    
+    public static void main(String[] args) {
+    
+        TorreDAO toDAO = new TorreDAO();
+
+        boolean edit = toDAO.EditarTorre(1, "1");
+        if (edit){
+            System.out.println("si lo edito");
+        }else{
+            System.out.println("no lo");
+        }
+    
     }
 }

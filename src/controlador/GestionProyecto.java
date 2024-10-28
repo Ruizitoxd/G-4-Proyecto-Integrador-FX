@@ -26,4 +26,8 @@ public class GestionProyecto {
     public boolean borrarProyecto(int id){
         return proyectoDAO.EliminarProyecto(id);
     }
+    
+    public int obtenerProyectoUnico(String nombre){
+        return proyectoDAO.ObtenerIdProyectoUnico(nombre);
+    }
 }

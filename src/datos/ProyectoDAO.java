@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Proyecto;
 
-
-
 public class ProyectoDAO {
     Connection con;
     PreparedStatement ps;
@@ -64,8 +62,9 @@ public class ProyectoDAO {
     }
     
     public boolean CrearProyecto(Proyecto pr, int idAdmin) {
-        String sql = "INSERT INTO proyecto(id, nombre, id_admin)"+
-                     "VALUES (SEQ_IDADMINISTRADOR.NEXTVAL, ?, ?)";
+        String sql = "INSERT INTO proyecto(id, nombre, id_admin) "+
+                     "VALUES (SEQ_IDPROYECTO.NEXTVAL, ?, ?)";
+        
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -123,5 +122,27 @@ public class ProyectoDAO {
         }finally{
             conexion.closeConnection();
         }
+    }
+    
+    public int ObtenerIdProyectoUnico(String nombre){
+        int id = 0;
+        String sql = "SELECT id as idProy FROM PROYECTO " +  
+                     "WHERE UPPER(nombre) = ?";
+
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                id = rs.getInt("idProy");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener id proyecto proyecto: " + ex.getMessage());
+        } finally {
+           conexion.closeConnection(); 
+        }
+        return id;
     }
 }
