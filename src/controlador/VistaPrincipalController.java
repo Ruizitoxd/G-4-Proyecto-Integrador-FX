@@ -548,7 +548,7 @@ public class VistaPrincipalController implements Initializable {
             MostrarAlertaError("No se ha podido agregar el proyecto correctamente");
         }
         
-        
+        ActualizarCantidadProyectos();
     }
  
     @FXML
