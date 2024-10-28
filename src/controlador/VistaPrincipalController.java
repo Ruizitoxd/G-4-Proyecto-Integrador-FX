@@ -536,17 +536,19 @@ public class VistaPrincipalController implements Initializable {
         //Agregar proyecto a la base de datos
         boolean agregadoP = gestorProyectos.guardarProyecto(proyectoTemporal, Integer.parseInt(usuario.getId()));
         if (agregadoP) {
+            //Agregar torres a la base de datos desde la lista del proyecto
+            for (Torre torre : proyectoTemporal.obtenerTorres()){
+                System.out.println(torre.getNombre());
+                gestorTorres.guardarTorre(torre, gestorProyectos.obtenerProyectoUnico(proyectoTemporal.getNombre().toUpperCase()));
+            }
+        
             ActualizarTablaProyectos();
             CerrarVentanaProyectoNuevo(event);
         } else {
             MostrarAlertaError("No se ha podido agregar el proyecto correctamente");
         }
         
-        //Agregar torres a la base de datos desde la lista del proyecto
-        for (Torre torre : proyectoTemporal.obtenerTorres()){
-            System.out.println(torre.getNombre());
-            gestorTorres.guardarTorre(torre, gestorProyectos.obtenerProyectoUnico(proyectoTemporal.getNombre().toUpperCase()));
-        }
+        
     }
  
     @FXML
