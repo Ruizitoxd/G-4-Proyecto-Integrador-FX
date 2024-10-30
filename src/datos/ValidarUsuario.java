@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import modelo.RolUsuario;
 
 public class ValidarUsuario {
+
     Connection con;
     PreparedStatement ps;
     ResultSet rs;

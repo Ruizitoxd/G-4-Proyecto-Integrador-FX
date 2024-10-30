@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/GestionTorre.java</file>
-            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/ProyectoDAO.java</file>
-            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/GestionProyecto.java</file>
-            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/TorreDAO.java</file>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/vista/vistaprincipal.css</file>
+            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/Apartamento.java</file>
             <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/VistaPrincipalController.java</file>
-            <file>file:/C:/Users/juanc/Documents/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/Proyecto.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,25 +5,30 @@ import java.util.ArrayList;
 import modelo.Proyecto;
 
 public class GestionProyecto {
+
     ProyectoDAO proyectoDAO = new ProyectoDAO();
-    
-    public ArrayList<Proyecto> obtenerProyectosAdmin(int id){
+
+    public ArrayList<Proyecto> ObtenerProyectosAdmin(int id) {
         return proyectoDAO.MostrarProyectos(id);
     }
-    
-    public int obtenerTotalProyecto(){
+
+    public int ObtenerTotalProyecto() {
         return proyectoDAO.CantidadProyectos();
     }
-    
-    public boolean guardarProyecto(Proyecto pr,int id){
+
+    public boolean GuardarProyecto(Proyecto pr, int id) {
         return proyectoDAO.CrearProyecto(pr, id);
     }
-    
-    public boolean actualizarProyecto(int id,String nombre){
+
+    public boolean ActualizarProyecto(int id, String nombre) {
         return proyectoDAO.EditarProyecto(id, nombre);
     }
-    
-    public boolean borrarProyecto(int id){
+
+    public boolean BorrarProyecto(int id) {
         return proyectoDAO.EliminarProyecto(id);
+    }
+
+    public int ObtenerIdProyectoUnico(String nombre) {
+        return proyectoDAO.ObtenerIdProyectoUnico(nombre);
     }
 }

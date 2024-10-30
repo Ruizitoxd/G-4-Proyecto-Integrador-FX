@@ -5,25 +5,30 @@ import java.util.ArrayList;
 import modelo.Torre;
 
 public class GestionTorre {
+
     TorreDAO torreDAO = new TorreDAO();
-    
-    public ArrayList<Torre> obtenerTorre(int id){
+
+    public ArrayList<Torre> ObtenerTorre(int id) {
         return torreDAO.MostrarTorre(id);
     }
-    
-    public int obtenerTotalProyecto(){
+
+    public int ObtenerTotalProyecto() {
         return torreDAO.CantidadTorre();
     }
-    
-    public boolean guardarTorre(Torre tr,int idProy){
+
+    public boolean GuardarTorre(Torre tr, int idProy) {
         return torreDAO.CrearTorre(tr, idProy);
     }
-    
-    public boolean actualizarTorre(int idTorre, String nombre){
-        return torreDAO.EditarTorre(idTorre,nombre);
+
+    public boolean ActualizarTorre(int idTorre, String nombre) {
+        return torreDAO.EditarTorre(idTorre, nombre);
     }
-    
-    public boolean borrarTorre(int id){
+
+    public boolean BorrarTorre(int id) {
         return torreDAO.EliminarTorre(id);
+    }
+
+    public int ObtenerIdTorreUnica(String nombre) {
+        return torreDAO.ObtenerIdTorreUnica(nombre);
     }
 }

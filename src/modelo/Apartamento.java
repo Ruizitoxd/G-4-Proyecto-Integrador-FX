@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Apartamento {
+
     private IntegerProperty id;
     private StringProperty numero;
     private DoubleProperty valor;
@@ -17,7 +18,7 @@ public class Apartamento {
     private StringProperty area;  // Cambiado a 'area' en minúscula
     private StringProperty tipoUnidad;
     private StringProperty idTorre;
-    
+
     public Apartamento(int id, String numero, double valor, String matricula, Date fecha, String area, String tipoUnidad, String idTorre) {
         this.id = new SimpleIntegerProperty(id);
         this.numero = new SimpleStringProperty(numero);
@@ -28,7 +29,7 @@ public class Apartamento {
         this.tipoUnidad = new SimpleStringProperty(tipoUnidad);
         this.idTorre = new SimpleStringProperty(idTorre);
     }
-    
+
     public Apartamento() {
         this.id = new SimpleIntegerProperty(0);
         this.numero = new SimpleStringProperty("");
@@ -39,7 +40,7 @@ public class Apartamento {
         this.tipoUnidad = new SimpleStringProperty("");
         this.idTorre = new SimpleStringProperty("");
     }
-    
+
     //Getters y setters
     public int getId() {
         return id.get();
@@ -101,7 +102,12 @@ public class Apartamento {
         return idTorre.get();
     }
 
-    public void setIdTorre(String idTorre) {    
+    public void setIdTorre(String idTorre) {
         this.idTorre.set(idTorre);
+    }
+
+    @Override
+    public String toString() {
+        return "Apartamento{" + "id=" + id + ", numero=" + numero + ", valor=" + valor + ", matricula=" + matricula + ", fecha=" + fecha + ", area=" + area + ", tipoUnidad=" + tipoUnidad + ", idTorre=" + idTorre + '}';
     }
 }
