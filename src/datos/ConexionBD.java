@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.logging.*;
 
 public class ConexionBD {
+
     private String url = "jdbc:oracle:thin:@localhost:1521:XE"; // URL correcta para la base de datos Oracle
     //private String url = "jdbc:oracle:thin:@192.168.254.215:1521:orcl"
     public Connection con = null;

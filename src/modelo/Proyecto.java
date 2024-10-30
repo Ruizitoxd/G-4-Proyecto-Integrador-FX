@@ -7,10 +7,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Proyecto {
+
     private IntegerProperty id, cantidadTorres;
     private StringProperty nombre;
     private ArrayList<Torre> torres;
-    
+
     public Proyecto(int id, int cantidadTorres, String nombre, ArrayList<Torre> torres) {
         this.id = new SimpleIntegerProperty(id);
         this.cantidadTorres = new SimpleIntegerProperty(cantidadTorres);
@@ -24,14 +25,14 @@ public class Proyecto {
         this.nombre = new SimpleStringProperty(nombre);
         this.torres = new ArrayList<>();
     }
-    
-    public Proyecto() {        
+
+    public Proyecto() {
         this.id = new SimpleIntegerProperty(0);
         this.cantidadTorres = new SimpleIntegerProperty(0);
         this.nombre = new SimpleStringProperty("");
         this.torres = new ArrayList<>();
     }
-    
+
     //Getters y Setters
     public int getId() {
         return id.get();
@@ -56,17 +57,17 @@ public class Proyecto {
     public void setCantidadTorres(int cantidadTorres) {
         this.cantidadTorres.set(cantidadTorres);
     }
-    
-    public void modificarTorres(ArrayList<Torre> listaTorres){
+
+    public void modificarTorres(ArrayList<Torre> listaTorres) {
         this.torres = listaTorres;
     }
-    
-    public void añadirTorre(Torre torre){
+
+    public void añadirTorre(Torre torre) {
         this.torres.add(torre);
         this.cantidadTorres.set(this.cantidadTorres.get() + 1);
     }
-    
-    public ArrayList<Torre> obtenerTorres(){
+
+    public ArrayList<Torre> obtenerTorres() {
         return this.torres;
     }
 
