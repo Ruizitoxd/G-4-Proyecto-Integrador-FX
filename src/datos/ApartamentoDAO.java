@@ -16,11 +16,10 @@ public class ApartamentoDAO {
 
     public ArrayList<Apartamento> MostrarApartamento(int idtorre) {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
-        String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, "
-                + "a.area as AreaApa, a.matricula as matricula "
-                + "FROM apartamento a JOIN torre t ON a.idTorre = t.id "
-                + // Asegúrate de que 't.id' es el correcto
-                "WHERE a.id_torre = ?";
+        String sql = "SELECT id , numero, valor , "
+                + "area , matricula "
+                + "FROM apartamento  "+
+                "WHERE id_torre = ?";
 
         try {
             conexion = new ConexionBD();
@@ -28,13 +27,12 @@ public class ApartamentoDAO {
             ps = con.prepareStatement(sql);
             ps.setInt(1, idtorre);
             rs = ps.executeQuery();
-
             while (rs.next()) {
                 Apartamento apa = new Apartamento();
-                apa.setId(rs.getInt("idApa"));
-                apa.setNumero(rs.getString("numeroApa"));
-                apa.setValor(rs.getDouble("valorApa"));
-                apa.setArea(rs.getString("AreaApa"));
+                apa.setId(rs.getInt("id"));
+                apa.setNumero(rs.getString("numero"));
+                apa.setValor(rs.getDouble("valor"));
+                apa.setArea(rs.getString("area"));
                 apa.setMatricula(rs.getString("matricula"));
                 apartamentos.add(apa);
             }
@@ -173,4 +171,28 @@ public class ApartamentoDAO {
         }
         return id;
     }
+    
+     /**public static void main(String[] args) {
+        ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
+        
+        // Cambia el ID de la torre por el que necesites probar
+        int idTorre = 1; // Por ejemplo, puedes usar 4
+
+        // Llamar al método para mostrar apartamentos
+        ArrayList<Apartamento> apartamentos = apartamentoDAO.MostrarApartamento(idTorre);
+
+        // Imprimir los apartamentos recuperados
+        if (apartamentos.isEmpty()) {
+            System.out.println("No se encontraron apartamentos para la torre con ID: " + idTorre);
+        } else {
+            System.out.println("Apartamentos en la torre con ID: " + idTorre);
+            for (Apartamento apartamento : apartamentos) {
+                System.out.println("ID: " + apartamento.getId() + 
+                                   ", Número: " + apartamento.getNumero() + 
+                                   ", Valor: " + apartamento.getValor() + 
+                                   ", Área: " + apartamento.getArea() + 
+                                   ", Matrícula: " + apartamento.getMatricula());
+            }
+        }
+    }**/
 }
