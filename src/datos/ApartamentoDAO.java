@@ -14,7 +14,7 @@ public class ApartamentoDAO {
     ResultSet rs;
     ConexionBD conexion;
 
-    public ArrayList<Apartamento> MostrarApartamento(int idtorre) {
+    public ArrayList<Apartamento> MostrarApartamentos(int idtorre) {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, "
                 + "a.area as AreaApa, a.matricula as matricula "
@@ -67,7 +67,7 @@ public class ApartamentoDAO {
 
     public boolean CrearApartamento(Apartamento a, int idTorre, int idTipoUnidad) {
         String sql = "insert into apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "
-                + "values (SEQ_IDAPARTAMENTO.NEXTVAL,?,?,?,?,?,?,?)";
+                   + "values(SEQ_IDAPARTAMENTO.NEXTVAL,?,?,?,?,?,?,?)";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -93,10 +93,10 @@ public class ApartamentoDAO {
 
     }
 
-    public boolean EditarApartamento(int id, String numero, double valor, String area) {
-        String sql = "update apartamento"
-                + "set numero = ? , valor = ?, area = ?"
-                + "where id= id";
+    public boolean EditarApartamento(int id, String numero, double valor, String area, int idTipoUnidad) {
+        String sql = "update apartamento "
+                   + "set numero = ? , valor = ?, area = ? , id_tipouni = ?"
+                   + "where id = ?";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -104,7 +104,8 @@ public class ApartamentoDAO {
             ps.setString(1, numero);
             ps.setDouble(2, valor);
             ps.setString(3, area);
-            ps.setInt(4, id);
+            ps.setInt(4, idTipoUnidad);
+            ps.setInt(5, id);
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -116,8 +117,8 @@ public class ApartamentoDAO {
     }
 
     public boolean EliminarApartamento(int id) {
-        String sql = "delete apartamento"
-                + "where id = id";
+        String sql = "delete apartamento "
+                   + "where id = ? ";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -126,7 +127,7 @@ public class ApartamentoDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error al borrar proyecto: " + ex.getMessage());
+            System.out.println("Error al borrar apartamento: " + ex.getMessage());
             return false;
         } finally {
             conexion.closeConnection();
@@ -172,5 +173,38 @@ public class ApartamentoDAO {
             conexion.closeConnection();
         }
         return id;
+    }
+    
+    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy){
+         ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, tu.nombre as tipoUnidad, "
+                   + "a.area as AreaApa, a.matricula as matricula, t.numero as torreNombre "
+                   + "FROM apartamento a JOIN torre t ON a.id_Torre = t.id JOIN proyecto p ON p.id = t.id_Proy JOIN tipounidad tu ON a.id_tipouni = tu.id "
+                   + "WHERE p.id = ?";
+        
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idProy);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Apartamento apa = new Apartamento();
+                apa.setId(rs.getInt("idApa"));
+                apa.setNumero(rs.getString("numeroApa"));
+                apa.setValor(rs.getDouble("valorApa"));
+                apa.setArea(rs.getString("AreaApa"));
+                apa.setMatricula(rs.getString("matricula"));
+                apa.setTipoUnidad(rs.getString("tipoUnidad"));
+                apa.setIdTorre(rs.getString("torreNombre"));
+                apartamentos.add(apa);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo los apartamentos del proyecto: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return apartamentos;
     }
 }
