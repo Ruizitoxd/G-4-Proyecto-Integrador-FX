@@ -19,11 +19,11 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         //Obtener dimensiones del tamaño de la pantalla
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        
+
         //Establecer tamaño de ventana
         primaryStage.setWidth(screenBounds.getWidth() * 0.7);
         primaryStage.setHeight(screenBounds.getHeight() * 0.7);
-        
+
         //Mostrar la ventana
         Image icon = new Image(getClass().getResourceAsStream("/recursos/imagenes/Logo Chaux.png"));
         primaryStage.getIcons().add(icon);
@@ -37,4 +37,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-

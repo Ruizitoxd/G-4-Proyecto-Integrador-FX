@@ -36,6 +36,7 @@
 
 .tab:focused {
     -fx-focus-color : transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .tab .tab-label{
@@ -52,8 +53,20 @@
     -fx-tab-max-height : 10em;
     -fx-tab-padding : 5;
 }
+
 .tabPane:focused{
     -fx-focus-color : transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab-header-area .tab {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .tab-pane *.tab-header-background {
@@ -63,4 +76,271 @@
     -fx-border-radius : 30px;
     -fx-scale-y : 0.98;
     -fx-scale-x : 0.998;
+}
+
+#InformacionGeneralExt {
+    -fx-background-color : #ececec;
+    -fx-background-radius : 25px;
+}
+
+#InformacionGeneralInt {
+    -fx-background-color : #ececec;
+    -fx-background-radius : 15px;
+    -fx-border-color : #060f22;
+    -fx-border-width : 4px;
+    -fx-border-radius :36px;
+}
+
+#MenuCrearProyecto {
+    -fx-background-color : #ececec;
+    -fx-background-radius : 15px;
+    -fx-border-color : #ececec;
+    -fx-border-width : 4px;
+    -fx-border-radius :36px;
+}
+
+.paneVistaPrincipal {
+    -fx-background-color : #8f99ac;
+    -fx-background-radius : 36px;
+}
+
+.tituloLabel {
+    -fx-text-fill : #060f22;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 2.5em;
+    -fx-font-weight : bold;
+}
+
+.tituloLabelBig {
+    -fx-text-fill : #060f22;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 5em;
+    -fx-font-weight : bold;
+}
+
+.tituloLabelMid {
+    -fx-text-fill : #060f22;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 1.8em;
+    -fx-font-weight : bold;
+}
+
+.tituloLabelBlanco {
+    -fx-text-fill : #ececec;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 2.5em;
+    -fx-font-weight : bold;
+}
+
+#tituloRol {
+    -fx-text-fill : #ececec;
+    -fx-font-size : 2em;
+}
+
+.contenidoLabel {
+    -fx-text-fill : #ececec;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 2em;
+    -fx-font-alignment : center;
+}
+
+.separatorInfo {
+    -fx-background-color : #060f22;
+}
+
+.buttonDefault {
+    -fx-background-color : #f9560b;
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 22 em;
+    -fx-font-weight : bold;
+    -fx-background-radius : 60px;
+    -fx-min-height : 3em;
+    -fx-padding: 10 20 10 20;
+}
+
+.buttonDefault:hover {
+    -fx-back-ground-color: #d94712;
+}
+
+.buttonDefault:pressed {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 22 em;
+    -fx-background-color : #ff8a54;
+    -fx-background-radius : 60px;
+}
+
+#buttonApartamentos {
+    -fx-font-size : 12 em;
+}
+
+.buttonTableView {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 1.5em;
+    -fx-background-color : #060f22;
+    -fx-background-radius : 12px;
+}
+
+.buttonTableView:pressed {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 1.5em;
+    -fx-background-color : #3f2182;
+    -fx-background-radius : 12px;
+}
+
+#buttonCerrar {
+    -fx-text-fill : black;
+    -fx-font-family : 'Poppins';
+    -fx-font-weight : bold;
+    -fx-font-size : 2em;
+    -fx-background-color : transparent;
+}
+
+#buttonCerrar:pressed {
+    -fx-text-fill : #f9560b;
+    -fx-font-family : 'Poppins';
+    -fx-font-weight : bold;
+    -fx-font-size : 2.1em;
+    -fx-background-color : transparent;
+}
+
+.hboxBotones {
+    -fx-spacing : 10;
+}
+
+.textField {
+    -fx-text-fill : gray;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 15px;
+    -fx-background-color: white;
+}
+
+.textField:focused {
+    -fx-text-fill : black;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 15px;
+    -fx-background-color: white;
+}
+
+#txtNumTorre {
+    -fx-text-fill : gray;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 60px;
+    -fx-background-color: white;
+}
+
+#txtNumTorre:focused {
+    -fx-text-fill : black;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 60px;
+    -fx-background-color: white;
+}
+
+.choiceBox {
+    -fx-text-fill : gray;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 18 em;
+    -fx-background-radius : 15px;
+    -fx-background-color: white;
+}
+
+/* Estilo general del TableView */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #060f22;
+    -fx-border-radius: 10px;
+    -fx-padding: 10;
+}
+
+.table-view:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: #060f22;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8;
+    -fx-alignment: center;
+}
+
+.table-row-cell:focused{
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #039ED3;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-color: #060f22;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-view .column-header-background:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #060f22;
+    -fx-font-size: 1.5em;
+}
+
+.table-view .column-header .laber:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-cell {
+    -fx-text-fill: #13072e;
+    -fx-font-size: 1.2em;
+    -fx-alignment: center;
+}
+
+.table-cell:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-cell:selected {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: gray;
+    -fx-font-size: 1.2em;
+    -fx-font-family: 'Poppins';
+    -fx-font-weight: bold;
+}
+
+.table-view .table-row-cell:selected .table-cell:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view .table-row-cell:selected .table-cell {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
