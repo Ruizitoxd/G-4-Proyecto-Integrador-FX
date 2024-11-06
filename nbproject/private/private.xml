@@ -3,9 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/Venta.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/ApartamentoDAO.java</file>
             <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/VistaPrincipalController.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/vista/VistaPrincipal.fxml</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/reporte.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/Apartamento.java</file>
             <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/VistaLoginController.java</file>
+=======
+            <file>file:/C:/Users/santi/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/reporte.java</file>
+            <file>file:/C:/Users/santi/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/VentaDAO.java</file>
+            <file>file:/C:/Users/santi/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/VistaPrincipalController.java</file>
+>>>>>>> 139cb0a2c7346864ee5449f20a6a73d919c8f030
         </group>
     </open-files>
 </project-private>

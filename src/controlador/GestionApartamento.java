@@ -9,7 +9,7 @@ public class GestionApartamento {
     ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
 
     public ArrayList<Apartamento> ObtenerApartamento(int id) {
-        return apartamentoDAO.MostrarApartamento(id);
+        return apartamentoDAO.MostrarApartamentos(id);
     }
 
     public int ObtenerApartamentos() {
@@ -20,8 +20,8 @@ public class GestionApartamento {
         return apartamentoDAO.CrearApartamento(a, idTorre, idTipoUnidad);
     }
 
-    public boolean ActualizarApartamento(int id, String numero, double valor, String area) {
-        return apartamentoDAO.EditarApartamento(id, numero, valor, area);
+    public boolean ActualizarApartamento(int id, String numero, double valor, String area, int idTipoUnidad) {
+        return apartamentoDAO.EditarApartamento(id, numero, valor, area, idTipoUnidad);
     }
 
     public boolean BorrarApartamento(int id) {
@@ -34,5 +34,9 @@ public class GestionApartamento {
 
     public int ObtenerIdTipoUnidad(String nombre) {
         return apartamentoDAO.ObtenerIdTipoUnidad(nombre);
+    }
+    
+    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy){
+        return apartamentoDAO.ObtenerApartamentosProyecto(idProy);
     }
 }
