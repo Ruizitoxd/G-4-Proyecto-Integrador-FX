@@ -1,6 +1,7 @@
 package controlador;
 
-import datos.ValidarUsuario;
+import datos.ValidarAdmin;
+import datos.ValidarAsesor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +31,9 @@ import javafx.stage.Stage;
 import modelo.RolUsuario;
 
 public class VistaLoginController implements Initializable {
+
+    private Validar validador;
+    private boolean entrastepapu = false;
 
     @FXML
     private AnchorPane anchorPane;
@@ -85,16 +89,25 @@ public class VistaLoginController implements Initializable {
     }
 
     @FXML
+  
     private void IniciarSesion(ActionEvent event) {
         String correo = txtCorreo.getText();
         String contraseña = txtContraseña.getText();
         if (!"".equals(correo) && !"".equals(contraseña)) {
             RolUsuario RU = new RolUsuario();
-            ValidarUsuario Val = new ValidarUsuario();
-            RU = Val.validarAdminOAsesor(correo, contraseña);
-            if (RU.getCorreo() != "" && RU.getIdentificacion() != "") {
-                CargarVistaPrincipal(event, RU);
-            } else {
+            Validar[] usuarios = {
+                new ValidarAdmin(),
+                new ValidarAsesor()
+            };
+            for (Validar v : usuarios) {
+                RU = v.validar(correo, contraseña);
+                if (RU.getCorreo() != "" && RU.getIdentificacion() != "") {
+                    CargarVistaPrincipal(event, RU);
+                    entrastepapu = true;
+                    break;
+                }
+            }
+            if (!entrastepapu) {
                 MostrarAlertaError("Correo o contraseña incorrectos.");
             }
         } else {
