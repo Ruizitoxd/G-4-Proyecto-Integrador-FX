@@ -692,7 +692,7 @@ public class VistaPrincipalController implements Initializable {
         proyectoTemporal.añadirTorre(torreNueva);
         lblCantidadDeTorresNum_Crear.setText(proyectoTemporal.getCantidadTorres() + "");
         choiceBoxTorre_Crear.getItems().add(torreNueva.getNombre());
-);
+
         ActualizarTabla(proyectoTemporal.obtenerTorres(), tableViewTorres_Crear);
     }
 
