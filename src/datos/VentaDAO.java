@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import modelo.Torre;
 import modelo.Venta;
 
-public class VestaDAO {
+public class VentaDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
