@@ -84,7 +84,7 @@ public class reporte {
     
         public static void main(String[] args) {
         ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
-        ArrayList<Apartamento> apartamentos = apartamentoDAO.MostrarApartamento(4); // Cambia 1 por el ID de torre que necesites
+        ArrayList<Apartamento> apartamentos = apartamentoDAO.MostrarApartamentos(4); // Cambia 1 por el ID de torre que necesites
 
         reporte reportePdf = new reporte();
  
