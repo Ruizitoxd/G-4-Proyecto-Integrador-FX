@@ -31,6 +31,7 @@ import modelo.Apartamento;
 import modelo.Proyecto;
 import modelo.RolUsuario;
 import modelo.Torre;
+import modelo.Venta;
 
 public class VistaPrincipalController implements Initializable {
 
@@ -47,6 +48,7 @@ public class VistaPrincipalController implements Initializable {
     Proyecto proyectoTemporal; //Esta variable se usa como almacenador general del proyecto que se está creando o modificando
     Torre torreTemporal;
     Apartamento apartamentoTemporal;
+    Venta ventaTemporal;
 
     //Componentes FXML
     @FXML
@@ -204,12 +206,10 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private TextField txtValorApto_Editar;
     @FXML
-
     private TextField txtAreaApto_Editar;
     @FXML
     private ChoiceBox<String> choiceBoxTipoUnidad_Editar;
     @FXML
-
     private Button btnAñadirProyecto_Editar;
     @FXML
     private AnchorPane panelEditarTorre;
@@ -248,37 +248,26 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Button btnAñadirTorre_Crear;
     @FXML
-
     private TableView<Apartamento> tableViewApartamentos_Crear;
     @FXML
-
     private TableColumn<Apartamento, String> columnNumeroApartamento_Crear;
     @FXML
-
     private TableColumn<Apartamento, Double> columnValorApartamento_Crear;
     @FXML
-
     private TableColumn<Apartamento, String> columnAreaApartamento_Crear;
     @FXML
-
     private TableColumn<Apartamento, String> columnMatriculaApartamento_Crear;
     @FXML
-
     private TableColumn<Apartamento, String> columnTipoUnidadApartamento_Crear;
     @FXML
-
     private TableColumn<Apartamento, String> columnTorreApartamento_Crear;
     @FXML
-
     private Button btnVisualizarApartamentos_Crear;
     @FXML
-
     private Button btnVisualizarTorres_Crear;
     @FXML
-
     private TableView<Apartamento> tableViewApartamentos_Editar;
     @FXML
-
     private Button btnVisualizarApartamentos_Editar;
     @FXML
     private Button btnVisualizarTorres_Editar;
@@ -301,21 +290,23 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Label lblVentas;
     @FXML
-    private TableColumn<?, ?> columnIdVentas;
-    @FXML
     private AnchorPane anchorPaneInterior_VentasCrear;
     @FXML
     private Button btnAgregarVenta_Ventas;
     @FXML
-    private TableColumn<?, ?> columnValorVentas;
+    private TableView<Venta> tableViewVentas_Ventas;
     @FXML
-    private TableColumn<?, ?> columnNumeroCuotasVentas;
+    private TableColumn<Venta, Integer> columnIdVentas;
     @FXML
-    private TableColumn<?, ?> columnInteresVentas;
+    private TableColumn<Venta, Double> columnValorVentas;
     @FXML
-    private TableColumn<?, ?> columnIdApartamentoVentas;
+    private TableColumn<Venta, Integer> columnNumeroCuotasVentas;
     @FXML
-    private TableColumn<?, ?> columnAccionesVentas;
+    private TableColumn<Venta, Double> columnInteresVentas;
+    @FXML
+    private TableColumn<Venta, String> columnIdApartamentoVentas;
+    @FXML
+    private TableColumn<Venta, Void> columnAccionesVentas;
     @FXML
     private Button btnCerrarAgregarVentas;
     @FXML
@@ -323,23 +314,17 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private ImageView imgChauxFondo_Ventas;
     @FXML
-    private TableView<?> tableViewVentas_Ventas;
-    @FXML
     private ImageView imgChauxFondo_VentasCrear;
     @FXML
-    private TableView<?> tableViewApartamentosDisponibles_VentasCrear;
+    private TableView<Apartamento> tableViewApartamentosDisponibles_VentasCrear;
     @FXML
-    private TableColumn<?, ?> columnApartamento_VentasCrear;
+    private TableColumn<Apartamento, String> columnApartamento_VentasCrear;
     @FXML
-    private TableColumn<?, ?> columnTorre_VentasCrear;
+    private TableColumn<Apartamento, String> columnTorre_VentasCrear;
     @FXML
-    private TableColumn<?, ?> columnProyecto_VentasCrear;
+    private TableColumn<Apartamento, String> columnProyecto_VentasCrear;
     @FXML
     private AnchorPane panelDatosdelCliente_VentasCrear;
-    @FXML
-    private Label lblDatosdel_VentasCrear;
-    @FXML
-    private Label lblCliente_VentasCrear;
     @FXML
     private TextField txtNombreCliente_VentasCrear;
     @FXML
@@ -347,7 +332,7 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private TextField txtDireccionCliente_VentasCrear;
     @FXML
-    private ChoiceBox<?> choiceBoxSISBENCliente_VentasCrear;
+    private ChoiceBox<String> choiceBoxSISBENCliente_VentasCrear;
     @FXML
     private TextField txtCedulaCliente_VentasCrear;
     @FXML
@@ -368,13 +353,19 @@ public class VistaPrincipalController implements Initializable {
     private Button btnRealizarVenta_VentasCrear;
     @FXML
     private Label lblSeleccioneUnApartamento_Ventas;
-
+    @FXML
+    private Label lblRegistrar_VentasCrear;
+    @FXML
+    private Label lblDatosCliente_VentasCrear;
+    @FXML
+    private ImageView imgCliente;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Setear datos ventana principal
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
+        ActualizarCantidadVentas();
 
         //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -516,7 +507,7 @@ public class VistaPrincipalController implements Initializable {
 
                     // Lógica para editar la apartamento
                     txtNumeroApto_Editar.setText(apartamentoTemporal.getNumero());
-                    txtValorApto_Editar.setText(apartamentoTemporal.getValor()+"");
+                    txtValorApto_Editar.setText(apartamentoTemporal.getValor() + "");
                     txtAreaApto_Editar.setText(apartamentoTemporal.getArea());
                 });
 
@@ -555,6 +546,8 @@ public class VistaPrincipalController implements Initializable {
         imgChauxFondo_Proyectos.setEffect(colorAdjust);
         imgChauxFondo_Proyectos_Crear.setEffect(colorAdjust);
         imgChauxFondo_Proyectos_Editar.setEffect(colorAdjust);
+        imgChauxFondo_Ventas.setEffect(colorAdjust);
+        imgChauxFondo_VentasCrear.setEffect(colorAdjust);
     }
 
     //Funcion para obtener el usuario registrado en el login y sus dependencias
@@ -565,7 +558,6 @@ public class VistaPrincipalController implements Initializable {
         lblCorreoUsuario.setText(usuario.getCorreo());
 
         //Información de los proyectos del administrador
-
         ActualizarTabla(gestorProyectos.ObtenerProyectosAdmin(Integer.parseInt(usuario.getId())), tableViewProyectos_Proyectos);
     }
 
@@ -577,7 +569,10 @@ public class VistaPrincipalController implements Initializable {
     void ActualizarCantidadApartamentos() {
         lblCantidadApartamentosNum.setText(gestorApartamentos.ObtenerApartamentos() + "");
     }
-
+    
+    void ActualizarCantidadVentas() {
+        lblCantidadVentasNum.setText("Sexo");
+    }
 
     <T> void ActualizarTabla(ArrayList<T> listaItems, TableView<T> tabla) {
         ObservableList<T> listaObservable = FXCollections.observableArrayList(listaItems);
@@ -585,13 +580,11 @@ public class VistaPrincipalController implements Initializable {
         tabla.refresh();
     }
 
-
     private void ActualizarChoiceBoxVentana() {
         //Actualizar ChoiceBox ventana Crear
         ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
         choiceBoxTipoUnidad_Crear.getItems().add("Tipo unidad");
         choiceBoxTipoUnidad_Crear.setItems(tipoUnidades);
-
 
         //Actualizar ChoiceBox ventana Editar
         choiceBoxTipoUnidad_Editar.getItems().add("Tipo unidad");
@@ -620,7 +613,7 @@ public class VistaPrincipalController implements Initializable {
     private void AbrirVentanaProyectoNuevo(ActionEvent event) {
         //Crear proyecto vacío a guardar
         proyectoTemporal = new Proyecto();
-        
+
         //Abrir la ventana
         anchorPaneInterior_ProyectosCrear.setVisible(true);
     }
@@ -628,15 +621,15 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private void CerrarVentanaProyectoNuevo(ActionEvent event) {
         anchorPaneInterior_ProyectosCrear.setVisible(false);
-        
+
         //Reiniciar componentes proyecto
         txtNombreProyecto_Crear.setText("");
-        
+
         //Reiniciar componentes torre
         txtNumeroTorre_Crear.setText("");
         lblCantidadDeTorresNum_Crear.setText("0");
         tableViewTorres_Crear.setItems(FXCollections.observableArrayList());
-        
+
         //Reiniciar componentes apartamento
         txtNumeroApto_Crear.setText("");
         txtValorApto_Crear.setText("");
@@ -648,7 +641,6 @@ public class VistaPrincipalController implements Initializable {
 
     }
 
-
     //Abrir la ventana para editar un proyecto
     private void AbrirVentanaProyectoEditar(ActionEvent event) {
         //Reiniciar componentes proyecto
@@ -659,20 +651,18 @@ public class VistaPrincipalController implements Initializable {
 
         apartamentos = gestorApartamentos.ObtenerApartamentosProyecto(proyectoTemporal.getId());
         ActualizarTabla(apartamentos, tableViewApartamentos_Editar);
-        
+
         //Abrir la ventana
         anchorPaneInterior_ProyectosEditar.setVisible(true);
     }
 
-
     @FXML
     private void CerrarVentanarProyectoEditar(ActionEvent event) {
         anchorPaneInterior_ProyectosEditar.setVisible(false);
-        
+
         //Reinicar compoentes torre
         txtNumeroTorre_Editar.setText("");
 
-        
         //Reiniciar componentes aprtamento
         txtNumeroApto_Editar.setText("");
         txtValorApto_Editar.setText("");
@@ -684,7 +674,6 @@ public class VistaPrincipalController implements Initializable {
 
     //Logica para añadir torre
     @FXML
-   
     private void AñadirTorre(ActionEvent event) {
         Torre torreNueva = new Torre();
         torreNueva.setNombre(txtNumeroTorre_Crear.getText());
@@ -755,10 +744,10 @@ public class VistaPrincipalController implements Initializable {
         apartamentoTemporal.setValor(Double.parseDouble(txtValorApto_Editar.getText()));
         apartamentoTemporal.setArea(txtAreaApto_Editar.getText());
         apartamentoTemporal.setTipoUnidad(choiceBoxTipoUnidad_Editar.getValue());
-        
+
         boolean editA = gestorApartamentos.ActualizarApartamento(apartamentoTemporal.getId(), apartamentoTemporal.getNumero(), apartamentoTemporal.getValor(), apartamentoTemporal.getArea(), gestorApartamentos.ObtenerIdTipoUnidad(apartamentoTemporal.getTipoUnidad()));
-        
-        if (editA){
+
+        if (editA) {
             ActualizarTabla(apartamentos, tableViewApartamentos_Editar);
         } else {
             MostrarAlertaError("Error no se pudo editar el apartamento correctamente");
@@ -790,7 +779,6 @@ public class VistaPrincipalController implements Initializable {
             MostrarAlertaError("No se ha podido agregar el proyecto correctamente");
         }
 
-
         ActualizarCantidadProyectos();
     }
 
@@ -803,7 +791,7 @@ public class VistaPrincipalController implements Initializable {
             boolean edit = gestorProyectos.ActualizarProyecto(proyectoTemporal.getId(), proyectoTemporal.getNombre());
             if (edit) {
                 MostrarMensajeConfirmacion("el proyecto se edito correctamente");
-                
+
                 ActualizarTabla(gestorProyectos.ObtenerProyectosAdmin(Integer.parseInt(usuario.getId())), tableViewProyectos_Proyectos);
                 CerrarVentanarProyectoEditar(event);
             } else {
@@ -816,7 +804,6 @@ public class VistaPrincipalController implements Initializable {
     }
 
     @FXML
-
     private void AlternarTablasApartamentosCrear(ActionEvent event) {
         tableViewApartamentos_Crear.setVisible(true);
         tableViewTorres_Crear.setVisible(false);
@@ -825,7 +812,6 @@ public class VistaPrincipalController implements Initializable {
     }
 
     @FXML
-
     private void AlternarTablasTorresCrear(ActionEvent event) {
         tableViewApartamentos_Crear.setVisible(false);
         tableViewTorres_Crear.setVisible(true);
@@ -857,5 +843,10 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private void CerrarVentanaVentaNueva(ActionEvent event) {
         anchorPaneInterior_VentasCrear.setVisible(false);
+    }
+
+    @FXML
+    private void RealizarVenta(ActionEvent event) {
+        
     }
 }

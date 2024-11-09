@@ -17,10 +17,9 @@ public class ApartamentoDAO {
     public ArrayList<Apartamento> MostrarApartamentos(int idtorre) {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, "
-                + "a.area as AreaApa, a.matricula as matricula "
-                + "FROM apartamento a JOIN torre t ON a.idTorre = t.id "
-                + // Asegúrate de que 't.id' es el correcto
-                "WHERE a.id_torre = ?";
+                   + "a.area as AreaApa, a.matricula as matricula "
+                   + "FROM apartamento a JOIN torre t ON a.id_Torre = t.id "
+                   + "WHERE a.id_torre = ?";
 
         try {
             conexion = new ConexionBD();

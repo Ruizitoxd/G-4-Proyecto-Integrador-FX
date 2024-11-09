@@ -15,7 +15,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPrincipalController">
     <stylesheets>
         <URL value="@vistaprincipal.css" />
     </stylesheets>
@@ -120,7 +120,7 @@
                                                 </TableView>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_ProyectosCrear" layoutX="30.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                        <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_ProyectosCrear" layoutX="30.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                             <children>
                                                 <ImageView fx:id="imgChauxFondo_Proyectos_Crear" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
@@ -273,7 +273,7 @@
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_VentasCrear" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                              <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_VentasCrear" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                  <children>
                                     <ImageView fx:id="imgChauxFondo_VentasCrear" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -281,7 +281,7 @@
                                        </image>
                                     </ImageView>
                                     <Button id="buttonCerrar" fx:id="btnCerrarAgregarVentas" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-25.0" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanaVentaNueva" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                    <TableView fx:id="tableViewApartamentosDisponibles_VentasCrear" editable="true" layoutX="18.0" layoutY="392.0" prefHeight="322.0" prefWidth="660.0" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="392.0">
+                                    <TableView fx:id="tableViewApartamentosDisponibles_VentasCrear" editable="true" layoutX="18.0" layoutY="392.0" prefHeight="322.0" prefWidth="660.0" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="946.0" AnchorPane.topAnchor="392.0">
                                        <columns>
                                           <TableColumn fx:id="columnApartamento_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="APARTAMENTO" />
                                           <TableColumn fx:id="columnTorre_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="TORRE" />
@@ -290,8 +290,8 @@
                                     </TableView>
                                     <AnchorPane fx:id="panelDatosdelCliente_VentasCrear" layoutY="48.0" prefHeight="629.0" prefWidth="546.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="44.0">
                                        <children>
-                                          <Label fx:id="lblDatosdel_VentasCrear" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos del" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
-                                          <Label fx:id="lblCliente_VentasCrear" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="30.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Cliente" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="83.0" />
+                                          <Label fx:id="lblRegistrar_VentasCrear" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Registrar" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                                          <Label fx:id="lblDatosCliente_VentasCrear" layoutX="30.0" layoutY="30.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos del cliente" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="83.0" />
                                           <TextField fx:id="txtNombreCliente_VentasCrear" prefHeight="70.0" prefWidth="230.0" promptText="Nombre" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="170.0" />
                                           <TextField fx:id="txtApellidoCliente_VentasCrear" layoutX="318.0" layoutY="160.0" prefHeight="70.0" prefWidth="266.0" promptText="Apellido" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0" />
                                           <TextField fx:id="txtDireccionCliente_VentasCrear" layoutX="16.0" layoutY="267.0" prefHeight="70.0" prefWidth="506.0" promptText="Dirección" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="260.0" />
@@ -300,6 +300,11 @@
                                           <TextField fx:id="txtSubsidioCliente_VentasCrear" layoutX="263.0" layoutY="338.0" prefHeight="70.0" prefWidth="266.0" promptText="Subsidio" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" />
                                           <TextField fx:id="txtCorreoelectronicoCliente_VentasCrear" layoutX="18.0" layoutY="459.0" prefHeight="70.0" prefWidth="230.0" promptText="Correo electrónico" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
                                           <TextField fx:id="txtTelefonoCliente_VentasCrear" layoutX="17.0" layoutY="559.0" prefHeight="70.0" prefWidth="248.0" promptText="Teléfono" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
+                                          <ImageView fx:id="imgCliente" fitHeight="250.0" fitWidth="100.0" layoutX="75.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="30.0">
+                                             <image>
+                                                <Image url="@../recursos/imagenes/Logo%20persona.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -308,15 +313,15 @@
                                     <AnchorPane fx:id="panelDatosdeVenta_VentasCrear" layoutX="44.0" layoutY="76.0" prefHeight="210.0" prefWidth="582.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="1060.0" AnchorPane.topAnchor="40.0">
                                        <children>
                                           <Label fx:id="lblDatosdeVenta_VentasCrear" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="33.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos de Venta" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
-                                          <TextField fx:id="txtCuotasDatosVenta_crear" layoutX="20.0" layoutY="90.0" prefHeight="70.0" promptText="Cuotas" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" />
-                                          <TextField fx:id="txtInteresesDatosdeVenta_crear" layoutX="250.0" layoutY="90.0" prefHeight="70.0" prefWidth="216.0" promptText="Intereses" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" />
+                                          <TextField fx:id="txtCuotasDatosVenta_crear" layoutX="20.0" layoutY="90.0" prefHeight="70.0" promptText="Número cuotas" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="90.0" />
+                                          <TextField fx:id="txtInteresesDatosdeVenta_crear" layoutX="250.0" layoutY="90.0" prefHeight="70.0" prefWidth="216.0" promptText="Interés %" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
                                     </AnchorPane>
-                                    <Button fx:id="btnRealizarVenta_VentasCrear" layoutX="216.0" layoutY="729.0" mnemonicParsing="false" onAction="#GuardarProyectoCrear" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Realizar Venta" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="70.0" />
-                                    <Label fx:id="lblSeleccioneUnApartamento_Ventas" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="344.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Seleccione un apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="70.0" />
+                                    <Button fx:id="btnRealizarVenta_VentasCrear" layoutX="216.0" layoutY="729.0" mnemonicParsing="false" onAction="#RealizarVenta" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Realizar Venta" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="70.0" />
+                                    <Label fx:id="lblSeleccioneUnApartamento_Ventas" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Seleccione un apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="355.0" />
                                  </children>
                               </AnchorPane>
                            </children>
