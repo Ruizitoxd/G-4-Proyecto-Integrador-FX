@@ -322,6 +322,7 @@
                                     </AnchorPane>
                                     <Button fx:id="btnRealizarVenta_VentasCrear" layoutX="216.0" layoutY="729.0" mnemonicParsing="false" onAction="#RealizarVenta" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Realizar Venta" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="70.0" />
                                     <Label fx:id="lblSeleccioneUnApartamento_Ventas" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Seleccione un apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="355.0" />
+                                    <AnchorPane prefHeight="830.0" prefWidth="1680.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                            </children>
