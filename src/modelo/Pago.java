@@ -1,54 +1,113 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-/**
- *
- * @author josem
- */
 public class Pago {
     private IntegerProperty id;
     private DoubleProperty valor;
-    private ObjectProperty<LocalDate> fecha;
+    private java.sql.Date fechaApagar;
+    private java.sql.Date fechaPago;
+    private java.sql.Date fechaVencimiento;
+    private StringProperty idVenta;
+    private StringProperty idCliente;
+    private StringProperty estado;
 
-    public Pago(IntegerProperty id, DoubleProperty valor, ObjectProperty<LocalDate> fecha) {
-        this.id = id;
-        this.valor = valor;
-        this.fecha = fecha;
+    public StringProperty getEstado() {
+        return estado;
     }
 
-    public Pago() {
+    public void setEstado(String estado) {
+        this.estado.set(estado);
     }
-
+    
+    
+    public Pago(int id, double valor, java.sql.Date fechaApagar, java.sql.Date fechaPago, java.sql.Date fechaVencimiento, String idVenta, String idCliente, String estado) {
+        this.id = new SimpleIntegerProperty(id);
+        this.valor = new SimpleDoubleProperty(valor);
+        this.fechaApagar = fechaApagar;
+        this.fechaPago = fechaPago;
+        this.fechaVencimiento= fechaVencimiento;
+        this.idVenta = new SimpleStringProperty(idVenta);
+        this.idCliente = new SimpleStringProperty(idCliente);
+        this.estado = new SimpleStringProperty(estado);
+    }
+    
+    public Pago(){
+        this.id = new SimpleIntegerProperty(0);
+        this.valor = new SimpleDoubleProperty(0.0);
+        this.fechaApagar = fechaApagar;
+        this.fechaPago = fechaPago;
+        this.fechaVencimiento = fechaVencimiento;
+        this.idVenta = new SimpleStringProperty("");
+        this.idCliente = new SimpleStringProperty("");
+        this.estado = new SimpleStringProperty("");
+    }
+    
     public IntegerProperty getId() {
         return id;
     }
 
-    public void setId(IntegerProperty id) {
-        this.id = id;
+    public void setId(int id) {
+        this.id.set(id);
     }
 
-    public DoubleProperty getValor() {
-        return valor;
+    public double getValor() {
+        return valor.get();
     }
 
-    public void setValor(DoubleProperty valor) {
-        this.valor = valor;
+    public void setValor(double valor) {
+        this.valor.set(valor);
     }
 
-    public ObjectProperty<LocalDate> getFecha() {
-        return fecha;
+    public java.sql.Date getFechaApagar() {
+        return fechaApagar;
     }
 
-    public void setFecha(ObjectProperty<LocalDate> fecha) {
-        this.fecha = fecha;
+    public void setFechaApagar(java.sql.Date fechaApagar) {
+        this.fechaApagar = fechaApagar;
     }
- 
+    
+    public java.sql.Date getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(java.sql.Date fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+    
+    
+        
+    public java.sql.Date getFechaVenciomiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(java.sql.Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+    
+    
+
+    public String getIdVenta() {
+        return idVenta.get();
+    }
+
+    public void setIdVenta(String idVenta) {
+        this.idVenta.set(idVenta);
+    }
+
+    public String getIdCliente() {
+        return idCliente.get();
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente.set(idCliente);
+    }
+
+
 }

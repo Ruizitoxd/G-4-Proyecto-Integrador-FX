@@ -68,7 +68,7 @@ public class reporte {
             tabla.addCell(String.valueOf(apa.getId()));
             tabla.addCell(apa.getNumero());
             tabla.addCell(String.valueOf(apa.getValor()));
-            tabla.addCell(apa.getArea());
+            tabla.addCell(apa.getArea()+" M²");
             tabla.addCell(apa.getMatricula());
         }
 

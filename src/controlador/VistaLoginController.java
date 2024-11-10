@@ -101,6 +101,7 @@ public class VistaLoginController implements Initializable {
             };
             for (Validar v : usuarios) {
                 RU = v.validar(correo, contraseña);
+                String rol = RU.getRol();
                 if (RU.getCorreo() != "" && RU.getIdentificacion() != "") {
                     CargarVistaPrincipal(event, RU);
                     entrastepapu = true;
