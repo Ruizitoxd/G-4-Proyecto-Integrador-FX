@@ -1,11 +1,12 @@
 package modelo;
 
 public class RolUsuario {
+
     private String id;
     private String identificacion;
     private String correo;
     private String nombre;
-    private String direccion; 
+    private String direccion;
     private String rol;
 
     // Constructor vacío
@@ -74,6 +75,6 @@ public class RolUsuario {
 
     public void setRol(String rol) {
         this.rol = rol;
-    
+
     }
 }

@@ -1,6 +1,7 @@
 package controlador;
 
-import datos.ValidarUsuario;
+import datos.ValidarAdmin;
+import datos.ValidarAsesor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +30,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import modelo.RolUsuario;
 
-public class VistaLoginController implements Initializable {    
+public class VistaLoginController implements Initializable {
+
+    private Validar validador;
+    private boolean entrastepapu = false;
 
     @FXML
     private AnchorPane anchorPane;
@@ -66,50 +70,59 @@ public class VistaLoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txtContraseña.textProperty().bindBidirectional(txtContraseñaOculta.textProperty());
-        
-         ckBoxMostrarContraseña.selectedProperty().addListener((observable, oldValue, newValue) -> {
-           if (newValue) {
-               // Mostrar el TextField y ocultar el PasswordField
-               txtContraseña.setVisible(true);
-               txtContraseña.setManaged(true);
-               txtContraseñaOculta.setVisible(false);
-               txtContraseñaOculta.setManaged(false);
-           } else {
-               // Mostrar el PasswordField y ocultar el TextField
-               txtContraseñaOculta.setVisible(true);
-               txtContraseñaOculta.setManaged(true);
-               txtContraseña.setVisible(false);
-               txtContraseña.setManaged(false);
-           }
-       });
+
+        ckBoxMostrarContraseña.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // Mostrar el TextField y ocultar el PasswordField
+                txtContraseña.setVisible(true);
+                txtContraseña.setManaged(true);
+                txtContraseñaOculta.setVisible(false);
+                txtContraseñaOculta.setManaged(false);
+            } else {
+                // Mostrar el PasswordField y ocultar el TextField
+                txtContraseñaOculta.setVisible(true);
+                txtContraseñaOculta.setManaged(true);
+                txtContraseña.setVisible(false);
+                txtContraseña.setManaged(false);
+            }
+        });
     }
 
     @FXML
+  
     private void IniciarSesion(ActionEvent event) {
         String correo = txtCorreo.getText();
         String contraseña = txtContraseña.getText();
-        if(!"".equals(correo) && !"".equals(contraseña)){
+        if (!"".equals(correo) && !"".equals(contraseña)) {
             RolUsuario RU = new RolUsuario();
-            ValidarUsuario Val = new ValidarUsuario();
-            RU = Val.validarAdminOAsesor(correo, contraseña);
-            if(RU.getCorreo()!= "" && RU.getIdentificacion()!= ""){
-                CargarVistaPrincipal(event, RU);
-            }else{
+            Validar[] usuarios = {
+                new ValidarAdmin(),
+                new ValidarAsesor()
+            };
+            for (Validar v : usuarios) {
+                RU = v.validar(correo, contraseña);
+                String rol = RU.getRol();
+                if (RU.getCorreo() != "" && RU.getIdentificacion() != "") {
+                    CargarVistaPrincipal(event, RU);
+                    entrastepapu = true;
+                    break;
+                }
+            }
+            if (!entrastepapu) {
                 MostrarAlertaError("Correo o contraseña incorrectos.");
             }
         } else {
             MostrarAlertaError("Por favor ingrese datos antes de iniciar sesión.");
         }
-    }        
-            
-            
+    }
+
     //Cargar vista principal
-    private void CargarVistaPrincipal(ActionEvent event, RolUsuario usuario){
+    private void CargarVistaPrincipal(ActionEvent event, RolUsuario usuario) {
         try {
             //Cargar vista principal
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPrincipal.fxml"));
             Parent root = loader.load();
-            
+
             //Obtener controlador de la vista principal
             VistaPrincipalController vistaPrinController = loader.getController();
             vistaPrinController.SetIdUsuario(usuario);
@@ -141,8 +154,8 @@ public class VistaLoginController implements Initializable {
             Logger.getLogger(VistaLoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void MostrarAlertaError(String mensaje){
+
+    private void MostrarAlertaError(String mensaje) {
         Alert alerta = new Alert(AlertType.ERROR);
         alerta.setTitle("Error de Inicio de Sesión");
         alerta.setHeaderText(null);
