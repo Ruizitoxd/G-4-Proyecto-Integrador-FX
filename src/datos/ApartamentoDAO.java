@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import modelo.Apartamento;
+import modelo.datosGrafica;
 
 public class ApartamentoDAO {
 
@@ -62,7 +64,39 @@ public class ApartamentoDAO {
             conexion.closeConnection();
         }
         return TotalApartamentos;
-    }
+    }    
+    
+    public datosGrafica DatosGraficaMenu() {
+       String sql = "SELECT FECHAESCRITURA FROM apartamento";
+       int ventas = 0;
+       int noVendido = 0;
+
+       try {
+           conexion = new ConexionBD();
+           con = conexion.getConnection();
+           ps = con.prepareStatement(sql);
+           rs = ps.executeQuery();
+
+           while (rs.next()) {
+               Date fechaVentaSql = rs.getDate("FECHAESCRITURA");
+               if (fechaVentaSql != null) {
+                   ventas += 1;
+               } else {
+                   noVendido += 1;
+               }
+           }
+       } catch (SQLException ex) {
+           System.out.println("Error: " + ex.getMessage());
+       } finally {
+           conexion.closeConnection();
+       }
+
+       return new datosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
+   }
+
+    
+    
+    
 
     public boolean CrearApartamento(Apartamento a, int idTorre, int idTipoUnidad) {
         String sql = "insert into apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "

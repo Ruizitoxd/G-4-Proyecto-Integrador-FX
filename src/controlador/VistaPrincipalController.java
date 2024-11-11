@@ -8,6 +8,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -31,6 +34,7 @@ import modelo.Apartamento;
 import modelo.Proyecto;
 import modelo.RolUsuario;
 import modelo.Torre;
+import modelo.datosGrafica;
 
 public class VistaPrincipalController implements Initializable {
 
@@ -99,8 +103,6 @@ public class VistaPrincipalController implements Initializable {
     private Label lblCantidadVentasNum;
     @FXML
     private Label lblGananciasNum;
-    @FXML
-    private Label lblTemporalGrafico;
     @FXML
     private Label lblInfoAptos;
     @FXML
@@ -368,13 +370,37 @@ public class VistaPrincipalController implements Initializable {
     private Button btnRealizarVenta_VentasCrear;
     @FXML
     private Label lblSeleccioneUnApartamento_Ventas;
+    @FXML
+    private AnchorPane anchorPaneInterior_Proyectos1;
+    @FXML
+    private ImageView imgChauxFondo_Proyectos1;
+    @FXML
+    private BarChart<?, ?> GraficaCuotas;
+    @FXML
+    private PieChart GraficaVenta;
+
+    public void GraficMenu() {
+        GraficaVenta.getData().clear();
+
+        // Obtiene los datos de ventas y no vendido
+        datosGrafica dg = gestorApartamentos.DatosGrafica();
+        int ventas = dg.getDato1();
+        int noVendido = dg.getDato2();
+
+        // Agrega los datos al gráfico circular (PieChart)
+        GraficaVenta.getData().add(new PieChart.Data("vendidos ", ventas));
+        GraficaVenta.getData().add(new PieChart.Data("no vendidos", noVendido));
+    }
 
 
+
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Setear datos ventana principal
         ActualizarCantidadProyectos();
         ActualizarCantidadApartamentos();
+        GraficMenu();
 
         //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
