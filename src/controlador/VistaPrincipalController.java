@@ -25,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import modelo.Apartamento;
 
 //Modelos
@@ -359,6 +361,68 @@ public class VistaPrincipalController implements Initializable {
     private Label lblDatosCliente_VentasCrear;
     @FXML
     private ImageView imgCliente;
+    @FXML
+    private VBox VboxFactura_VentasCrearFactura;
+    @FXML
+    private Label lblNumeroFacturaGenerado_VentasCrearFactura;
+    @FXML
+    private Line Line1_VentasCrearFactura;
+    @FXML
+    private Label lblCliente_VentasCrearFactura;
+    @FXML
+    private Label lblNombreGenerado_VentasCrearFactura;
+    @FXML
+    private Label lblTelefonoGenerado_VentasCrearFactura;
+    @FXML
+    private Line Line2_VentasCrearFactura;
+    @FXML
+    private Label lblCompra_VentasCrearFactura;
+    @FXML
+    private Label lblTorreGenerado_VentasCrearFactura;
+    @FXML
+    private Label lblApartamentoGenerado_VentasCrearFactura;
+    @FXML
+    private Line Line3_VentasCrearFactura;
+    @FXML
+    private Label lblDiaDeCobro_VentasCrearFactura;
+    @FXML
+    private TextField txtDiaIngresar_VentasCrearFactura;
+    @FXML
+    private Label lblNumeroDecuotas_VentasCrearFactura;
+    @FXML
+    private Label lblValorDeCadaCuota_VentasCrearFactura;
+    @FXML
+    private Line Line4_VentasCrearFactura;
+    @FXML
+    private Label lblValorGenerado_VentasCrearFactura;
+    @FXML
+    private Label lblFactura_VentasCrearFactura;
+    @FXML
+    private Label lbPago_VentasCrearFactura;
+    @FXML
+    private Label lblValorApto_VentasCrearFactura;
+    @FXML
+    private Label lblValorAptoGenerado_VentasCrearFactura;
+    @FXML
+    private Label lblSISBEN_VentasCrearFactura;
+    @FXML
+    private Label lblSubsidio_VentasCrearFactura;
+    @FXML
+    private Label lblSubsidioGenerado_VentasCrearFactura;
+    @FXML
+    private Button btnConfiramar_VentasCrearFactura;
+    @FXML
+    private Button btnCancelar_VentasCrearFactura;
+    @FXML
+    private Label lblValorTotalDeCadaCuota_VentasCrearFactura;
+    @FXML
+    private Label lblNumeroGenerado_VentasCrearFactura;
+    @FXML
+    private Label lblSISIBENGenerado_VentasCrearFactura;
+    @FXML
+    private AnchorPane anchorPaneInterior_VentasCrearFactura;
+    @FXML
+    private Label lblDatosDeCobro_VentasCreaFactura;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

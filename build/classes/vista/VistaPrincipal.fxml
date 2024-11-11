@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -14,8 +15,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPrincipalController">
     <stylesheets>
         <URL value="@vistaprincipal.css" />
     </stylesheets>
@@ -299,7 +302,7 @@
                                           <TextField fx:id="txtCedulaCliente_VentasCrear" layoutX="16.0" layoutY="373.0" prefHeight="70.0" prefWidth="230.0" promptText="Cédula" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" />
                                           <TextField fx:id="txtSubsidioCliente_VentasCrear" layoutX="263.0" layoutY="338.0" prefHeight="70.0" prefWidth="266.0" promptText="Subsidio" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" />
                                           <TextField fx:id="txtCorreoelectronicoCliente_VentasCrear" layoutX="18.0" layoutY="459.0" prefHeight="70.0" prefWidth="230.0" promptText="Correo electrónico" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
-                                          <TextField fx:id="txtTelefonoCliente_VentasCrear" layoutX="17.0" layoutY="559.0" prefHeight="70.0" prefWidth="248.0" promptText="Teléfono" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
+                                          <TextField fx:id="txtTelefonoCliente_VentasCrear" layoutX="10.0" layoutY="557.0" prefHeight="70.0" prefWidth="248.0" promptText="Teléfono" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="270.0" />
                                           <ImageView fx:id="imgCliente" fitHeight="250.0" fitWidth="100.0" layoutX="75.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="30.0">
                                              <image>
                                                 <Image url="@../recursos/imagenes/Logo%20persona.png" />
@@ -322,6 +325,89 @@
                                     </AnchorPane>
                                     <Button fx:id="btnRealizarVenta_VentasCrear" layoutX="216.0" layoutY="729.0" mnemonicParsing="false" onAction="#RealizarVenta" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Realizar Venta" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="70.0" />
                                     <Label fx:id="lblSeleccioneUnApartamento_Ventas" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Seleccione un apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="355.0" />
+                                    <AnchorPane fx:id="anchorPaneInterior_VentasCrearFactura" layoutX="499.0" layoutY="32.0" prefHeight="830.0" prefWidth="1680.0" styleClass="my-rounded-box" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="499.0" AnchorPane.rightAnchor="509.0" AnchorPane.topAnchor="32.0">
+                                       <children>
+                                          <VBox fx:id="VboxFactura_VentasCrearFactura" layoutY="661.0" prefHeight="114.0" prefWidth="664.0" styleClass="footer-purple" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="658.0" />
+                                          <Label fx:id="lblNumeroFacturaGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="342.0" layoutY="13.0" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: ffffff;" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.topAnchor="13.0" />
+                                          <Line fx:id="Line1_VentasCrearFactura" endX="300.3333740234375" layoutX="337.0" layoutY="66.0" startX="-314.33331298828125" stroke="#1a0b3c" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                          <Label fx:id="lblCliente_VentasCrearFactura" contentDisplay="CENTER" layoutX="30.0" layoutY="67.0" prefHeight="45.0" prefWidth="290.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Cliente :" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="346.0" />
+                                          <Label fx:id="lblNombreGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="39.0" layoutY="105.0" prefHeight="32.0" prefWidth="283.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="344.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass></Label>
+                                          <Label fx:id="lblTelefonoGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="37.0" layoutY="159.0" prefHeight="45.0" prefWidth="291.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="344.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass></Label>
+                                          <Line fx:id="Line2_VentasCrearFactura" endX="300.3333740234375" layoutX="337.0" layoutY="214.0" startX="-314.33331298828125" stroke="#1a0b3c" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                          <Label fx:id="lblCompra_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="22.0" layoutY="215.0" prefHeight="45.0" prefWidth="158.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Compra :" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="488.0" />
+                                          <Label fx:id="lblTorreGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="42.0" layoutY="252.0" prefHeight="45.0" prefWidth="128.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="492.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass></Label>
+                                          <Label fx:id="lblApartamentoGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="199.0" layoutY="252.0" prefHeight="45.0" prefWidth="260.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass></Label>
+                                          <Line fx:id="Line3_VentasCrearFactura" endX="300.3333740234375" layoutX="343.0" layoutY="314.0" startX="-314.33331298828125" stroke="#1a0b3c" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                          <Label fx:id="lblDatosDeCobro_VentasCreaFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="30.0" layoutY="324.0" prefHeight="45.0" prefWidth="230.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos de cobro:" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="406.0" />
+                                          <Label fx:id="lblDiaDeCobro_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="28.0" layoutY="365.0" prefHeight="45.0" prefWidth="190.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Día de cobro" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="448.0" />
+                                          <TextField fx:id="txtDiaIngresar_VentasCrearFactura" alignment="CENTER" layoutX="342.0" layoutY="367.0" prefHeight="41.0" prefWidth="178.0" promptText="Día" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="342.0" AnchorPane.rightAnchor="152.0" />
+                                          <Label fx:id="lblNumeroDecuotas_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="32.0" layoutY="410.0" prefHeight="45.0" prefWidth="276.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Número de cuotas: " textAlignment="CENTER" AnchorPane.leftAnchor="20.0" />
+                                          <Label fx:id="lblValorDeCadaCuota_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="39.0" layoutY="459.0" prefHeight="39.0" prefWidth="287.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Valor de cada cuota:" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" />
+                                          <Line fx:id="Line4_VentasCrearFactura" endX="300.3333740234375" layoutX="352.0" layoutY="512.0" startX="-314.33331298828125" stroke="#1a0b3c" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                          <Label fx:id="lblValorGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="344.0" layoutY="459.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="150.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass></Label>
+                                          <Label fx:id="lblFactura_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="196.0" layoutY="15.0" prefHeight="45.0" prefWidth="146.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Factura #" textAlignment="CENTER" />
+                                          <Label fx:id="lbPago_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="27.0" layoutY="512.0" prefHeight="45.0" prefWidth="86.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Pago:" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" />
+                                          <Label fx:id="lblValorApto_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="273.0" layoutY="512.0" prefHeight="45.0" prefWidth="162.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Valor apto:" textAlignment="CENTER" />
+                                          <Label fx:id="lblValorAptoGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="434.0" layoutY="512.0" prefHeight="45.0" prefWidth="208.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="24.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label fx:id="lblSISBEN_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="273.0" layoutY="557.0" prefHeight="45.0" prefWidth="162.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="SISBEN" textAlignment="CENTER" />
+                                          <Label fx:id="lblSubsidio_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="273.0" layoutY="602.0" prefHeight="45.0" prefWidth="162.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Subsidio" textAlignment="CENTER" />
+                                          <Label fx:id="lblSubsidioGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="435.0" layoutY="602.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="60.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass>
+                                          </Label>
+                                          <Button fx:id="btnConfiramar_VentasCrearFactura" layoutX="275.0" layoutY="675.0" minHeight="48.0" mnemonicParsing="false" onAction="#RealizarVenta" prefHeight="67.0" prefWidth="167.0" stylesheets="@vistaprincipal.css" text="Confirmar">
+                                             <styleClass>
+                                                <String fx:value="buttonConfirmAndCancel" />
+                                                <String fx:value="boton-contenedor button" />
+                                             </styleClass>
+                                          </Button>
+                                          <Button fx:id="btnCancelar_VentasCrearFactura" layoutX="447.0" layoutY="675.0" minHeight="48.0" mnemonicParsing="false" onAction="#RealizarVenta" prefHeight="67.0" prefWidth="168.0" styleClass="buttonConfirmAndCancel" stylesheets="@vistaprincipal.css" text="Cancelar" />
+                                          <Label fx:id="lblValorTotalDeCadaCuota_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="19.0" layoutY="686.0" prefHeight="45.0" prefWidth="219.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="430.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label fx:id="lblNumeroGenerado_VentasCrearFactura" alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" layoutY="410.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="150.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label fx:id="lblSISIBENGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="432.0" layoutY="557.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: ffffff;" stylesheets="@vistaprincipal.css" textAlignment="CENTER" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="60.0">
+                                             <styleClass>
+                                                <String fx:value="tituloLabel" />
+                                                <String fx:value="no-bold-text" />
+                                             </styleClass>
+                                          </Label>
+                                       </children></AnchorPane>
                                  </children>
                               </AnchorPane>
                            </children>
