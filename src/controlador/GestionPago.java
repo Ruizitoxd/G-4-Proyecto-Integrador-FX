@@ -5,7 +5,6 @@ import datos.PagoDAO;
 import java.util.ArrayList;
 import modelo.Pago;
 
-
 public class GestionPago {
     PagoDAO pagodao = new PagoDAO();
     
