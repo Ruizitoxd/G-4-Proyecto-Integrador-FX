@@ -3,6 +3,7 @@ package controlador;
 import datos.ApartamentoDAO;
 import java.util.ArrayList;
 import modelo.Apartamento;
+import modelo.datosGrafica;
 
 public class GestionApartamento {
 
@@ -14,6 +15,10 @@ public class GestionApartamento {
 
     public int ObtenerApartamentos() {
         return apartamentoDAO.CantidadApartamentos();
+    }
+    
+    public datosGrafica DatosGrafica(){
+        return apartamentoDAO.DatosGraficaMenu();
     }
 
     public boolean GuardarApartamento(Apartamento a, int idTorre, int idTipoUnidad) {
