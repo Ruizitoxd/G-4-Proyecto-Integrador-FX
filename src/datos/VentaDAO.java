@@ -15,7 +15,7 @@ public class VentaDAO {
     ResultSet rs;
     ConexionBD conexion;
     
-    public ArrayList<Venta> MostrarVenta(int id_asesor) throws SQLException{
+    public ArrayList<Venta> MostrarVenta(int id_asesor) {
         ArrayList<Venta> ventas = new ArrayList();
         String sql= "select v.id as idVenta, v.valortotal as valor , v.numcuotas as numCuotas, v.intereses as interes, v.id_apart as idApartament"+
                     " from venta v "+
@@ -90,7 +90,7 @@ public class VentaDAO {
         return false;
     }
     
-    public boolean EditarVenta(int idVenta, double valor, int cuotas, double interes) throws SQLException{
+    public boolean EditarVenta(int idVenta, double valor, int cuotas, double interes) {
         String sql = "update venta "+
                     "set valortotal= ? , numcuotas = ? , intereses = ? "+
                     " where id = ?";

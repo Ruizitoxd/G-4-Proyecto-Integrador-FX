@@ -49,7 +49,7 @@ public class PagoDAO {
     }
     
     
-        public ArrayList<Pago> MostrarCuotas(int id_venta) {
+    public ArrayList<Pago> MostrarCuotas(int id_venta) {
         ArrayList<Pago> cuotas = new ArrayList<>();
         String sql = "SELECT valor, FechaPago, FechaVencimiento FROM pago WHERE id_venta = ?";
         LocalDate fechaActual = LocalDate.now();
