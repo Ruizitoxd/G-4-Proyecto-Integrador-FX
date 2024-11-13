@@ -366,7 +366,7 @@
     -fx-background-radius: 45px 45px 0px 0px;  /* Solo redondea las esquinas superiores */
     -fx-border-radius: 45px 45px 0px 0px;      /* Solo redondea las esquinas superiores */
     -fx-border-color: #cccccc;       /* Color del borde */
-    -fx-border-width: 2px;           /* Grosor del borde */
+    
 }
 
 .footer-purple {

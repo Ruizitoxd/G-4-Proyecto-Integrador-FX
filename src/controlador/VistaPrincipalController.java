@@ -366,23 +366,17 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Label lblNumeroFacturaGenerado_VentasCrearFactura;
     @FXML
-    private Line Line1_VentasCrearFactura;
-    @FXML
     private Label lblCliente_VentasCrearFactura;
     @FXML
     private Label lblNombreGenerado_VentasCrearFactura;
     @FXML
     private Label lblTelefonoGenerado_VentasCrearFactura;
     @FXML
-    private Line Line2_VentasCrearFactura;
-    @FXML
     private Label lblCompra_VentasCrearFactura;
     @FXML
     private Label lblTorreGenerado_VentasCrearFactura;
     @FXML
     private Label lblApartamentoGenerado_VentasCrearFactura;
-    @FXML
-    private Line Line3_VentasCrearFactura;
     @FXML
     private Label lblDiaDeCobro_VentasCrearFactura;
     @FXML
@@ -391,8 +385,6 @@ public class VistaPrincipalController implements Initializable {
     private Label lblNumeroDecuotas_VentasCrearFactura;
     @FXML
     private Label lblValorDeCadaCuota_VentasCrearFactura;
-    @FXML
-    private Line Line4_VentasCrearFactura;
     @FXML
     private Label lblValorGenerado_VentasCrearFactura;
     @FXML
@@ -418,11 +410,11 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Label lblNumeroGenerado_VentasCrearFactura;
     @FXML
-    private Label lblSISIBENGenerado_VentasCrearFactura;
-    @FXML
     private AnchorPane anchorPaneInterior_VentasCrearFactura;
     @FXML
     private Label lblDatosDeCobro_VentasCreaFactura;
+    @FXML
+    private Label lblSISIBENGeneradoRayitas_VentasCrearFactura;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
