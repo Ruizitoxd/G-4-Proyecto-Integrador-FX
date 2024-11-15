@@ -20,8 +20,8 @@ public class GestionVenta {
         return ventaDAO.CantidadGanancias();
     }
 
-    public boolean GuardarVenta(Venta vt, int idAsesor, int idCliente) {
-        return ventaDAO.CrearVenta(vt, idAsesor, idCliente);
+    public boolean GuardarVenta(Venta vt,int idApartamento, int idAsesor, int idCliente) {
+        return ventaDAO.CrearVenta(vt,idApartamento, idAsesor, idCliente);
     }
 
     public boolean EditarVenta(int idVenta, double valor, int cantCuotas, double interes) {

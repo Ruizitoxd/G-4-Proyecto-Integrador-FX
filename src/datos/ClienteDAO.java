@@ -40,5 +40,26 @@ public class ClienteDAO {
         return false;
     }
     
-    
+    public int BuscarCliente(String cedula){
+        String sql="select id "+ 
+                    "from cliente "+   
+                    "where cudula = ?";
+        int id_cliente=0;
+        try{
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cedula);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                id_cliente = rs.getInt("id");
+                return id_cliente;
+            }
+        }catch (SQLException ex) {
+            System.out.println("Error al añadir el apartamento: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return id_cliente ;
+    }
 }

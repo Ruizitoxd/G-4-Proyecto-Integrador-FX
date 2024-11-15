@@ -46,6 +46,7 @@ public class VistaPrincipalController implements Initializable {
     private GestionApartamento gestorApartamentos = new GestionApartamento();
     private GestionVenta gestorVentas = new GestionVenta();
     private RolUsuario usuario;
+    private GestionCliente gestionCliente = new GestionCliente();
 
     //Atributos de la vista
     ArrayList<Proyecto> proyectos = new ArrayList<>();
@@ -55,10 +56,10 @@ public class VistaPrincipalController implements Initializable {
     Torre torreTemporal;
     Apartamento apartamentoTemporal;
     Venta ventaTemporal;
-    
+
     //Formato
     DecimalFormat formato = new DecimalFormat("##,###");
-    
+
     //Componentes FXML
     @FXML
     private TabPane tabPaneBotones;
@@ -428,6 +429,32 @@ public class VistaPrincipalController implements Initializable {
     private BarChart<?, ?> GraficaCuotas;
     @FXML
     private PieChart GraficaVenta;
+    @FXML
+    private TableView<?> tableViewApartamentosVendidos_Chaux;
+    @FXML
+    private Label lblSeleccioneUnApartamento_Ventas1;
+    @FXML
+    private Label lblSeleccioneUnApartamento_Ventas2;
+    @FXML
+    private AnchorPane anchorPaneInterior_VerCuotas;
+    @FXML
+    private Label lblCuotas_VerCuotas;
+    @FXML
+    private ImageView imgChauxFondo_VerCuotas;
+    @FXML
+    private TableView<?> tableViewCuotas_VerCuotas;
+    @FXML
+    private TableColumn<?, ?> columnIdValorCuotas_VerCuotas;
+    @FXML
+    private TableColumn<?, ?> columnFechaPagoCuotas_VerCuotas;
+    @FXML
+    private TableColumn<?, ?> columnFechaVencimientoCuotas_VerCuotas;
+    @FXML
+    private TableColumn<?, ?> columnEstadoCuotas_VerCuotas;
+    @FXML
+    private TableColumn<?, ?> columnNumeroDeCuotaCuotas_VerCuotas;
+    @FXML
+    private Button btnCerrarVentana_VerCuotas;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -438,6 +465,7 @@ public class VistaPrincipalController implements Initializable {
         ActualizarGanancias();
         GraficMenu();
 
+        //ActualizarTabla(gestorApartamentos.ObtenerApartamentosVendidos(), );
         //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -468,6 +496,10 @@ public class VistaPrincipalController implements Initializable {
         columnNumeroCuotasVentas.setCellValueFactory(new PropertyValueFactory<>("numCuotas"));
         columnInteresVentas.setCellValueFactory(new PropertyValueFactory<>("interes"));
         columnIdApartamentoVentas.setCellValueFactory(new PropertyValueFactory<>("idApartamento"));
+
+        columnApartamento_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        columnTorre_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("idTorre"));
+        columnProyecto_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("idProyecto"));
 
         //Añadir valores al choiceBox
         ActualizarChoiceBoxVentana();
@@ -674,8 +706,14 @@ public class VistaPrincipalController implements Initializable {
         int noVendido = dg.getDato2();
 
         // Agrega los datos al gráfico circular (PieChart)
-        GraficaVenta.getData().add(new PieChart.Data("vendidos ", ventas));
-        GraficaVenta.getData().add(new PieChart.Data("no vendidos", noVendido));
+        PieChart.Data vendidos = new PieChart.Data("Vendidos", ventas);
+        PieChart.Data noVendidos = new PieChart.Data("No vendido", noVendido);
+
+        GraficaVenta.getData().add(vendidos);
+        GraficaVenta.getData().add(noVendidos);
+
+        vendidos.getNode().setStyle("-fx-pie-color: #f9560b;");
+        noVendidos.getNode().setStyle("-fx-pie-color: #060f22;");
     }
 
     //Funcion para obtener el usuario registrado en el login y sus dependencias
@@ -705,8 +743,8 @@ public class VistaPrincipalController implements Initializable {
     void ActualizarCantidadVentas() {
         lblCantidadVentasNum.setText(gestorVentas.obtenerCantidadVentas() + "");
     }
-    
-    void ActualizarGanancias(){
+
+    void ActualizarGanancias() {
         lblGananciasNum.setText(formato.format(gestorVentas.obtenerGanancias()) + "");
     }
 
@@ -975,8 +1013,8 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void AbrirVentanaVentaNueva(ActionEvent event) {
-        //ActualizarTabla(, tableViewApartamentosDisponibles_VentasCrear);
-        
+        ActualizarTabla(gestorApartamentos.ObtenerApartamentosNoVendidos(), tableViewApartamentosDisponibles_VentasCrear);
+
         anchorPaneInterior_VentasCrear.setVisible(true);
     }
 
@@ -987,6 +1025,17 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void RealizarVenta(ActionEvent event) {
+        ventaTemporal = new Venta();
+        ventaTemporal.setNumCuotas(Integer.parseInt(txtCuotasDatosVenta_crear.getText()));
+        ventaTemporal.setInteres(Integer.parseInt(txtInteresesDatosdeVenta_crear.getText()));
+
+        if (gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()) != 0) {
+            //Agregar la venta al cliente
+            
+            gestorVentas.GuardarVenta(ventaTemporal.get, Integer.parseInt(usuario.getId()), gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()));
+        } else {
+            
+        }
 
     }
 }
