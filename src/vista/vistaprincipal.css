@@ -159,10 +159,6 @@
     -fx-padding: 10 20 10 20;
 }
 
-.buttonDefault:hover {
-    -fx-back-ground-color: #d94712;
-}
-
 .buttonDefault:pressed {
     -fx-text-fill : white;
     -fx-font-family : 'Poppins';
@@ -207,6 +203,22 @@
     -fx-background-radius : 12px;
 }
 
+.buttonTableViewMiniMini {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 1.2em;
+    -fx-background-color : #060f22;
+    -fx-background-radius : 12px;
+}
+
+.buttonTableViewMiniMini:pressed {
+    -fx-text-fill : white;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 1.2em;
+    -fx-background-color : #3f2182;
+    -fx-background-radius : 12px;
+}
+
 #buttonCerrar {
     -fx-text-fill : black;
     -fx-font-family : 'Poppins';
@@ -225,6 +237,10 @@
 
 .hboxBotones {
     -fx-spacing : 10;
+}
+
+.hboxBotonesMini {
+    -fx-spacing : 5;
 }
 
 .textField {
@@ -360,3 +376,37 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+
+.my-rounded-box {
+    -fx-background-color: #d9d9d9;   /* Fondo gris claro */
+    -fx-background-radius: 45px 45px 0px 0px;  /* Solo redondea las esquinas superiores */
+    -fx-border-radius: 45px 45px 0px 0px;      /* Solo redondea las esquinas superiores */
+    -fx-border-color: #cccccc;       /* Color del borde */
+    
+}
+
+.footer-purple {
+    -fx-background-color: #4A148C;   /* Color morado */
+    -fx-text-fill: white;             /* Texto blanco */
+    -fx-padding: 10px;                /* Añade espacio alrededor del contenido */
+    -fx-font-weight: bold;            /* Texto en negrita */
+    -fx-alignment: center;            /* Centra el texto */
+}
+
+.no-bold-text {
+    -fx-font-weight: normal;  /* Esto asegura que el texto no esté en negrilla */
+}
+
+.buttonConfirmAndCancel {
+    -fx-text-fill : black;
+    -fx-font-weight: bold;
+    -fx-font-family : 'Poppins';
+    -fx-font-size : 22 em;
+    -fx-background-color : #ffffff;
+    -fx-background-radius : 25px;
+}
+
+
+
+
+

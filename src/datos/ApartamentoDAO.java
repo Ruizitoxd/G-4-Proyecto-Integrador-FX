@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.Apartamento;
-import modelo.datosGrafica;
+import modelo.DatosGrafica;
 
 public class ApartamentoDAO {
 
@@ -25,6 +25,7 @@ public class ApartamentoDAO {
 
         try {
             conexion = new ConexionBD();
+            
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, idtorre);
@@ -66,7 +67,7 @@ public class ApartamentoDAO {
         return TotalApartamentos;
     }    
     
-    public datosGrafica DatosGraficaMenu() {
+    public DatosGrafica DatosGraficaMenu() {
        String sql = "SELECT FECHAESCRITURA FROM apartamento";
        int ventas = 0;
        int noVendido = 0;
@@ -91,7 +92,7 @@ public class ApartamentoDAO {
            conexion.closeConnection();
        }
 
-       return new datosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
+       return new DatosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
    }
 
     
@@ -273,6 +274,34 @@ public class ApartamentoDAO {
             conexion.closeConnection();
         }
         return apartamentos;
+    }
+    
+    
+    
+    public int BuscarApartamento(String nomApartamento, String nomTorre , String nomProyecto){
+       String sql="select a.id as idApar "+
+                    "from apartamento a JOIN Torre t on a.id_torre = t.id "+
+                    " JOIN Proyecto p on t.id_proy = p.id "+
+                    "where Upper(a.numero) like Upper(?) and Upper(t.numero) like Upper(?), Upper(p.nombre) like upper(?) ";
+       int idApartamento=0;
+       try{
+           conexion = new ConexionBD();
+           con = conexion.getConnection();
+           ps = con.prepareStatement(sql);
+           ps.setString(1, nomApartamento);
+           ps.setString(2, nomTorre);
+           ps.setString(3, nomProyecto);
+           rs = ps.executeQuery();
+           if(rs.next()){
+               idApartamento = rs.getInt("idApar");
+               
+           }
+       }catch (SQLException ex) {
+            System.out.println("Error obteniendo los apartamentos del proyecto: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return idApartamento;
     }
 
 }

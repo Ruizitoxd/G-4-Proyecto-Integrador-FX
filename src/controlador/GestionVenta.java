@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controlador;
 
 import datos.VentaDAO;
@@ -9,25 +5,30 @@ import java.util.ArrayList;
 import modelo.Venta;
 
 public class GestionVenta {
-    VentaDAO ventadao = new VentaDAO();
-    
-    public ArrayList<Venta> obtenerVenta(int id_asesor){
-        return ventadao.MostrarVenta(id_asesor);
+
+    VentaDAO ventaDAO = new VentaDAO();
+
+    public ArrayList<Venta> ObtenerVentas(int id) {
+        return ventaDAO.MostrarVentas(id);
     }
-    
-    public int TotalVentas(){
-        return ventadao.CantidadVentas();
+
+    public int obtenerCantidadVentas() {
+        return ventaDAO.CantidadVentas();
     }
-    
-    public boolean GuardarVentas(Venta vt, int idAsesor, int idAse){
-        return ventadao.crearVenta(vt, idAsesor, idAse);
+
+    public double obtenerGanancias() {
+        return ventaDAO.CantidadGanancias();
     }
-    
-    public boolean ActualizarVenta(int idVenta, double valor, int cuotas, double interes){
-        return ventadao.EditarVenta(idVenta, valor, cuotas, interes);
+
+    public boolean GuardarVenta(Venta vt, int idAsesor, int idCliente) {
+        return ventaDAO.CrearVenta(vt, idAsesor, idCliente);
     }
-    
-    public boolean BorrarVenta(int idVenta){
-        return ventadao.EliminarVenta(idVenta);
+
+    public boolean EditarVenta(int idVenta, double valor, int cantCuotas, double interes) {
+        return ventaDAO.EditarVenta(idVenta, valor, cantCuotas, interes);
+    }
+
+    public boolean EliminarVenta(int idVenta) {
+        return ventaDAO.EliminarVenta(idVenta);
     }
 }

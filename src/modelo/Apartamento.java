@@ -125,3 +125,4 @@ public class Apartamento {
         return "Apartamento{" + "id=" + id + ", numero=" + numero + ", valor=" + valor + ", matricula=" + matricula + ", fecha=" + fecha + ", area=" + area + ", tipoUnidad=" + tipoUnidad + ", idTorre=" + idTorre + '}';
     }
 }
+
