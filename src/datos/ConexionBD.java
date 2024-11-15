@@ -10,12 +10,12 @@ public class ConexionBD {
     public Connection con = null;
     private String user = "constructoraG_4"; // Nombre de usuario de Oracle
     private String password = "constructoraG_4"; // Contraseña de Oracle
-    
-    private String adminUser = "admin"; // Usuario para tabla admin
-    private String adminPassword = "admin"; // Contraseña para admin
 
-    private String asesorUser = "asesor"; // Usuario para tabla asesor
-    private String asesorPassword = "asesor"; // Contraseña para asesor
+    private String adminUser = "administradorG_4"; // Usuario para tabla admin
+    private String adminPassword = "administradorG_4"; // Contraseña para admin
+
+    private String asesorUser = "asesorG_4"; // Usuario para tabla asesor
+    private String asesorPassword = "asesorG_4"; // Contraseña para asesor
 
     public ConexionBD() {
         try {
@@ -44,7 +44,7 @@ public class ConexionBD {
             }
         }
     }
-    
+
     // Método para obtener conexión como admin
     public Connection getAdminConnection() {
         try {
@@ -68,5 +68,5 @@ public class ConexionBD {
             return null;
         }
     }
-    
+
 }

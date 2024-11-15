@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.Apartamento;
-import modelo.datosGrafica;
+import modelo.DatosGrafica;
 
 public class ApartamentoDAO {
 
@@ -19,7 +19,6 @@ public class ApartamentoDAO {
     public ArrayList<Apartamento> MostrarApartamentos(int idtorre) {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, "
-                + "WHERE a.id_torre = ?";
                 + "a.area as AreaApa, a.matricula as matricula "
                 + "FROM apartamento a JOIN torre t ON a.id_Torre = t.id "
                 + "WHERE a.id_torre = ?";
@@ -67,7 +66,7 @@ public class ApartamentoDAO {
         return TotalApartamentos;
     }    
     
-    public datosGrafica DatosGraficaMenu() {
+    public DatosGrafica DatosGraficaMenu() {
        String sql = "SELECT FECHAESCRITURA FROM apartamento";
        int ventas = 0;
        int noVendido = 0;
@@ -92,13 +91,9 @@ public class ApartamentoDAO {
            conexion.closeConnection();
        }
 
-       return new datosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
+       return new DatosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
    }
-
     
-    
-    
-
     public boolean CrearApartamento(Apartamento a, int idTorre, int idTipoUnidad) {
         String sql = "insert into apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "
                    + "values(SEQ_IDAPARTAMENTO.NEXTVAL,?,?,?,?,?,?,?)";

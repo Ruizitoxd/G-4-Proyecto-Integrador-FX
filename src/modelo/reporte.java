@@ -13,7 +13,7 @@ import java.util.List;
 
 
 
-public class reporte {
+public class Reporte {
     Document documento;
     FileOutputStream fileOutputStream;
 
@@ -86,7 +86,7 @@ public class reporte {
         ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
         ArrayList<Apartamento> apartamentos = apartamentoDAO.MostrarApartamentos(4); // Cambia 1 por el ID de torre que necesites
 
-        reporte reportePdf = new reporte();
+        Reporte reportePdf = new Reporte();
  
         try {
             reportePdf.crearDocumento();

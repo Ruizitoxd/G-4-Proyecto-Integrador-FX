@@ -15,16 +15,20 @@ public class GestionVenta {
     public int obtenerCantidadVentas() {
         return ventaDAO.CantidadVentas();
     }
-    
+
+    public double obtenerGanancias() {
+        return ventaDAO.CantidadGanancias();
+    }
+
     public boolean GuardarVenta(Venta vt, int idAsesor, int idCliente) {
         return ventaDAO.CrearVenta(vt, idAsesor, idCliente);
     }
-    
-    public boolean EditarVenta(int idVenta, double valor, int cantCuotas, double interes){
+
+    public boolean EditarVenta(int idVenta, double valor, int cantCuotas, double interes) {
         return ventaDAO.EditarVenta(idVenta, valor, cantCuotas, interes);
     }
-    
-    public boolean EliminarVenta(int idVenta){
+
+    public boolean EliminarVenta(int idVenta) {
         return ventaDAO.EliminarVenta(idVenta);
     }
 }

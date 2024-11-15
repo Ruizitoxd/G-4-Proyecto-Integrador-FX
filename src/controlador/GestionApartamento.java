@@ -3,7 +3,7 @@ package controlador;
 import datos.ApartamentoDAO;
 import java.util.ArrayList;
 import modelo.Apartamento;
-import modelo.datosGrafica;
+import modelo.DatosGrafica;
 
 public class GestionApartamento {
 
@@ -17,7 +17,7 @@ public class GestionApartamento {
         return apartamentoDAO.CantidadApartamentos();
     }
     
-    public datosGrafica DatosGrafica(){
+    public DatosGrafica DatosGrafica(){
         return apartamentoDAO.DatosGraficaMenu();
     }
 

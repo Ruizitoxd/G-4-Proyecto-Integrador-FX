@@ -91,7 +91,7 @@ public class Venta {
     public String getIdApartamento() {
         return idApartamento.get();
     }
-    
+
     public void setIdApartamento(String idApartamento) {
         this.idApartamento.set(idApartamento);
     }
