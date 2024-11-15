@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import modelo.Torre;
 import modelo.Venta;
 
 public class VentaDAO {
@@ -72,10 +71,10 @@ public class VentaDAO {
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setDouble(1, vt.getValor());          // valor total de la venta
-            ps.setInt(2, vt.getNumCuotas());         // número de cuotas
-            ps.setDouble(3, vt.getInteres());        // interés
-            ps.setInt(4, idAse);                     // id del apartamento
+            ps.setDouble(1, vt.getValor());          
+            ps.setInt(2, vt.getNumCuotas());         
+            ps.setDouble(3, vt.getInteres());        
+            ps.setInt(4, idAse);                     
             ps.setInt(5, idAsesor);  
             
             int resultado = ps.executeUpdate();

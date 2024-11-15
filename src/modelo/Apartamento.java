@@ -18,8 +18,10 @@ public class Apartamento {
     private StringProperty area;  // Cambiado a 'area' en minúscula
     private StringProperty tipoUnidad;
     private StringProperty idTorre;
+    private StringProperty idProyecto;
+    
 
-    public Apartamento(int id, String numero, double valor, String matricula, Date fecha, String area, String tipoUnidad, String idTorre) {
+    public Apartamento(int id, String numero, double valor, String matricula, Date fecha, String area, String tipoUnidad, String idTorre, String idproyecto) {
         this.id = new SimpleIntegerProperty(id);
         this.numero = new SimpleStringProperty(numero);
         this.valor = new SimpleDoubleProperty(valor);
@@ -28,7 +30,9 @@ public class Apartamento {
         this.area = new SimpleStringProperty(area);
         this.tipoUnidad = new SimpleStringProperty(tipoUnidad);
         this.idTorre = new SimpleStringProperty(idTorre);
+        this.idProyecto = new SimpleStringProperty(idproyecto);
     }
+
 
     public Apartamento() {
         this.id = new SimpleIntegerProperty(0);
@@ -39,9 +43,19 @@ public class Apartamento {
         this.area = new SimpleStringProperty("");
         this.tipoUnidad = new SimpleStringProperty("");
         this.idTorre = new SimpleStringProperty("");
+        this.idProyecto = new SimpleStringProperty("");
     }
 
     //Getters y setters
+    
+    public StringProperty getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto.set(idProyecto);
+    }
+
     public int getId() {
         return id.get();
     }

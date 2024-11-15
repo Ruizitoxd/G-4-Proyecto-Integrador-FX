@@ -99,7 +99,7 @@ public class ApartamentoDAO {
     
 
     public boolean CrearApartamento(Apartamento a, int idTorre, int idTipoUnidad) {
-        String sql = "insert into apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "
+        String sql = "insert into constructoraG_4.apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "
                    + "values(SEQ_IDAPARTAMENTO.NEXTVAL,?,?,?,?,?,?,?)";
         try {
             conexion = new ConexionBD();
@@ -240,4 +240,39 @@ public class ApartamentoDAO {
         }
         return apartamentos;
     }
+    
+    
+    
+    public ArrayList<Apartamento> ObtenerApartamentosNoVendidos() {
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        String sql = "SELECT a.numero as numeroApa, TO_DATE(a.FechaEscritura, 'DD-MM-YYYY') as fechaEscritura, "
+                   + "t.numero as torreNombre, p.nombre as nombreProyecto "
+                   + "FROM apartamento a "
+                   + "JOIN torre t ON a.id_Torre = t.id "
+                   + "JOIN proyecto p ON p.id = t.id_Proy "
+                   + "JOIN tipounidad tu ON a.id_tipouni = tu.id "
+                   + "WHERE a.FechaEscritura IS NULL";  // Filtrar solo los apartamentos no vendidos
+
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Apartamento apa = new Apartamento();
+                apa.setNumero(rs.getString("numeroApa"));
+                apa.setIdTorre(rs.getString("torreNombre"));
+                apa.setIdProyecto(rs.getString("nombreProyecto"));
+                apartamentos.add(apa);
+            }
+
+        }catch (SQLException ex) {
+            System.out.println("Error obteniendo los apartamentos del proyecto: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return apartamentos;
+    }
+
 }
