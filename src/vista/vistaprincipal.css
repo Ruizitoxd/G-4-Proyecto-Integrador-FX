@@ -382,7 +382,7 @@
     -fx-background-radius: 45px 45px 0px 0px;  /* Solo redondea las esquinas superiores */
     -fx-border-radius: 45px 45px 0px 0px;      /* Solo redondea las esquinas superiores */
     -fx-border-color: #cccccc;       /* Color del borde */
-    
+
 }
 
 .footer-purple {
@@ -414,7 +414,7 @@
 
 .chart-title {
     -fx-font-size: 20px;
-    -fx-font-weight: bold;  
+    -fx-font-weight: bold;
     -fx-text-fill: #060f22;
 }
 
@@ -437,4 +437,3 @@
     -fx-font-size: 14px;
     -fx-text-fill: black;
 }
-

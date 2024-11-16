@@ -239,7 +239,7 @@ public class ApartamentoDAO {
 
     public ArrayList<Apartamento> ObtenerApartamentosNoVendidos() {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
-        String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, p.nombre as nombreProyecto "
+        String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, p.nombre as nombreProyecto, a.valor as valorApartamento "
                 + "FROM apartamento a "
                 + "JOIN torre t ON a.id_Torre = t.id "
                 + "JOIN proyecto p ON p.id = t.id_Proy "
@@ -257,6 +257,7 @@ public class ApartamentoDAO {
                 apa.setNumero(rs.getString("numeroApa"));
                 apa.setIdTorre(rs.getString("torreNombre"));
                 apa.setIdProyecto(rs.getString("nombreProyecto"));
+                apa.setValor(rs.getDouble("valorApartamento"));
                 apartamentos.add(apa);
             }
 
@@ -267,7 +268,7 @@ public class ApartamentoDAO {
         }
         return apartamentos;
     }
-    
+
     public ArrayList<Apartamento> ObtenerApartamentosVendidos() {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, a.valor as valorApartamento "
@@ -296,5 +297,32 @@ public class ApartamentoDAO {
             conexion.closeConnection();
         }
         return apartamentos;
+    }
+
+    public int BuscarApartamentoUnico(String nomApartamento, String nomTorre, String nomProyecto) {
+        String sql = "SELECT a.id AS idApar "
+                + "FROM apartamento a "
+                + "JOIN Torre t ON a.id_torre = t.id "
+                + "JOIN Proyecto p ON t.id_proy = p.id "
+                + "WHERE UPPER(a.numero) LIKE UPPER(?) AND UPPER(t.numero) LIKE UPPER(?) AND UPPER(p.nombre) LIKE UPPER(?)";
+        int idApartamento = 0;
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nomApartamento + "%");
+            ps.setString(2, "%" + nomTorre + "%");
+            ps.setString(3, "%" + nomProyecto + "%");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                idApartamento = rs.getInt("idApar");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo el apartamento del proyecto: " + ex.getMessage());
+        } finally {
+
+            conexion.closeConnection();
+        }
+        return idApartamento;
     }
 }

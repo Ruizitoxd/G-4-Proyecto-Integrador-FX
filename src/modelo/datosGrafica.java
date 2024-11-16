@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author josem
- */
 public class DatosGrafica {
+
     private int dato1;
     private int dato2;
 
@@ -32,8 +25,5 @@ public class DatosGrafica {
         this.dato1 = ventas;
         this.dato2 = noVendido;
     }
-
-
-
 
 }

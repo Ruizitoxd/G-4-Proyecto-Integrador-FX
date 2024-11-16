@@ -14,7 +14,6 @@ public class ValidarAsesor implements Validar {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
 
-
     public RolUsuario validar(String correo, String identificacion) {
         RolUsuario RU = new RolUsuario();
         String sqlAsesor = "SELECT ID, IDENTIFICACION, NOMBRE, DIRECCION, CORREOELECTRONICO FROM ASESOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";

@@ -1,8 +1,7 @@
-
 package modelo;
 
-
 public class Cliente {
+
     private String id;
     private String identificacion;
     private String correo;
@@ -11,19 +10,17 @@ public class Cliente {
     private String direccion;
     private String SISBEN;
     private String subsidio;
-    
-    public Cliente(){
+
+    public Cliente() {
         this.id = "";
         this.identificacion = "";
         this.correo = "";
         this.nombre = "";
-        this.apellido="";
+        this.apellido = "";
         this.direccion = "";
         this.SISBEN = "";
         this.subsidio = "";
     }
-
-
 
     public String getId() {
         return id;
@@ -99,6 +96,4 @@ public class Cliente {
         this.SISBEN = SISBEN;
         this.subsidio = subsidio;
     }
-
-
 }

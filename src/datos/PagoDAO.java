@@ -1,4 +1,3 @@
-
 package datos;
 
 import java.sql.Connection;
@@ -9,22 +8,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 import modelo.Pago;
+
 public class PagoDAO {
-    
+
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     ConexionBD conexion;
-    
-    public boolean CrearPago(Pago pa, int idAsesor,int idVenta, int Cliente){
+
+    public boolean CrearPago(Pago pa, int idAsesor, int idVenta, int Cliente) {
         String sql = "Insert into pago (id,valor, FechaApagar, FechaPago, FechaVencimiento, id_asesor, id_clinete, id_venta) "
-                   + "values(SEQ_IDPAGO,?,?,?,?,?,?,?) ";
-        
-        try{
-            conexion= new ConexionBD();
+                + "values(SEQ_IDPAGO,?,?,?,?,?,?,?) ";
+
+        try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setDouble(1, pa.getValor());            
+            ps.setDouble(1, pa.getValor());
             ps.setDate(2, pa.getFechaApagar());
             ps.setDate(3, pa.getFechaPago());
             ps.setDate(4, pa.getFechaVenciomiento());
@@ -35,21 +35,20 @@ public class PagoDAO {
             if (resultado > 0) {
                 return true;
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Error al añadir el apartamento: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
         return false;
     }
-    
-    public boolean EditarPago(int id){
-        String sql ="";
+
+    public boolean EditarPago(int id) {
+        String sql = "";
         return true;
     }
-    
-    
-        public ArrayList<Pago> MostrarCuotas(int id_venta) {
+
+    public ArrayList<Pago> MostrarCuotas(int id_venta) {
         ArrayList<Pago> cuotas = new ArrayList<>();
         String sql = "SELECT valor, FechaPago, FechaVencimiento FROM pago WHERE id_venta = ?";
         LocalDate fechaActual = LocalDate.now();
@@ -64,10 +63,10 @@ public class PagoDAO {
             while (rs.next()) {
                 Pago cuo = new Pago();
                 cuo.setValor(rs.getDouble("valor"));
-                
+
                 Date fechaPagoSql = rs.getDate("FechaPago");
                 Date fechaVencimientoSql = rs.getDate("FechaVencimiento");
-                
+
                 cuo.setFechaPago(fechaPagoSql);
                 cuo.setFechaVencimiento(fechaVencimientoSql);
 

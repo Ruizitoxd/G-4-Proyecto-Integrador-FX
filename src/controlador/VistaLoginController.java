@@ -89,7 +89,7 @@ public class VistaLoginController implements Initializable {
     }
 
     @FXML
-  
+
     private void IniciarSesion(ActionEvent event) {
         String correo = txtCorreo.getText();
         String contraseña = txtContraseña.getText();

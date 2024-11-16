@@ -84,7 +84,7 @@ public class VentaDAO {
     }
 
     public boolean CrearVenta(Venta vt,int idApartamento, int idAsesor, int idCliente) {
-        String sql = "insert into venta(id, valortotal, numcuotas, intereses, id_apart, id_ases, id_clien) "
+        String sql = "insert into venta(id, valortotal, numcuotas, intereses, id_aparta, id_asesor, id_cliente) "
                 + "values (SEQ_IDVENTA.NEXTVAL, ?,?,?,?,?,?)";
 
         try {

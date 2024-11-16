@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Pago {
+
     private IntegerProperty id;
     private DoubleProperty valor;
     private java.sql.Date fechaApagar;
@@ -25,20 +26,19 @@ public class Pago {
     public void setEstado(String estado) {
         this.estado.set(estado);
     }
-    
-    
+
     public Pago(int id, double valor, java.sql.Date fechaApagar, java.sql.Date fechaPago, java.sql.Date fechaVencimiento, String idVenta, String idCliente, String estado) {
         this.id = new SimpleIntegerProperty(id);
         this.valor = new SimpleDoubleProperty(valor);
         this.fechaApagar = fechaApagar;
         this.fechaPago = fechaPago;
-        this.fechaVencimiento= fechaVencimiento;
+        this.fechaVencimiento = fechaVencimiento;
         this.idVenta = new SimpleStringProperty(idVenta);
         this.idCliente = new SimpleStringProperty(idCliente);
         this.estado = new SimpleStringProperty(estado);
     }
-    
-    public Pago(){
+
+    public Pago() {
         this.id = new SimpleIntegerProperty(0);
         this.valor = new SimpleDoubleProperty(0.0);
         this.fechaApagar = fechaApagar;
@@ -48,7 +48,7 @@ public class Pago {
         this.idCliente = new SimpleStringProperty("");
         this.estado = new SimpleStringProperty("");
     }
-    
+
     public IntegerProperty getId() {
         return id;
     }
@@ -72,7 +72,7 @@ public class Pago {
     public void setFechaApagar(java.sql.Date fechaApagar) {
         this.fechaApagar = fechaApagar;
     }
-    
+
     public java.sql.Date getFechaPago() {
         return fechaPago;
     }
@@ -80,9 +80,7 @@ public class Pago {
     public void setFechaPago(java.sql.Date fechaPago) {
         this.fechaPago = fechaPago;
     }
-    
-    
-        
+
     public java.sql.Date getFechaVenciomiento() {
         return fechaVencimiento;
     }
@@ -90,8 +88,6 @@ public class Pago {
     public void setFechaVencimiento(java.sql.Date fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
-    
-    
 
     public String getIdVenta() {
         return idVenta.get();
@@ -108,6 +104,4 @@ public class Pago {
     public void setIdCliente(String idCliente) {
         this.idCliente.set(idCliente);
     }
-
-
 }

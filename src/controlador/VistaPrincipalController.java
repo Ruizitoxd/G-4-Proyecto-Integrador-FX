@@ -46,7 +46,7 @@ public class VistaPrincipalController implements Initializable {
     private GestionApartamento gestorApartamentos = new GestionApartamento();
     private GestionVenta gestorVentas = new GestionVenta();
     private RolUsuario usuario;
-    private GestionCliente gestionCliente = new GestionCliente();
+    private GestionCliente gestorCliente = new GestionCliente();
 
     //Atributos de la vista
     ArrayList<Proyecto> proyectos = new ArrayList<>();
@@ -501,9 +501,6 @@ public class VistaPrincipalController implements Initializable {
         columnTorre_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("idTorre"));
         columnProyecto_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("idProyecto"));
 
-        //Añadir valores al choiceBox
-        ActualizarChoiceBoxVentana();
-
         //Agregar botones en la columna de acciones|1
         columnAcciones.setCellFactory(columna -> new TableCell<Proyecto, Void>() {
             private final Button btnEditar = new Button("Editar");
@@ -666,6 +663,13 @@ public class VistaPrincipalController implements Initializable {
 
                 btnBorrarVenta.setOnAction(event -> {
                     //Lógica para borrar venta
+                        Venta venta = getTableView().getItems().get(getIndex());
+                        boolean elim = gestorVentas.EliminarVenta(venta.getId());
+                        if(elim){
+                             getTableView().getItems().remove(venta);
+                        }else{
+                             MostrarAlertaError("No se pudo eliminar correctamente la venta");
+                        }
                 });
 
                 btnCuotaVenta.setOnAction(event -> {
@@ -729,6 +733,8 @@ public class VistaPrincipalController implements Initializable {
         } else {
             ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas);
         }
+
+        ActualizarChoiceBoxVentana();
     }
 
     //Actualizaciones de información del programa
@@ -755,13 +761,17 @@ public class VistaPrincipalController implements Initializable {
     }
 
     private void ActualizarChoiceBoxVentana() {
-        //Actualizar ChoiceBox ventana Crear
-        ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
-        choiceBoxTipoUnidad_Crear.setItems(tipoUnidades);
+        if (usuario.getRol().equals("Administrador")) {
+            //Actualizar ChoiceBox ventana Crear
+            ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
+            choiceBoxTipoUnidad_Crear.setItems(tipoUnidades);
 
-        //Actualizar ChoiceBox ventana Editar
-        choiceBoxTipoUnidad_Editar.setItems(tipoUnidades);
-
+            //Actualizar ChoiceBox ventana Editar
+            choiceBoxTipoUnidad_Editar.setItems(tipoUnidades);
+        } else {
+            choiceBoxSISBENCliente_VentasCrear.setValue("SISBEN");
+            choiceBoxSISBENCliente_VentasCrear.setItems(FXCollections.observableArrayList("Si", "No"));
+        }
     }
 
     private void MostrarAlertaError(String mensaje) {
@@ -839,7 +849,7 @@ public class VistaPrincipalController implements Initializable {
         //Reinicar compoentes torre
         txtNumeroTorre_Editar.setText("");
 
-        //Reiniciar componentes aprtamento
+        //Reiniciar componentes apartamento
         txtNumeroApto_Editar.setText("");
         txtValorApto_Editar.setText("");
 
@@ -1021,21 +1031,43 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private void CerrarVentanaVentaNueva(ActionEvent event) {
         anchorPaneInterior_VentasCrear.setVisible(false);
+        
+        //Reiniciar componentes de la venta
+        txtCuotasDatosVenta_crear.setText("");
+        txtInteresesDatosdeVenta_crear.setText("");
+        
+        //Reiniciar componentes del cliente
+        txtNombreCliente_VentasCrear.setText("");
+        txtApellidoCliente_VentasCrear.setText("");
+        txtDireccionCliente_VentasCrear.setText("");
+        txtCedulaCliente_VentasCrear.setText("");
+        txtSubsidioCliente_VentasCrear.setText("");
+        txtCorreoelectronicoCliente_VentasCrear.setText("");
+        choiceBoxSISBENCliente_VentasCrear.setValue("SISBEN");
+        txtTelefonoCliente_VentasCrear.setText("");
     }
 
     @FXML
     private void RealizarVenta(ActionEvent event) {
         ventaTemporal = new Venta();
         ventaTemporal.setNumCuotas(Integer.parseInt(txtCuotasDatosVenta_crear.getText()));
-        ventaTemporal.setInteres(Integer.parseInt(txtInteresesDatosdeVenta_crear.getText()));
+        ventaTemporal.setInteres(Double.parseDouble(txtInteresesDatosdeVenta_crear.getText()) / 100);
+        ventaTemporal.setValor(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getValor() * (1 + ventaTemporal.getInteres()));
+        
+        int idCliente = gestorCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText());
 
-        if (gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()) != 0) {
+        if (idCliente != 0) {
             //Agregar la venta al cliente
-            
-            gestorVentas.GuardarVenta(ventaTemporal.get, Integer.parseInt(usuario.getId()), gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()));
+            gestorVentas.GuardarVenta(ventaTemporal, gestorApartamentos.ObtenerApartamentoUnico(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getNumero(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdTorre(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdProyecto()), Integer.parseInt(usuario.getId()), idCliente, gestorCliente.ObtenerSISBEN(idCliente));
         } else {
-            
+            //Crear el cliente
+            gestorCliente.GuardarCliente(txtNombreCliente_VentasCrear.getText(), txtApellidoCliente_VentasCrear.getText(), txtDireccionCliente_VentasCrear.getText(), txtCedulaCliente_VentasCrear.getText(), txtSubsidioCliente_VentasCrear.getText(), txtCorreoelectronicoCliente_VentasCrear.getText(), choiceBoxSISBENCliente_VentasCrear.getValue());
+            idCliente = gestorCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText());
+            gestorCliente.GuardarNumeroCliente(idCliente, txtTelefonoCliente_VentasCrear.getText());
+            //Agregar la venta al cliente
+            gestorVentas.GuardarVenta(ventaTemporal, gestorApartamentos.ObtenerApartamentoUnico(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getNumero(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdTorre(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdProyecto()), Integer.parseInt(usuario.getId()), idCliente, gestorCliente.ObtenerSISBEN(idCliente));
         }
 
+        ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas);
     }
 }
