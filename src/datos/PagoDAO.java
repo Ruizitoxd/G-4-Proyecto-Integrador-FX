@@ -16,41 +16,63 @@ public class PagoDAO {
     ResultSet rs;
     ConexionBD conexion;
 
-    public boolean CrearPago(Pago pa, int idAsesor, int idVenta, int Cliente) {
-        String sql = "Insert into pago (id,valor, FechaApagar, FechaPago, FechaVencimiento, id_asesor, id_clinete, id_venta) "
-                + "values(SEQ_IDPAGO,?,?,?,?,?,?,?) ";
+    public boolean GenerarCuotas(int cuotas, String DiaAPagar, double valor, int idAsesor, int idVenta, int idCliente) {
+        String Procedimiento = "CALL generar_fechas_cuotas(?, TO_DATE(?, 'DD/MM/YYYY'), ?, ?, ?, ?)";
 
+        LocalDate currentDate = LocalDate.now();
+        int currentMonth = currentDate.getMonthValue();
+        int currentYear = currentDate.getYear();
+
+        String fechaPago = DiaAPagar + "/" + String.format("%02d", currentMonth) + "/" + currentYear;
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setDouble(1, pa.getValor());
-            ps.setDate(2, pa.getFechaApagar());
-            ps.setDate(3, pa.getFechaPago());
-            ps.setDate(4, pa.getFechaVenciomiento());
-            ps.setInt(5, idAsesor);
-            ps.setString(6, pa.getIdCliente());
-            ps.setString(7, pa.getIdVenta());
+            ps = con.prepareCall(Procedimiento);
+            ps.setInt(1, cuotas);
+            ps.setString(2, fechaPago);
+            ps.setDouble(3, valor);
+            ps.setInt(4, idAsesor);
+            ps.setInt(5, idVenta);
+            ps.setInt(6, idCliente);
+
             int resultado = ps.executeUpdate();
             if (resultado > 0) {
                 return true;
             }
         } catch (SQLException ex) {
-            System.out.println("Error al añadir el apartamento: " + ex.getMessage());
+            System.out.println("Error al añadir las cuotas: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
         return false;
     }
 
-    public boolean EditarPago(int id) {
-        String sql = "";
-        return true;
+    public boolean RegistrarPago(int id, Date fechapago) {
+        String sql = "UPDATE pago "
+                + "SET fechaPago = ? "
+                + "WHERE id = ?";
+
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setDate(1, fechapago);
+            ps.setInt(2, id);
+            int resultado = ps.executeUpdate();
+            if (resultado > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al pagar el pago: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return false;
     }
 
     public ArrayList<Pago> MostrarCuotas(int id_venta) {
         ArrayList<Pago> cuotas = new ArrayList<>();
-        String sql = "SELECT valor, FechaPago, FechaVencimiento FROM pago WHERE id_venta = ?";
+        String sql = "SELECT id, valor, FechaPago, FechaVencimiento FROM pago WHERE id_venta = ?";
         LocalDate fechaActual = LocalDate.now();
 
         try {
@@ -62,18 +84,17 @@ public class PagoDAO {
 
             while (rs.next()) {
                 Pago cuo = new Pago();
+                cuo.setId(rs.getInt("id"));
                 cuo.setValor(rs.getDouble("valor"));
-
                 Date fechaPagoSql = rs.getDate("FechaPago");
                 Date fechaVencimientoSql = rs.getDate("FechaVencimiento");
-
-                cuo.setFechaPago(fechaPagoSql);
-                cuo.setFechaVencimiento(fechaVencimientoSql);
+                LocalDate fechaVencimiento = fechaVencimientoSql.toLocalDate();
+                cuo.setFechaVencimiento(fechaVencimiento);
 
                 if (fechaPagoSql != null) {
+                    cuo.setFechaPago(fechaPagoSql.toLocalDate());
                     cuo.setEstado("Pagada");
                 } else {
-                    LocalDate fechaVencimiento = fechaVencimientoSql.toLocalDate();
                     if (fechaVencimiento.isBefore(fechaActual)) {
                         cuo.setEstado("Vencido");
                     } else {
@@ -90,4 +111,5 @@ public class PagoDAO {
         }
         return cuotas;
     }
+
 }

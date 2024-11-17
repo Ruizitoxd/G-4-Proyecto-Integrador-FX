@@ -20,6 +20,10 @@ public class GestionVenta {
         return ventaDAO.CantidadGanancias();
     }
 
+    public int obtenerIdUltimaVenta() {
+        return ventaDAO.ConsultarIdUltimaVenta();
+    }
+
     public boolean GuardarVenta(Venta vt, int idApartamento, int idAsesor, int idCliente, boolean SISBEN) {
         if (SISBEN) {
             vt.setValor(vt.getValor() * 0.90); //Aplicar 10% de descuento si tiene SISBEN

@@ -13,8 +13,8 @@ public class ClienteDAO {
     ResultSet rs;
     ConexionBD conexion;
 
-    public boolean CrearCliente(String nombre, String apellido, String direccion, String identificacion, String subsidio, String correoElectronico, String sisben) {
-        String sql = "insert into cliente (id, identificacion, nombre, apellido, SISBEN, subsidio,direccion, correoElectronico) "
+    public boolean CrearCliente(String nombre, String apellido, String direccion, String identificacion, Double subsidio, String correoElectronico, String sisben) {
+        String sql = "insert into cliente (id, identificacion, nombre, apellido, SISBEN, subsidio, direccion, correoElectronico) "
                 + "values(SEQ_IDCLIENTE.NEXTVAL, ?,?,?,?,?,?,?)";
         try {
             conexion = new ConexionBD();
@@ -24,7 +24,7 @@ public class ClienteDAO {
             ps.setString(2, nombre);
             ps.setString(3, apellido);
             ps.setString(4, sisben);
-            ps.setString(5, subsidio);
+            ps.setDouble(5, subsidio);
             ps.setString(6, direccion);
             ps.setString(7, correoElectronico);
             int resultado = ps.executeUpdate();
@@ -108,5 +108,74 @@ public class ClienteDAO {
             conexion.closeConnection();
         }
         return false;
+    }
+
+    public String consultarNombre(int idCliente) {
+        Cliente cliente = null;
+        String sql = "SELECT nombre||' '||apellido AS nombreCompleto "
+                + "FROM cliente "
+                + "WHERE id = ?";
+
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("nombreCompleto");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar el nombre del cliente: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return "";
+    }
+
+    public double consultarSubsidio(int idCliente) {
+        String sql = "SELECT subsidio "
+                + "FROM Cliente "
+                + "WHERE id = ?";
+        double subsidio = 0;
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                subsidio = rs.getDouble("subsidio");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar subsidio del cliente: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return subsidio;
+    }
+
+    public String consultarNumero(int idCliente) {
+        String sql = "SELECT tc.telefono as celular "
+                + "FROM TELEFONO_CLIENTE tc JOIN CLIENTE c ON c.ID = tc.ID_CLIENTE "
+                + "WHERE c.ID  = ?";
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("celular");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar telefono del cliente: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return "";
     }
 }

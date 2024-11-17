@@ -83,7 +83,30 @@ public class VentaDAO {
         return ganancias;
     }
 
-    public boolean CrearVenta(Venta vt,int idApartamento, int idAsesor, int idCliente) {
+    public int ConsultarIdUltimaVenta() {
+        String sql = "SELECT id "
+                + "FROM venta "
+                + "WHERE id = (SELECT MAX(id) FROM venta)";
+        int id_cliente = 0;
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                id_cliente = rs.getInt("id");
+                return id_cliente;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar el id de la ultima venta: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return id_cliente;
+    }
+
+    public boolean CrearVenta(Venta vt, int idApartamento, int idAsesor, int idCliente) {
         String sql = "insert into venta(id, valortotal, numcuotas, intereses, id_aparta, id_asesor, id_cliente) "
                 + "values (SEQ_IDVENTA.NEXTVAL, ?,?,?,?,?,?)";
 

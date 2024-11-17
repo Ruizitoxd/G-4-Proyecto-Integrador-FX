@@ -2,17 +2,22 @@ package controlador;
 
 import datos.PagoDAO;
 import java.util.ArrayList;
+import java.sql.Date;
 import modelo.Pago;
 
 public class GestionPago {
 
-    PagoDAO pagodao = new PagoDAO();
+    PagoDAO pagoDAO = new PagoDAO();
 
     public ArrayList<Pago> ObtenerCuotas(int id_venta) {
-        return pagodao.MostrarCuotas(id_venta);
+        return pagoDAO.MostrarCuotas(id_venta);
     }
 
-    public boolean GuardarPago(Pago pa, int idAsesor, int idVenta, int Cliente) {
-        return pagodao.CrearPago(pa, idAsesor, idVenta, Cliente);
+    public boolean GuardarPago(int cuotas, String DiaAPagar, double valor, int idAsesor, int idVenta, int idCliente) {
+        return pagoDAO.GenerarCuotas(cuotas, DiaAPagar, valor, idAsesor, idVenta, idCliente);
+    }
+    
+    public boolean EditarPago(int id, Date fechapago){
+        return pagoDAO.RegistrarPago(id, fechapago);
     }
 }

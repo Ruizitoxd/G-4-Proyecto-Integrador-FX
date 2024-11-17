@@ -1,6 +1,6 @@
 package modelo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -12,22 +12,14 @@ public class Pago {
 
     private IntegerProperty id;
     private DoubleProperty valor;
-    private java.sql.Date fechaApagar;
-    private java.sql.Date fechaPago;
-    private java.sql.Date fechaVencimiento;
+    private LocalDate fechaApagar;
+    private LocalDate fechaPago;
+    private LocalDate fechaVencimiento;
     private StringProperty idVenta;
     private StringProperty idCliente;
     private StringProperty estado;
 
-    public StringProperty getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado.set(estado);
-    }
-
-    public Pago(int id, double valor, java.sql.Date fechaApagar, java.sql.Date fechaPago, java.sql.Date fechaVencimiento, String idVenta, String idCliente, String estado) {
+    public Pago(int id, double valor, LocalDate fechaApagar, LocalDate fechaPago, LocalDate fechaVencimiento, String idVenta, String idCliente, String estado) {
         this.id = new SimpleIntegerProperty(id);
         this.valor = new SimpleDoubleProperty(valor);
         this.fechaApagar = fechaApagar;
@@ -49,8 +41,8 @@ public class Pago {
         this.estado = new SimpleStringProperty("");
     }
 
-    public IntegerProperty getId() {
-        return id;
+    public int getId() {
+        return id.get();
     }
 
     public void setId(int id) {
@@ -65,27 +57,27 @@ public class Pago {
         this.valor.set(valor);
     }
 
-    public java.sql.Date getFechaApagar() {
+    public LocalDate getFechaApagar() {
         return fechaApagar;
     }
 
-    public void setFechaApagar(java.sql.Date fechaApagar) {
+    public void setFechaApagar(LocalDate fechaApagar) {
         this.fechaApagar = fechaApagar;
     }
 
-    public java.sql.Date getFechaPago() {
+    public LocalDate getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(java.sql.Date fechaPago) {
+    public void setFechaPago(LocalDate fechaPago) {
         this.fechaPago = fechaPago;
     }
 
-    public java.sql.Date getFechaVenciomiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(java.sql.Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 
@@ -103,5 +95,13 @@ public class Pago {
 
     public void setIdCliente(String idCliente) {
         this.idCliente.set(idCliente);
+    }
+
+    public String getEstado() {
+        return estado.get();
+    }
+
+    public void setEstado(String estado) {
+        this.estado.set(estado);
     }
 }

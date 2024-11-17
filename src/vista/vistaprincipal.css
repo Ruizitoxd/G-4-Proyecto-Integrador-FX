@@ -203,22 +203,6 @@
     -fx-background-radius : 12px;
 }
 
-.buttonTableViewMiniMini {
-    -fx-text-fill : white;
-    -fx-font-family : 'Poppins';
-    -fx-font-size : 1.2em;
-    -fx-background-color : #060f22;
-    -fx-background-radius : 12px;
-}
-
-.buttonTableViewMiniMini:pressed {
-    -fx-text-fill : white;
-    -fx-font-family : 'Poppins';
-    -fx-font-size : 1.2em;
-    -fx-background-color : #3f2182;
-    -fx-background-radius : 12px;
-}
-
 #buttonCerrar {
     -fx-text-fill : black;
     -fx-font-family : 'Poppins';
@@ -237,10 +221,7 @@
 
 .hboxBotones {
     -fx-spacing : 10;
-}
-
-.hboxBotonesMini {
-    -fx-spacing : 5;
+    -fx-alignment: center;
 }
 
 .textField {
@@ -339,7 +320,7 @@
     -fx-font-size: 1.5em;
 }
 
-.table-view .column-header .laber:focused {
+.table-view .column-header .label:focused {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
@@ -382,15 +363,15 @@
     -fx-background-radius: 45px 45px 0px 0px;  /* Solo redondea las esquinas superiores */
     -fx-border-radius: 45px 45px 0px 0px;      /* Solo redondea las esquinas superiores */
     -fx-border-color: #cccccc;       /* Color del borde */
-
 }
 
 .footer-purple {
-    -fx-background-color: #4A148C;   /* Color morado */
+    -fx-background-color: #1a0b3c;   /* Color morado */
     -fx-text-fill: white;             /* Texto blanco */
-    -fx-padding: 10px;                /* Añade espacio alrededor del contenido */
+    -fx-padding: 20px;                /* Añade espacio alrededor del contenido */
     -fx-font-weight: bold;            /* Texto en negrita */
     -fx-alignment: center;            /* Centra el texto */
+    -fx-spacing: 20px;
 }
 
 .no-bold-text {
@@ -401,7 +382,7 @@
     -fx-text-fill : black;
     -fx-font-weight: bold;
     -fx-font-family : 'Poppins';
-    -fx-font-size : 22 em;
+    -fx-font-size : 25 em;
     -fx-background-color : #ffffff;
     -fx-background-radius : 25px;
 }
@@ -436,4 +417,114 @@
 .chart-pie-label {
     -fx-font-size: 14px;
     -fx-text-fill: black;
+}
+
+.date-picker {
+    -fx-pref-width: 100px; /* Ancho del DatePicker */
+    -fx-pref-height: 20px; /* Altura del DatePicker */
+    -fx-font-size: 10px; /* Tamaño de la fuente */
+}
+
+.date-picker .arrow-button {
+    -fx-pref-width: 15px; /* Tamaño del botón desplegable */
+    -fx-pref-height: 15px;
+}
+
+.date-picker .text-field {
+    -fx-font-size: 10px; /* Tamaño de la fuente dentro del campo de texto */
+    -fx-pref-height: 20px; /* Ajustar la altura del campo de texto */
+}
+
+.table-view-blanco {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-padding: 10;
+}
+
+.table-view-blanco:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-row-cell-blanco {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8;
+    -fx-alignment: center;
+}
+
+.table-row-cell-blanco:focused{
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-row-cell-blanco:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+}
+
+.table-view-blanco .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-view-blanco .column-header-background:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view-blanco .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view-blanco .column-header:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view-blanco .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 1.5em;
+}
+
+.table-view-blanco .column-header .label:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-cell-blanco {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 1.2em;
+    -fx-alignment: center;
+}
+
+.table-cell-blanco:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-cell-blanco:selected {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view-blanco .placeholder .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 2em;
+    -fx-font-family: 'Poppins';
+    -fx-font-weight: bold;
+}
+
+.table-view-blanco .table-row-cell-blanco:selected .table-cell-blanco:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view-blanco .table-row-cell-blanco:selected .table-cell-blanco {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }

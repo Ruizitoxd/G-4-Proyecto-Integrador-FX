@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import modelo.Apartamento;
 import modelo.DatosGrafica;
 
@@ -271,7 +272,7 @@ public class ApartamentoDAO {
 
     public ArrayList<Apartamento> ObtenerApartamentosVendidos() {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
-        String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, a.valor as valorApartamento "
+        String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, a.valor as valorApartamento, a.fechaEscritura as fecha "
                 + "FROM apartamento a "
                 + "JOIN torre t ON a.id_Torre = t.id "
                 + "JOIN proyecto p ON p.id = t.id_Proy "
@@ -288,6 +289,9 @@ public class ApartamentoDAO {
                 apa.setNumero(rs.getString("numeroApa"));
                 apa.setIdTorre(rs.getString("torreNombre"));
                 apa.setValor(rs.getDouble("valorApartamento"));
+                Date fechaSql = rs.getDate("fecha");
+                LocalDate fecha = fechaSql.toLocalDate();
+                apa.setFecha(fecha);
                 apartamentos.add(apa);
             }
 
