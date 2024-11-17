@@ -14,4 +14,6 @@ public class GestionPago {
     public boolean GuardarPago(Pago pa, int idAsesor,int idVenta, int Cliente){
         return pagodao.CrearPago(pa, idAsesor, idVenta, Cliente);
     }
+    
+  
 }

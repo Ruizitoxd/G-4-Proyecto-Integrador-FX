@@ -16,8 +16,8 @@ public class GestionApartamento {
     public int ObtenerApartamentos() {
         return apartamentoDAO.CantidadApartamentos();
     }
-    
-    public DatosGrafica DatosGrafica(){
+
+    public DatosGrafica DatosGrafica() {
         return apartamentoDAO.DatosGraficaMenu();
     }
 
@@ -40,8 +40,20 @@ public class GestionApartamento {
     public int ObtenerIdTipoUnidad(String nombre) {
         return apartamentoDAO.ObtenerIdTipoUnidad(nombre);
     }
-    
-    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy){
+
+    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy) {
         return apartamentoDAO.ObtenerApartamentosProyecto(idProy);
+    }
+
+    public ArrayList<Apartamento> ObtenerApartamentosNoVendidos() {
+        return apartamentoDAO.ObtenerApartamentosNoVendidos();
+    }
+    
+    public ArrayList<Apartamento> ObtenerApartamentosVendidos() {
+        return apartamentoDAO.ObtenerApartamentosVendidos();
+    }
+    
+    public ArrayList<Apartamento> DatosReportes(){
+        return apartamentoDAO.DatosReportes();
     }
 }

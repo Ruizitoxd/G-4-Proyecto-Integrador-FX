@@ -47,7 +47,7 @@
                                                         <Label fx:id="lblNombreUsuario" layoutX="111.0" layoutY="407.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Usuario" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="400.0" />
                                                         <Separator fx:id="separatorUsuario" prefWidth="200.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="435.0" />
                                                         <Label id="tituloRol" fx:id="lblRol" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Rol" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="78.0" />
-                                                        <Label fx:id="lblRolUsuario" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="500.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Administrador" textAlignment="CENTER" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" />
+                                                        <Label fx:id="lblRolUsuario" layoutX="153.0" layoutY="500.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Administrador" textAlignment="CENTER" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" />
                                                         <Separator fx:id="separatorRol" layoutX="88.0" layoutY="445.0" prefWidth="200.0" AnchorPane.bottomAnchor="224.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" />
                                                         <Label fx:id="lblCorreoUsuario" layoutX="88.0" layoutY="510.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Correo" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" />
                                                         <Separator fx:id="separatorCorreo" layoutX="88.0" layoutY="545.0" prefWidth="200.0" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" />
@@ -67,9 +67,13 @@
                                                         <Label fx:id="lblGanancias" alignment="CENTER" layoutX="50.0" layoutY="267.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Ganancias:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="261.0" />
                                                         <Label fx:id="lblCantidadProyectosNum" alignment="CENTER" contentDisplay="RIGHT" layoutX="550.0" layoutY="96.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" textAlignment="RIGHT" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="96.0" />
                                                         <Label fx:id="lblCantidadApartamentosNum" alignment="CENTER" contentDisplay="RIGHT" layoutX="531.0" layoutY="151.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" textAlignment="RIGHT" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="151.0" />
-                                                        <Label fx:id="lblCantidadVentasNum" alignment="CENTER" layoutX="418.0" layoutY="206.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="No disponible" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="206.0" />
-                                                        <Label fx:id="lblGananciasNum" alignment="CENTER" layoutX="319.0" layoutY="244.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="No disponible" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="261.0" />
-                                          <PieChart fx:id="GraficaVenta" layoutX="626.0" layoutY="90.0" prefHeight="258.0" prefWidth="346.0" title="Grafica de Ventas" />
+                                                        <Label fx:id="lblCantidadVentasNum" alignment="CENTER" layoutX="418.0" layoutY="206.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="206.0" />
+                                                        <Label fx:id="lblGananciasNum" alignment="CENTER" layoutX="319.0" layoutY="244.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="261.0" />
+                                          <PieChart fx:id="GraficaVenta" layoutX="626.0" layoutY="90.0" prefHeight="258.0" prefWidth="346.0" stylesheets="@vistaprincipal.css" title="Porcentaje vendido">
+                                             <styleClass>
+                                                <String fx:value="chart" />
+                                                <String fx:value="chart-pie" />
+                                             </styleClass></PieChart>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane fx:id="paneVentas_Chaux" prefHeight="360.0" prefWidth="1000.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
@@ -81,6 +85,14 @@
                                                         <Label id="#InfoEmpresa" fx:id="lblValor" alignment="CENTER" contentDisplay="CENTER" layoutX="630.0" layoutY="96.0" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="Valor" textAlignment="CENTER" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="96.0" />
                                                         <Label id="#InfoEmpresa" fx:id="lblEstado" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="Estado" textAlignment="CENTER" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="96.0" />
                                                         <Label id="#InfoEmpresa" fx:id="lblTempralNoDisponible" alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="204.0" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="INFORMACIÓN NO DISPONIBLE" textAlignment="CENTER" />
+                                          <TableView fx:id="tableViewApartamentosVendidos_Chaux" layoutY="101.0" prefHeight="259.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="101.0">
+                                            <columns>
+                                              <TableColumn prefWidth="75.0" text="APARTAMENTOS" />
+                                              <TableColumn prefWidth="75.0" text="TORRE" />
+                                                <TableColumn prefWidth="75.0" text="VALOR" />
+                                                <TableColumn prefWidth="202.0" text="FECHA ESCRITURA" />
+                                            </columns>
+                                          </TableView>
                                                     </children>
                                                 </AnchorPane>
                                             </children>
@@ -279,7 +291,7 @@
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_VentasCrear" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                              <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_VentasCrear" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                  <children>
                                     <ImageView fx:id="imgChauxFondo_VentasCrear" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

@@ -67,6 +67,7 @@ public class ProyectoDAO {
 
         try {
             conexion = new ConexionBD();
+            //con = conexion.getConnection();
             con = conexion.getAdminConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, pr.getNombre());
@@ -145,4 +146,7 @@ public class ProyectoDAO {
         }
         return id;
     }
+    
+    
+
 }

@@ -83,7 +83,7 @@ public class VentaDAO {
         return ganancias;
     }
 
-    public boolean CrearVenta(Venta vt, int idAsesor, int idCliente) {
+    public boolean CrearVenta(Venta vt,int idApartamento, int idAsesor, int idCliente) {
         String sql = "insert into venta(id, valortotal, numcuotas, intereses, id_apart, id_ases, id_clien) "
                 + "values (SEQ_IDVENTA.NEXTVAL, ?,?,?,?,?,?)";
 
@@ -94,7 +94,7 @@ public class VentaDAO {
             ps.setDouble(1, vt.getValor());          // valor total de la venta
             ps.setInt(2, vt.getNumCuotas());         // número de cuotas
             ps.setDouble(3, vt.getInteres());        // interés
-            ps.setString(4, vt.getIdApartamento());                     // id del apartamento
+            ps.setInt(4, idApartamento);                     // id del apartamento
             ps.setInt(5, idAsesor);
             ps.setInt(6, idCliente);
 
@@ -110,7 +110,7 @@ public class VentaDAO {
         return false;
     }
 
-    public boolean EditarVenta(int idVenta, double valor, int cantCuotas, double interes) {
+    public boolean EditarVenta(int idVenta, double valor, int cantCuotas,double interes) {
         String sql = "update venta "
                 + "set valortotal = ? , numcuotas = ? , intereses = ? "
                 + "where id = ?";
@@ -152,3 +152,5 @@ public class VentaDAO {
         }
     }
 }
+
+

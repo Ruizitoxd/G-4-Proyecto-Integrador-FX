@@ -19,7 +19,6 @@ public class Apartamento {
     private StringProperty tipoUnidad;
     private StringProperty idTorre;
     private StringProperty idProyecto;
-    
 
     public Apartamento(int id, String numero, double valor, String matricula, Date fecha, String area, String tipoUnidad, String idTorre, String idproyecto) {
         this.id = new SimpleIntegerProperty(id);
@@ -32,7 +31,6 @@ public class Apartamento {
         this.idTorre = new SimpleStringProperty(idTorre);
         this.idProyecto = new SimpleStringProperty(idproyecto);
     }
-
 
     public Apartamento() {
         this.id = new SimpleIntegerProperty(0);
@@ -47,15 +45,6 @@ public class Apartamento {
     }
 
     //Getters y setters
-    
-    public StringProperty getIdProyecto() {
-        return idProyecto;
-    }
-
-    public void setIdProyecto(String idProyecto) {
-        this.idProyecto.set(idProyecto);
-    }
-
     public int getId() {
         return id.get();
     }
@@ -120,9 +109,16 @@ public class Apartamento {
         this.idTorre.set(idTorre);
     }
 
+    public String getIdProyecto() {
+        return idProyecto.get();
+    }
+
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto.set(idProyecto);
+    }
+
     @Override
     public String toString() {
         return "Apartamento{" + "id=" + id + ", numero=" + numero + ", valor=" + valor + ", matricula=" + matricula + ", fecha=" + fecha + ", area=" + area + ", tipoUnidad=" + tipoUnidad + ", idTorre=" + idTorre + '}';
     }
 }
-

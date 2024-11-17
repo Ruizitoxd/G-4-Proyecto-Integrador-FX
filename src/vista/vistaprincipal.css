@@ -406,7 +406,35 @@
     -fx-background-radius : 25px;
 }
 
+.chart {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 20px;
+}
 
+.chart-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;  
+    -fx-text-fill: #060f22;
+}
 
+.chart-legend {
+    -fx-background-color: lightblue;
+    -fx-padding: 10px;
+}
 
+.chart-legend-item {
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+}
+
+.chart-pie {
+    -fx-pie-color: #3498db; /* Cambia por cada slice */
+    -fx-start-angle: 180;
+}
+
+.chart-pie-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
 

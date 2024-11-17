@@ -25,7 +25,6 @@ public class ApartamentoDAO {
 
         try {
             conexion = new ConexionBD();
-            
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, idtorre);
@@ -65,43 +64,39 @@ public class ApartamentoDAO {
             conexion.closeConnection();
         }
         return TotalApartamentos;
-    }    
-    
+    }
+
     public DatosGrafica DatosGraficaMenu() {
-       String sql = "SELECT FECHAESCRITURA FROM apartamento";
-       int ventas = 0;
-       int noVendido = 0;
+        String sql = "SELECT FECHAESCRITURA FROM apartamento";
+        int ventas = 0;
+        int noVendido = 0;
 
-       try {
-           conexion = new ConexionBD();
-           con = conexion.getConnection();
-           ps = con.prepareStatement(sql);
-           rs = ps.executeQuery();
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
 
-           while (rs.next()) {
-               Date fechaVentaSql = rs.getDate("FECHAESCRITURA");
-               if (fechaVentaSql != null) {
-                   ventas += 1;
-               } else {
-                   noVendido += 1;
-               }
-           }
-       } catch (SQLException ex) {
-           System.out.println("Error: " + ex.getMessage());
-       } finally {
-           conexion.closeConnection();
-       }
+            while (rs.next()) {
+                Date fechaVentaSql = rs.getDate("FECHAESCRITURA");
+                if (fechaVentaSql != null) {
+                    ventas += 1;
+                } else {
+                    noVendido += 1;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
 
-       return new DatosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
-   }
-
-    
-    
-    
+        return new DatosGrafica(ventas, noVendido); // Retorna un objeto con los dos valores
+    }
 
     public boolean CrearApartamento(Apartamento a, int idTorre, int idTipoUnidad) {
-        String sql = "insert into constructoraG_4.apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "
-                   + "values(SEQ_IDAPARTAMENTO.NEXTVAL,?,?,?,?,?,?,?)";
+        String sql = "insert into apartamento (id,numero,valor,area,matricula,fechaEscritura,id_tipouni,id_torre) "
+                + "values(SEQ_IDAPARTAMENTO.NEXTVAL,?,?,?,?,?,?,?)";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -129,8 +124,8 @@ public class ApartamentoDAO {
 
     public boolean EditarApartamento(int id, String numero, double valor, String area, int idTipoUnidad) {
         String sql = "update apartamento "
-                   + "set numero = ? , valor = ?, area = ? , id_tipouni = ?"
-                   + "where id = ?";
+                + "set numero = ? , valor = ?, area = ? , id_tipouni = ?"
+                + "where id = ?";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -152,7 +147,7 @@ public class ApartamentoDAO {
 
     public boolean EliminarApartamento(int id) {
         String sql = "delete apartamento "
-                   + "where id = ? ";
+                + "where id = ? ";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -208,14 +203,14 @@ public class ApartamentoDAO {
         }
         return id;
     }
-    
-    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy){
-         ArrayList<Apartamento> apartamentos = new ArrayList<>();
+
+    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy) {
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
         String sql = "SELECT a.id as idApa, a.numero as numeroApa, a.valor as valorApa, tu.nombre as tipoUnidad, "
-                   + "a.area as AreaApa, a.matricula as matricula, t.numero as torreNombre "
-                   + "FROM apartamento a JOIN torre t ON a.id_Torre = t.id JOIN proyecto p ON p.id = t.id_Proy JOIN tipounidad tu ON a.id_tipouni = tu.id "
-                   + "WHERE p.id = ?";
-        
+                + "a.area as AreaApa, a.matricula as matricula, t.numero as torreNombre "
+                + "FROM apartamento a JOIN torre t ON a.id_Torre = t.id JOIN proyecto p ON p.id = t.id_Proy JOIN tipounidad tu ON a.id_tipouni = tu.id "
+                + "WHERE p.id = ?";
+
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
@@ -241,18 +236,15 @@ public class ApartamentoDAO {
         }
         return apartamentos;
     }
-    
-    
-    
+
     public ArrayList<Apartamento> ObtenerApartamentosNoVendidos() {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
-        String sql = "SELECT a.numero as numeroApa, TO_DATE(a.FechaEscritura, 'DD-MM-YYYY') as fechaEscritura, "
-                   + "t.numero as torreNombre, p.nombre as nombreProyecto "
-                   + "FROM apartamento a "
-                   + "JOIN torre t ON a.id_Torre = t.id "
-                   + "JOIN proyecto p ON p.id = t.id_Proy "
-                   + "JOIN tipounidad tu ON a.id_tipouni = tu.id "
-                   + "WHERE a.FechaEscritura IS NULL";  // Filtrar solo los apartamentos no vendidos
+        String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, p.nombre as nombreProyecto "
+                + "FROM apartamento a "
+                + "JOIN torre t ON a.id_Torre = t.id "
+                + "JOIN proyecto p ON p.id = t.id_Proy "
+                + "WHERE a.FechaEscritura IS NULL "
+                + "ORDER BY nombreProyecto, torreNombre, numeroApa";  // Filtrar solo los apartamentos no vendidos
 
         try {
             conexion = new ConexionBD();
@@ -268,40 +260,71 @@ public class ApartamentoDAO {
                 apartamentos.add(apa);
             }
 
-        }catch (SQLException ex) {
-            System.out.println("Error obteniendo los apartamentos del proyecto: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo los apartamentos no vendidos: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
         return apartamentos;
     }
     
-    
-    
-    public int BuscarApartamento(String nomApartamento, String nomTorre , String nomProyecto){
-       String sql="select a.id as idApar "+
-                    "from apartamento a JOIN Torre t on a.id_torre = t.id "+
-                    " JOIN Proyecto p on t.id_proy = p.id "+
-                    "where Upper(a.numero) like Upper(?) and Upper(t.numero) like Upper(?), Upper(p.nombre) like upper(?) ";
-       int idApartamento=0;
-       try{
-           conexion = new ConexionBD();
-           con = conexion.getConnection();
-           ps = con.prepareStatement(sql);
-           ps.setString(1, nomApartamento);
-           ps.setString(2, nomTorre);
-           ps.setString(3, nomProyecto);
-           rs = ps.executeQuery();
-           if(rs.next()){
-               idApartamento = rs.getInt("idApar");
-               
-           }
-       }catch (SQLException ex) {
-            System.out.println("Error obteniendo los apartamentos del proyecto: " + ex.getMessage());
+    public ArrayList<Apartamento> ObtenerApartamentosVendidos() {
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        String sql = "SELECT a.numero as numeroApa, t.numero as torreNombre, a.valor as valorApartamento "
+                + "FROM apartamento a "
+                + "JOIN torre t ON a.id_Torre = t.id "
+                + "JOIN proyecto p ON p.id = t.id_Proy "
+                + "WHERE a.FechaEscritura IS NOT NULL "
+                + "ORDER BY torreNombre, numeroApa, valorApartamento";  // Filtrar solo los apartamentos no vendidos
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Apartamento apa = new Apartamento();
+                apa.setNumero(rs.getString("numeroApa"));
+                apa.setIdTorre(rs.getString("torreNombre"));
+                apa.setValor(rs.getDouble("valorApartamento"));
+                apartamentos.add(apa);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo los apartamentos vendidos: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
-        return idApartamento;
+        return apartamentos;
     }
-
+    
+    public ArrayList<Apartamento> DatosReportes() {
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        String sql = "SELECT id, numero, valor, area, matricula " +
+                     "FROM apartamento " +
+                     "WHERE fechaEscritura IS NOT NULL " +
+                     "AND TRUNC(fechaEscritura, 'MM') = TRUNC(SYSDATE, 'MM')";
+        
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Apartamento apa = new Apartamento();
+                apa.setId(rs.getInt("id"));
+                apa.setNumero(rs.getString("numero"));
+                apa.setValor(rs.getDouble("valor"));
+                apa.setArea(rs.getString("area"));
+                apa.setMatricula(rs.getString("matricula"));
+                apartamentos.add(apa);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return apartamentos;
+    }
+    
 }
