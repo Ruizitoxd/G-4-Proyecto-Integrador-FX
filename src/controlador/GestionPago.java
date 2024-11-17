@@ -3,6 +3,7 @@ package controlador;
 import datos.PagoDAO;
 import java.util.ArrayList;
 import java.sql.Date;
+import modelo.DatosGrafica;
 import modelo.Pago;
 
 public class GestionPago {
@@ -19,5 +20,9 @@ public class GestionPago {
     
     public boolean EditarPago(int id, Date fechapago){
         return pagoDAO.RegistrarPago(id, fechapago);
+    }
+    
+    public DatosGrafica datosGraficaDash(){
+        return pagoDAO.DatosGraficaDashboard();
     }
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
+import modelo.DatosGrafica;
 import modelo.Pago;
 
 public class PagoDAO {
@@ -112,4 +113,31 @@ public class PagoDAO {
         return cuotas;
     }
 
+    public DatosGrafica DatosGraficaDashboard() {
+        String sql = "select fechaPago "
+                + "from pago";
+        int pagadas = 0;
+        int noPagadas = 0;
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Date fechapago = rs.getDate("fechaPago");
+                if (fechapago != null) {
+                    pagadas += 1;
+                } else {
+                    noPagadas += 1;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+
+        return new DatosGrafica(pagadas, noPagadas);
+    }
 }

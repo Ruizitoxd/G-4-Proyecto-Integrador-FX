@@ -14,11 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -31,7 +33,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import modelo.Apartamento;
 
 //Modelos
@@ -52,6 +57,7 @@ public class VistaPrincipalController implements Initializable {
     private RolUsuario usuario;
     private GestionCliente gestorClientes = new GestionCliente();
     private GestionPago gestorPagos = new GestionPago();
+    private GenerarPDF generarPDF = new GenerarPDF();
 
     //Atributos de la vista
     ArrayList<Proyecto> proyectos = new ArrayList<>();
@@ -121,16 +127,6 @@ public class VistaPrincipalController implements Initializable {
     private Label lblInfoAptos;
     @FXML
     private Separator separatorInfoAptos;
-    @FXML
-    private Label lblApartamentos;
-    @FXML
-    private Label lblTorre;
-    @FXML
-    private Label lblValor;
-    @FXML
-    private Label lblEstado;
-    @FXML
-    private Label lblTempralNoDisponible;
     @FXML
     private AnchorPane anchorPaneBaseProyectos;
     @FXML
@@ -422,9 +418,7 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private AnchorPane anchorPaneInterior_Proyectos1;
     @FXML
-    private ImageView imgChauxFondo_Proyectos1;
-    @FXML
-    private BarChart<?, ?> GraficaCuotas;
+    private BarChart<String, Number> GraficaCuotas;
     @FXML
     private PieChart GraficaVenta;
     @FXML
@@ -467,6 +461,12 @@ public class VistaPrincipalController implements Initializable {
     private TableColumn<Apartamento, Double> columnValor_Chaux;
     @FXML
     private TableColumn<Apartamento, LocalDate> columnFechaEscritura_Chaux;
+    @FXML
+    private ImageView imgChauxFondo_Dashboard;
+    @FXML
+    private GridPane calendarioGrid;
+    @FXML
+    private Button btnGenerarReporte;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -477,6 +477,8 @@ public class VistaPrincipalController implements Initializable {
         ActualizarGanancias();
         ActualizarTabla(gestorApartamentos.ObtenerApartamentosVendidos(), tableViewApartamentosVendidos_Chaux);
         GraficMenu();
+        llenarGraficaCuotas();
+        llenarCalendario();
 
         //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -518,7 +520,7 @@ public class VistaPrincipalController implements Initializable {
         columnFechaPagoCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("fechaPago"));
         columnFechaVencimientoCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
         columnNumeroDeCuotaCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("id"));
-        
+
         columnApartamentos_Chaux.setCellValueFactory(new PropertyValueFactory<>("numero"));
         columnTorre_Chaux.setCellValueFactory(new PropertyValueFactory<>("idTorre"));
         columnFechaEscritura_Chaux.setCellValueFactory(new PropertyValueFactory<>("fecha"));
@@ -758,25 +760,97 @@ public class VistaPrincipalController implements Initializable {
         imgChauxFondo_Proyectos_Editar.setEffect(colorAdjust);
         imgChauxFondo_Ventas.setEffect(colorAdjust);
         imgChauxFondo_VentasCrear.setEffect(colorAdjust);
+        imgChauxFondo_VerCuotas.setEffect(colorAdjust);
+        imgChauxFondo_Dashboard.setEffect(colorAdjust);
     }
 
     public void GraficMenu() {
         GraficaVenta.getData().clear();
-
         // Obtiene los datos de ventas y no vendido
         DatosGrafica dg = gestorApartamentos.DatosGrafica();
-        int ventas = dg.getDato1();
-        int noVendido = dg.getDato2();
+        int dato1 = dg.getDato1();
+        int dato2 = dg.getDato2();
 
         // Agrega los datos al gráfico circular (PieChart)
-        PieChart.Data vendidos = new PieChart.Data("Vendidos", ventas);
-        PieChart.Data noVendidos = new PieChart.Data("No vendido", noVendido);
+        PieChart.Data vendidos = new PieChart.Data("Vendidos", dato1);
+        PieChart.Data noVendidos = new PieChart.Data("No vendido", dato2);
 
         GraficaVenta.getData().add(vendidos);
         GraficaVenta.getData().add(noVendidos);
 
         vendidos.getNode().setStyle("-fx-pie-color: #f9560b;");
         noVendidos.getNode().setStyle("-fx-pie-color: #060f22;");
+    }
+
+    public void llenarGraficaCuotas() {
+        GraficaCuotas.getData().clear();
+
+        DatosGrafica dg = gestorPagos.datosGraficaDash();
+        int cuotasPagadas = dg.getDato1();
+        int cuotasVencidas = dg.getDato2();
+
+        XYChart.Series<String, Number> serieCuotas = new XYChart.Series<>();
+        serieCuotas.setName("Estado de Cuotas");
+
+        serieCuotas.getData().add(new XYChart.Data<>("Pagadas", cuotasPagadas));
+        serieCuotas.getData().add(new XYChart.Data<>("Vencidas", cuotasVencidas));
+
+        GraficaCuotas.getData().add(serieCuotas);
+    }
+
+    public void llenarCalendario() {
+        // Dimensiones del GridPane
+        double gridWidth = 850;
+        double gridHeight = 550;
+
+        // Cantidad de columnas y filas
+        int totalColumns = 7; // Una semana tiene 7 días
+        int totalRows = 5; // Suponiendo 5 filas para acomodar días del mes
+
+        // Calcular tamaños de celdas
+        double cellWidth = gridWidth / totalColumns;
+        double cellHeight = gridHeight / totalRows;
+
+        // Configurar proporciones de columnas y filas
+        calendarioGrid.getColumnConstraints().clear();
+        calendarioGrid.getRowConstraints().clear();
+        for (int i = 0; i < totalColumns; i++) {
+            ColumnConstraints col = new ColumnConstraints(cellWidth);
+            calendarioGrid.getColumnConstraints().add(col);
+        }
+        for (int i = 0; i < totalRows; i++) {
+            RowConstraints row = new RowConstraints(cellHeight);
+            calendarioGrid.getRowConstraints().add(row);
+        }
+        //Llenar de botones
+        for (int day = 1; day <= 30; day++) {
+            Button dayButton = new Button(String.valueOf(day));
+            dayButton.getStyleClass().add("btnCalendario");
+            dayButton.setStyle("-fx-min-width: " + cellWidth * 0.8 + "px; -fx-min-height: " + cellHeight * 0.8 + "px;");
+
+            // Agregar evento al botón
+            int finalDay = day; // Variable para usar dentro de la lambda
+            dayButton.setOnAction(event -> mostrarMensajeCuota(finalDay));
+
+            // Añadir botón al GridPane (distribuir en filas y columnas)
+            int row = (day - 1) / totalColumns; // Suponiendo una semana de 7 días
+            int col = (day - 1) % totalColumns;
+            calendarioGrid.add(dayButton, col, row);
+        }
+    }
+
+    // Método para mostrar el diálogo
+    private void mostrarMensajeCuota(int day) {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Cuotas del día " + day);
+
+        // Contenido de la ventana
+        dialog.getDialogPane().setContent(new Label("Cuotas pendientes para el día " + day));
+
+        // Botón para cerrar
+        dialog.getDialogPane().getButtonTypes().addAll(javafx.scene.control.ButtonType.CLOSE);
+
+        dialog.showAndWait();
     }
 
     //Funcion para obtener el usuario registrado en el login y sus dependencias
@@ -788,8 +862,11 @@ public class VistaPrincipalController implements Initializable {
 
         //Información de los proyectos del administrador
         if (usuario.getRol().equals("Administrador")) {
+            tabVentas.disableProperty().set(true);
+            tabDashboard.disableProperty().set(true);
             ActualizarTabla(gestorProyectos.ObtenerProyectosAdmin(Integer.parseInt(usuario.getId())), tableViewProyectos_Proyectos);
         } else {
+            tabProyectos.disableProperty().set(true);
             ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas);
         }
 
@@ -1171,5 +1248,11 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private void CerrarVentanaCuotas(ActionEvent event) {
         anchorPaneInterior_VerCuotas.setVisible(false);
+    }
+
+    @FXML
+    private void GenerarReporte(ActionEvent event) {
+        generarPDF.geneararpdf(gestorApartamentos.DatosReportes());
+        MostrarMensajeConfirmacion("PDF generado exitosamente.");
     }
 }

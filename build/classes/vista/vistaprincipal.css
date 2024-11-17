@@ -438,7 +438,6 @@
 .table-view-blanco {
     -fx-background-color: transparent;
     -fx-border-color: #ffffff;
-    -fx-border-radius: 10px;
     -fx-padding: 10;
 }
 
@@ -455,14 +454,14 @@
     -fx-alignment: center;
 }
 
-.table-row-cell-blanco:focused{
+.table-row-cell-blanco:focused {
+    -fx-background-color: #ffffff; /* Fondo blanco para las filas enfocadas */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
 .table-row-cell-blanco:selected {
-    -fx-background-color: transparent;
-    -fx-border-color: #ffffff;
+    -fx-background-color: #ffffff; /* Fondo blanco para las filas seleccionadas */
 }
 
 .table-view-blanco .column-header-background {
@@ -500,14 +499,17 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 1.2em;
     -fx-alignment: center;
+    -fx-background-color: transparent; /* Fondo transparente para las celdas */
 }
 
 .table-cell-blanco:focused {
+    -fx-background-color: #ffffff; /* Fondo blanco para celdas enfocadas */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
 .table-cell-blanco:selected {
+    -fx-background-color: #ffffff; /* Fondo blanco para celdas seleccionadas */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
@@ -525,6 +527,70 @@
 }
 
 .table-view-blanco .table-row-cell-blanco:selected .table-cell-blanco {
+    -fx-background-color: #ffffff; /* Fondo blanco para las celdas seleccionadas */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+}
+
+.chart-bar {
+    -fx-bar-fill: #f9560b; /* Color por defecto de las barras */
+}
+
+.data0.chart-bar {
+    -fx-bar-fill: #f9560b; /* Primera barra (cuotas pagadas) */
+    -fx-background-radius: 10px;
+}
+
+.data1.chart-bar {
+    -fx-bar-fill: #13072e; /* Segunda barra (cuotas sin pagar) */
+    -fx-background-radius: 10px;
+}
+
+.chart-legend {
+    -fx-background-color: transparent; /* Fondo transparente */
+    -fx-padding: 10px;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-radius: 5; /* Redondeo para los símbolos de la leyenda */
+}
+
+.chart-legend-item {
+    -fx-font-size: 24px; /* Tamaño del texto de la leyenda */
+    -fx-text-fill: grey;
+}
+
+.chart {
+    -fx-background-color: transparent; /* Color de fondo del gráfico */
+    -fx-padding: 20px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent; /* Fondo del área de trazado */
+}
+
+.axis {
+    -fx-tick-label-fill: grey; /* Color de las etiquetas */
+    -fx-font-size: 12px;
+}
+
+.axis-line {
+    -fx-stroke: transparent; /* Línea del eje transparente */
+}
+
+.btnCalendario {
+    -fx-background-color: #13072e;
+    -fx-border-color: #f9560b;
+    -fx-border-width: 3;
+    -fx-background-radius: 8;
+    -fx-border-radius: 5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+}
+
+.btnCalendario:pressed {
+    -fx-background-color: #1a0b3c;
+    -fx-border-color: #ff7504;
+    -fx-font-size: 1.45em;
 }

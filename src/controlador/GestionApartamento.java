@@ -56,4 +56,8 @@ public class GestionApartamento {
     public int ObtenerApartamentoUnico(String nomApartamento, String nomTorre, String nomProyecto) {
         return apartamentoDAO.BuscarApartamentoUnico(nomApartamento, nomTorre, nomProyecto);
     }
+    
+    public ArrayList<Apartamento> DatosReportes(){
+        return apartamentoDAO.DatosReportes();
+    }
 }

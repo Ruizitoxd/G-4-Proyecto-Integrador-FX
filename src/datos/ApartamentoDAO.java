@@ -329,4 +329,32 @@ public class ApartamentoDAO {
         }
         return idApartamento;
     }
+    public ArrayList<Apartamento> DatosReportes() {
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        String sql = "SELECT id, numero, valor, area, matricula " +
+                     "FROM apartamento " +
+                     "WHERE fechaEscritura IS NOT NULL " +
+                     "AND TRUNC(fechaEscritura, 'MM') = TRUNC(SYSDATE, 'MM')";
+        
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Apartamento apa = new Apartamento();
+                apa.setId(rs.getInt("id"));
+                apa.setNumero(rs.getString("numero"));
+                apa.setValor(rs.getDouble("valor"));
+                apa.setArea(rs.getString("area"));
+                apa.setMatricula(rs.getString("matricula"));
+                apartamentos.add(apa);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return apartamentos;
+    }
 }
