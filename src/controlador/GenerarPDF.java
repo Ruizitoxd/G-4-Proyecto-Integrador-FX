@@ -6,10 +6,9 @@ import modelo.Reporte;
 
 public class GenerarPDF {
 
-    
-    public boolean geneararpdf(ArrayList<Apartamento> t) {
-        Reporte re = new Reporte();  
-        return re.generarPdf(t);     
+    public boolean geneararpdf(ArrayList<Apartamento> t, String nombreAsesor) {
+        Reporte re = new Reporte();
+        return re.generarPdf(t, nombreAsesor);
     }
 
 }

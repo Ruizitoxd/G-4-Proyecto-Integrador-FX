@@ -20,7 +20,6 @@ public class Reporte {
     Font fuenteTitulo = FontFactory.getFont(FontFactory.TIMES_BOLD, 16);
     Font fuenteNegrita = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
 
-
     public void crearDocumento() throws FileNotFoundException, DocumentException {
         documento = new Document(PageSize.A4, 35, 30, 50, 50);
 
@@ -49,6 +48,19 @@ public class Reporte {
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         tabla.addCell(celda);
         documento.add(tabla);
+    }
+
+    public void agregarParrafo(String nombre) throws DocumentException {
+        Paragraph parrafo = new Paragraph();
+        parrafo.add(new Phrase("Chaux Construction-Group\n", fuenteNegrita));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaActual = sdf.format(new Date());
+        parrafo.add(new Phrase("Fecha: ", fuenteNegrita));
+        parrafo.add(new Phrase(fechaActual + "\n"));
+        parrafo.add(new Phrase("Asesor que reporta: ", fuenteNegrita));
+        parrafo.add(new Phrase(nombre + "\n"));
+        documento.add(parrafo);
     }
 
     public void agregarSaltosDeLinea() throws DocumentException {
@@ -84,13 +96,14 @@ public class Reporte {
         }
     }
 
-    public boolean generarPdf(ArrayList<Apartamento> apartamentos) {
+    public boolean generarPdf(ArrayList<Apartamento> apartamentos, String nombreAsesor) {
         Reporte reportePdf = new Reporte();
         try {
             reportePdf.crearDocumento();
             reportePdf.abrirDocumento();
-            reportePdf.agregarTitulo();
+            reportePdf.agregarParrafo(nombreAsesor);
             reportePdf.agregarSaltosDeLinea();
+            reportePdf.agregarTitulo();
             reportePdf.agregarSaltosDeLinea();
 
             reportePdf.agregarTablaApartamentos(apartamentos);

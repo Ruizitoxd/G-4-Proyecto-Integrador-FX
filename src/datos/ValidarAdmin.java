@@ -16,7 +16,7 @@ public class ValidarAdmin implements Validar {
 
     public RolUsuario validar(String correo, String identificacion) {
         RolUsuario RU = new RolUsuario();
-        String sqlAdmin = "SELECT ID, IDENTIFICACION, NOMBRE, DIRECCION, CORREOELECTRONICO FROM ADMINISTRADOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+        String sqlAdmin = "SELECT ID, IDENTIFICACION, NOMBRE, APELLIDO, DIRECCION, CORREOELECTRONICO FROM ADMINISTRADOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
 
         try {
             con = conexion.getConnection();
@@ -29,6 +29,7 @@ public class ValidarAdmin implements Validar {
                 RU.setId(rs.getString("ID"));
                 RU.setIdentificacion(rs.getString("IDENTIFICACION"));
                 RU.setNombre(rs.getString("NOMBRE"));
+                RU.setApellido(rs.getString("APELLIDO"));
                 RU.setDireccion(rs.getString("DIRECCION"));
                 RU.setCorreo(rs.getString("CORREOELECTRONICO"));
                 RU.setRol("Administrador");

@@ -1252,7 +1252,7 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void GenerarReporte(ActionEvent event) {
-        generarPDF.geneararpdf(gestorApartamentos.DatosReportes());
+        generarPDF.geneararpdf(gestorApartamentos.DatosReportes(), usuario.getNombre() + " " + usuario.getApellido());
         MostrarMensajeConfirmacion("PDF generado exitosamente.");
     }
 }
