@@ -42,7 +42,7 @@ public class Reporte {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fechaActual = sdf.format(new Date());
 
-        PdfPCell celda = new PdfPCell(new Phrase("Apartamentos vendidos este mes " + fechaActual, fuenteTitulo));
+        PdfPCell celda = new PdfPCell(new Phrase("Apartamentos vendidos este mes", fuenteTitulo));
         celda.setColspan(5);
         celda.setBorderColor(BaseColor.WHITE);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);

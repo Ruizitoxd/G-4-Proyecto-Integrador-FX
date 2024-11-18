@@ -335,7 +335,7 @@ public class ApartamentoDAO {
         String sql = "SELECT id, numero, valor, area, matricula "
                 + "FROM apartamento "
                 + "WHERE fechaEscritura IS NOT NULL "
-                + "AND TRUNC(fechaEscritura, 'MM') = TRUNC(SYSDATE, 'MM')";
+                + "AND TO_CHAR(fechaEscritura, 'MM/YY') = TO_CHAR(SYSDATE, 'MM/YY')";
 
         try {
             conexion = new ConexionBD();
