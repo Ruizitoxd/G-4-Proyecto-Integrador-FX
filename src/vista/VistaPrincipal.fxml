@@ -524,7 +524,7 @@
                                     <RowConstraints />
                                  </rowConstraints></GridPane>
                               <Label layoutX="40.0" layoutY="157.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="DE LOS CLIENTES" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="107.0" />
-                              <Label layoutX="40.0" layoutY="73.0" styleClass="tituloLabelBig" stylesheets="@vistaprincipal.css" text="CUOTAS POR DÍA" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="40.0" />
+                              <Label layoutX="40.0" layoutY="73.0" styleClass="tituloLabelBig" stylesheets="@vistaprincipal.css" text="FECHAS VENCIMIENTO" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="40.0" />
                               <Button fx:id="btnGenerarReporte" layoutX="137.0" layoutY="835.0" mnemonicParsing="false" onAction="#GenerarReporte" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Generar Reporte" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" />
                                     </children>
                                 </AnchorPane>

@@ -329,13 +329,14 @@ public class ApartamentoDAO {
         }
         return idApartamento;
     }
+
     public ArrayList<Apartamento> DatosReportes() {
         ArrayList<Apartamento> apartamentos = new ArrayList<>();
-        String sql = "SELECT id, numero, valor, area, matricula " +
-                     "FROM apartamento " +
-                     "WHERE fechaEscritura IS NOT NULL " +
-                     "AND TRUNC(fechaEscritura, 'MM') = TRUNC(SYSDATE, 'MM')";
-        
+        String sql = "SELECT id, numero, valor, area, matricula "
+                + "FROM apartamento "
+                + "WHERE fechaEscritura IS NOT NULL "
+                + "AND TRUNC(fechaEscritura, 'MM') = TRUNC(SYSDATE, 'MM')";
+
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();

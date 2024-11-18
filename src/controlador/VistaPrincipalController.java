@@ -12,12 +12,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
@@ -37,6 +39,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import modelo.Apartamento;
 
 //Modelos
@@ -477,8 +480,6 @@ public class VistaPrincipalController implements Initializable {
         ActualizarGanancias();
         ActualizarTabla(gestorApartamentos.ObtenerApartamentosVendidos(), tableViewApartamentosVendidos_Chaux);
         GraficMenu();
-        llenarGraficaCuotas();
-        llenarCalendario();
 
         //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -823,7 +824,7 @@ public class VistaPrincipalController implements Initializable {
             calendarioGrid.getRowConstraints().add(row);
         }
         //Llenar de botones
-        for (int day = 1; day <= 30; day++) {
+        for (int day = 1; day <= 31; day++) {
             Button dayButton = new Button(String.valueOf(day));
             dayButton.getStyleClass().add("btnCalendario");
             dayButton.setStyle("-fx-min-width: " + cellWidth * 0.8 + "px; -fx-min-height: " + cellHeight * 0.8 + "px;");
@@ -840,15 +841,40 @@ public class VistaPrincipalController implements Initializable {
     }
 
     // Método para mostrar el diálogo
-    private void mostrarMensajeCuota(int day) {
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Cuotas del día " + day);
+    private void mostrarMensajeCuota(int dia) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Cuotas del día " + dia);
 
-        // Contenido de la ventana
-        dialog.getDialogPane().setContent(new Label("Cuotas pendientes para el día " + day));
+        // Contenedor principal
+        VBox contenido = new VBox();
+        contenido.setSpacing(10); // Espaciado entre elementos
+        contenido.setPadding(new Insets(10)); // Márgenes dentro del contenedor
+
+        // Título general
+        contenido.getChildren().add(new Label("Fechas vencimiento para el día " + dia));
+
+        // Información de las cuotas
+        ArrayList<Pago> fechasVencimiento = gestorPagos.DatosDashboard(dia);
+        for (Pago fecha : fechasVencimiento) {
+            System.out.println(fecha);
+
+            VBox grupoInfo = new VBox();
+            grupoInfo.setSpacing(5); // Espaciado entre elementos de cada cuota
+
+            grupoInfo.getChildren().add(new Label("Cliente: " + fecha.getIdCliente()));
+            grupoInfo.getChildren().add(new Label("Monto: " + fecha.getValor()));
+            grupoInfo.getChildren().add(new Label("Estado: " + fecha.getEstado()));
+            grupoInfo.getChildren().add(new Label("Fecha vencimiento: " + fecha.getFechaVencimiento()));
+
+            contenido.getChildren().add(grupoInfo);
+            contenido.getChildren().add(new Separator()); // Línea divisoria
+        }
+
+        // Configurar el contenido del diálogo
+        dialog.getDialogPane().setContent(contenido);
 
         // Botón para cerrar
-        dialog.getDialogPane().getButtonTypes().addAll(javafx.scene.control.ButtonType.CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
 
         dialog.showAndWait();
     }
@@ -868,6 +894,8 @@ public class VistaPrincipalController implements Initializable {
         } else {
             tabProyectos.disableProperty().set(true);
             ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas);
+            llenarGraficaCuotas();
+            llenarCalendario();
         }
 
         ActualizarChoiceBoxVentana();
@@ -1102,6 +1130,7 @@ public class VistaPrincipalController implements Initializable {
         }
 
         ActualizarCantidadProyectos();
+        ActualizarCantidadApartamentos();
     }
 
     @FXML
@@ -1159,6 +1188,8 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void AbrirVentanaVentaNueva(ActionEvent event) {
+        ventaTemporal = new Venta();
+
         ActualizarTabla(gestorApartamentos.ObtenerApartamentosNoVendidos(), tableViewApartamentosDisponibles_VentasCrear);
 
         anchorPaneInterior_VentasCrear.setVisible(true);
@@ -1185,7 +1216,6 @@ public class VistaPrincipalController implements Initializable {
 
     @FXML
     private void RealizarVenta(ActionEvent event) {
-        ventaTemporal = new Venta();
         ventaTemporal.setNumCuotas(Integer.parseInt(txtCuotasDatosVenta_crear.getText()));
         ventaTemporal.setInteres(Double.parseDouble(txtInteresesDatosdeVenta_crear.getText()) / 100);
         ventaTemporal.setValor(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getValor() * (1 + ventaTemporal.getInteres()));
@@ -1228,13 +1258,18 @@ public class VistaPrincipalController implements Initializable {
 
         //Actualizar tablas
         ActualizarTabla(gestorApartamentos.ObtenerApartamentosNoVendidos(), tableViewApartamentosDisponibles_VentasCrear); //Tabla de apartamentos disponibles
+        ActualizarTabla(gestorApartamentos.ObtenerApartamentosVendidos(), tableViewApartamentosVendidos_Chaux);
         ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas); //Tabla de ventas
+        ActualizarCantidadVentas();
+        ActualizarGanancias();
     }
 
     @FXML
     private void ConfirmarVenta(ActionEvent event) {
         //Registrar las cuotas
         gestorPagos.GuardarPago(ventaTemporal.getNumCuotas(), txtDiaIngresar_VentasCrearFactura.getText(), ventaTemporal.getValor() / ventaTemporal.getNumCuotas(), Integer.parseInt(usuario.getId()), gestorVentas.obtenerIdUltimaVenta(), gestorClientes.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()));
+
+        llenarGraficaCuotas();
 
         anchorPaneInterior_VentasCrearFactura.setVisible(false);
         CerrarVentanaVentaNueva(event);

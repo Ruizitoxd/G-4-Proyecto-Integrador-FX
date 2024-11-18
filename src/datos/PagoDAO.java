@@ -140,4 +140,44 @@ public class PagoDAO {
 
         return new DatosGrafica(pagadas, noPagadas);
     }
+
+    public ArrayList<Pago> DatosdelDashboard(int dia) {
+        ArrayList<Pago> cuotas = new ArrayList<>();
+        String sql = "SELECT p.valor AS valor, p.fechaVencimiento AS fechaVencimiento, "
+                + "c.nombre||' '||c.apellido AS nombreCliente "
+                + "FROM pago p "
+                + "JOIN cliente c ON p.id_cliente = c.id "
+                + "WHERE TO_CHAR(p.fechaVencimiento, 'dd') = ?";
+
+        LocalDate fechaActual = LocalDate.now();
+
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, dia);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pago cuo = new Pago();
+                cuo.setValor(rs.getDouble("valor"));
+                cuo.setIdCliente(rs.getString("nombreCliente"));
+                Date fechaVencimientoSql = rs.getDate("fechaVencimiento");
+                LocalDate fechaVencimiento = fechaVencimientoSql.toLocalDate();
+                cuo.setFechaVencimiento(fechaVencimiento);
+
+                if (fechaVencimiento.isBefore(fechaActual)) {
+                    cuo.setEstado("Vencido");
+                } else {
+                    cuo.setEstado("Pendiente");
+                }
+                cuotas.add(cuo);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return cuotas;
+    }
 }

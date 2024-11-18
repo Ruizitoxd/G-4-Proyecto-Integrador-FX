@@ -17,12 +17,16 @@ public class GestionPago {
     public boolean GuardarPago(int cuotas, String DiaAPagar, double valor, int idAsesor, int idVenta, int idCliente) {
         return pagoDAO.GenerarCuotas(cuotas, DiaAPagar, valor, idAsesor, idVenta, idCliente);
     }
-    
-    public boolean EditarPago(int id, Date fechapago){
+
+    public boolean EditarPago(int id, Date fechapago) {
         return pagoDAO.RegistrarPago(id, fechapago);
     }
-    
-    public DatosGrafica datosGraficaDash(){
+
+    public DatosGrafica datosGraficaDash() {
         return pagoDAO.DatosGraficaDashboard();
+    }
+
+    public ArrayList<Pago> DatosDashboard(int dia) {
+        return pagoDAO.DatosdelDashboard(dia);
     }
 }
