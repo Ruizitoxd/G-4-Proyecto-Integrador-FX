@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
@@ -18,6 +19,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPrincipalController">
     <stylesheets>
@@ -45,7 +50,7 @@
                                                         <Label fx:id="lblNombreUsuario" layoutX="111.0" layoutY="407.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Usuario" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="400.0" />
                                                         <Separator fx:id="separatorUsuario" prefWidth="200.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="435.0" />
                                                         <Label id="tituloRol" fx:id="lblRol" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Rol" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="78.0" />
-                                                        <Label fx:id="lblRolUsuario" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="500.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Administrador" textAlignment="CENTER" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" />
+                                                        <Label fx:id="lblRolUsuario" layoutX="153.0" layoutY="500.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Administrador" textAlignment="CENTER" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" />
                                                         <Separator fx:id="separatorRol" layoutX="88.0" layoutY="445.0" prefWidth="200.0" AnchorPane.bottomAnchor="224.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" />
                                                         <Label fx:id="lblCorreoUsuario" layoutX="88.0" layoutY="510.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Correo" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" />
                                                         <Separator fx:id="separatorCorreo" layoutX="88.0" layoutY="545.0" prefWidth="200.0" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="79.0" />
@@ -65,20 +70,28 @@
                                                         <Label fx:id="lblGanancias" alignment="CENTER" layoutX="50.0" layoutY="267.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="Ganancias:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="261.0" />
                                                         <Label fx:id="lblCantidadProyectosNum" alignment="CENTER" contentDisplay="RIGHT" layoutX="550.0" layoutY="96.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" textAlignment="RIGHT" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="96.0" />
                                                         <Label fx:id="lblCantidadApartamentosNum" alignment="CENTER" contentDisplay="RIGHT" layoutX="531.0" layoutY="151.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" textAlignment="RIGHT" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="151.0" />
-                                                        <Label fx:id="lblCantidadVentasNum" alignment="CENTER" layoutX="418.0" layoutY="206.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="No disponible" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="206.0" />
-                                                        <Label fx:id="lblGananciasNum" alignment="CENTER" layoutX="319.0" layoutY="244.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="No disponible" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="261.0" />
-                                          <PieChart fx:id="GraficaVenta" layoutX="626.0" layoutY="90.0" prefHeight="258.0" prefWidth="346.0" title="Grafiva de Ventas" />
+                                                        <Label fx:id="lblCantidadVentasNum" alignment="CENTER" layoutX="418.0" layoutY="206.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="206.0" />
+                                                        <Label fx:id="lblGananciasNum" alignment="CENTER" layoutX="319.0" layoutY="244.0" styleClass="contenidoLabel" stylesheets="@vistaprincipal.css" text="X" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="261.0" />
+                                                        <PieChart fx:id="GraficaVenta" layoutX="626.0" layoutY="90.0" prefHeight="258.0" prefWidth="346.0" stylesheets="@vistaprincipal.css" title="Porcentaje vendido">
+                                                            <styleClass>
+                                                                <String fx:value="chart" />
+                                                                <String fx:value="chart-pie" />
+                                                            </styleClass>
+                                                        </PieChart>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane fx:id="paneVentas_Chaux" prefHeight="360.0" prefWidth="1000.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
                                                     <children>
                                                         <Label id="#InfoEmpresa" fx:id="lblInfoAptos" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Apartamentos Vendidos" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="30.0" />
                                                         <Separator fx:id="separatorInfoAptos" blendMode="MULTIPLY" prefWidth="200.0" styleClass="separatorInfo" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="73.0" />
-                                                        <Label id="#InfoEmpresa" fx:id="lblApartamentos" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="Apartamentos" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="96.0" />
-                                                        <Label id="#InfoEmpresa" fx:id="lblTorre" alignment="CENTER" contentDisplay="CENTER" layoutX="390.0" layoutY="96.0" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="Torre" textAlignment="CENTER" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="96.0" />
-                                                        <Label id="#InfoEmpresa" fx:id="lblValor" alignment="CENTER" contentDisplay="CENTER" layoutX="630.0" layoutY="96.0" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="Valor" textAlignment="CENTER" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="96.0" />
-                                                        <Label id="#InfoEmpresa" fx:id="lblEstado" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="Estado" textAlignment="CENTER" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="96.0" />
-                                                        <Label id="#InfoEmpresa" fx:id="lblTempralNoDisponible" alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="204.0" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="INFORMACIÓN NO DISPONIBLE" textAlignment="CENTER" />
+                                                        <TableView fx:id="tableViewApartamentosVendidos_Chaux" layoutY="101.0" prefHeight="259.0" prefWidth="1000.0" styleClass="table-view-blanco" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="85.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="columnApartamentos_Chaux" prefWidth="225.0" text="APARTAMENTOS" />
+                                                                <TableColumn fx:id="columnTorre_Chaux" prefWidth="225.0" text="TORRE" />
+                                                                <TableColumn fx:id="columnValor_Chaux" prefWidth="225.0" text="VALOR" />
+                                                                <TableColumn fx:id="columnFechaEscritura_Chaux" prefWidth="225.0" text="FECHA ESCRITURA" />
+                                                            </columns>
+                                                        </TableView>
                                                     </children>
                                                 </AnchorPane>
                                             </children>
@@ -226,19 +239,19 @@
                                                     </opaqueInsets>
                                                 </AnchorPane>
                                                 <Button fx:id="btnGuardarProyecto_Editar" layoutX="491.0" layoutY="730.0" mnemonicParsing="false" onAction="#GuardarProyectoEditado" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Guardar proyecto" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="490.0" />
-                                    <TableView fx:id="tableViewApartamentos_Editar" editable="true" prefHeight="512.0" prefWidth="1050.0" visible="false" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="280.0">
-                                       <columns>
-                                          <TableColumn fx:id="columnNumeroApartamento_Editar" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="NÚMERO" />
-                                          <TableColumn fx:id="columnValorApartamento_Editar" maxWidth="233.0" minWidth="100.0" prefWidth="233.0" resizable="false" text="VALOR" />
-                                          <TableColumn fx:id="columnAreaApartamento_Editar" maxWidth="159.0" minWidth="50.0" prefWidth="106.0" resizable="false" text="ÁREA" />
-                                          <TableColumn fx:id="columnMatriculaApartamento_Editar" maxWidth="301.0" minWidth="100.0" prefWidth="262.0" resizable="false" text="MATRICULA" />
-                                          <TableColumn fx:id="columnTipoUnidadApartamento_Editar" maxWidth="313.0" minWidth="50.0" prefWidth="194.0" resizable="false" text="TIPO UNIDAD" />
-                                          <TableColumn fx:id="columnTorreApartamento_Editar" maxWidth="298.0" minWidth="50.0" prefWidth="135.0" resizable="false" text="TORRE" />
-                                          <TableColumn fx:id="columnAccionesApartamento_Editar" maxWidth="200.0" minWidth="50.0" prefWidth="200.0" resizable="false" text="ACCIONES" />
-                                       </columns>
-                                    </TableView>
-                                    <Button id="buttonApartamentos" fx:id="btnVisualizarApartamentos_Editar" minHeight="20.0" mnemonicParsing="false" onAction="#AlternarTablasApartamentosEditar" prefHeight="20.0" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Visualizar apartamentos" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" />
-                                    <Button id="buttonApartamentos" fx:id="btnVisualizarTorres_Editar" minHeight="20.0" mnemonicParsing="false" onAction="#AlternarTablasTorresEditar" prefHeight="20.0" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Visualizar torres" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" />
+                                                <TableView fx:id="tableViewApartamentos_Editar" editable="true" prefHeight="512.0" prefWidth="1050.0" visible="false" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="280.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="columnNumeroApartamento_Editar" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="NÚMERO" />
+                                                        <TableColumn fx:id="columnValorApartamento_Editar" maxWidth="233.0" minWidth="100.0" prefWidth="233.0" resizable="false" text="VALOR" />
+                                                        <TableColumn fx:id="columnAreaApartamento_Editar" maxWidth="159.0" minWidth="50.0" prefWidth="106.0" resizable="false" text="ÁREA" />
+                                                        <TableColumn fx:id="columnMatriculaApartamento_Editar" maxWidth="301.0" minWidth="100.0" prefWidth="262.0" resizable="false" text="MATRICULA" />
+                                                        <TableColumn fx:id="columnTipoUnidadApartamento_Editar" maxWidth="313.0" minWidth="50.0" prefWidth="194.0" resizable="false" text="TIPO UNIDAD" />
+                                                        <TableColumn fx:id="columnTorreApartamento_Editar" maxWidth="298.0" minWidth="50.0" prefWidth="135.0" resizable="false" text="TORRE" />
+                                                        <TableColumn fx:id="columnAccionesApartamento_Editar" maxWidth="200.0" minWidth="50.0" prefWidth="200.0" resizable="false" text="ACCIONES" />
+                                                    </columns>
+                                                </TableView>
+                                                <Button id="buttonApartamentos" fx:id="btnVisualizarApartamentos_Editar" minHeight="20.0" mnemonicParsing="false" onAction="#AlternarTablasApartamentosEditar" prefHeight="20.0" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Visualizar apartamentos" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" />
+                                                <Button id="buttonApartamentos" fx:id="btnVisualizarTorres_Editar" minHeight="20.0" mnemonicParsing="false" onAction="#AlternarTablasTorresEditar" prefHeight="20.0" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Visualizar torres" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="70.0" />
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -250,106 +263,273 @@
                 <Tab fx:id="tabVentas" text="Ventas">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <AnchorPane id="InformacionGeneralExt" fx:id="anchorPaneExterior_Ventas" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-                           <children>
-                              <AnchorPane id="InformacionGeneralInt" fx:id="anchorPaneInterior_Ventas" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                 <children>
-                                    <Label fx:id="lblVentas" layoutX="92.0" layoutY="79.0" styleClass="tituloLabelBig" stylesheets="@vistaprincipal.css" text="VENTAS" AnchorPane.bottomAnchor="680.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="50.0" />
-                                    <Button fx:id="btnAgregarVenta_Ventas" layoutX="170.0" layoutY="573.0" mnemonicParsing="false" onAction="#AbrirVentanaVentaNueva" prefWidth="280.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Agregar venta" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="80.0" />
-                                    <ImageView fx:id="imgChauxFondo_Ventas" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TableView fx:id="tableViewVentas_Ventas" editable="true" layoutX="84.0" layoutY="156.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="156.0">
-                                       <columns>
-                                          <TableColumn fx:id="columnIdVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="ID" />
-                                          <TableColumn fx:id="columnValorVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="VALOR" />
-                                          <TableColumn fx:id="columnNumeroCuotasVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="NÚMERO CUOTAS" />
-                                          <TableColumn fx:id="columnInteresVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="INTERÉS" />
-                                          <TableColumn fx:id="columnIdApartamentoVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="ID APARTAMENTO" />
-                                          <TableColumn fx:id="columnAccionesVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="ACCIONES" />
-                                       </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_VentasCrear" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                 <children>
-                                    <ImageView fx:id="imgChauxFondo_VentasCrear" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Button id="buttonCerrar" fx:id="btnCerrarAgregarVentas" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-25.0" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanaVentaNueva" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                    <TableView fx:id="tableViewApartamentosDisponibles_VentasCrear" editable="true" layoutX="18.0" layoutY="392.0" prefHeight="322.0" prefWidth="660.0" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="392.0">
-                                       <columns>
-                                          <TableColumn fx:id="columnApartamento_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="APARTAMENTO" />
-                                          <TableColumn fx:id="columnTorre_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="TORRE" />
-                                          <TableColumn fx:id="columnProyecto_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="PROYECTO" />
-                                       </columns>
-                                    </TableView>
-                                    <AnchorPane fx:id="panelDatosdelCliente_VentasCrear" layoutY="48.0" prefHeight="629.0" prefWidth="546.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="44.0">
-                                       <children>
-                                          <Label fx:id="lblDatosdel_VentasCrear" alignment="CENTER" contentDisplay="CENTER" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos del" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
-                                          <Label fx:id="lblCliente_VentasCrear" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="30.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Cliente" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="83.0" />
-                                          <TextField fx:id="txtNombreCliente_VentasCrear" prefHeight="70.0" prefWidth="230.0" promptText="Nombre" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="170.0" />
-                                          <TextField fx:id="txtApellidoCliente_VentasCrear" layoutX="318.0" layoutY="160.0" prefHeight="70.0" prefWidth="266.0" promptText="Apellido" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0" />
-                                          <TextField fx:id="txtDireccionCliente_VentasCrear" layoutX="16.0" layoutY="267.0" prefHeight="70.0" prefWidth="506.0" promptText="Dirección" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="260.0" />
-                                          <ChoiceBox fx:id="choiceBoxSISBENCliente_VentasCrear" layoutX="315.0" layoutY="459.0" prefHeight="70.0" prefWidth="221.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="20.0" />
-                                          <TextField fx:id="txtCedulaCliente_VentasCrear" layoutX="16.0" layoutY="373.0" prefHeight="70.0" prefWidth="230.0" promptText="Cédula" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" />
-                                          <TextField fx:id="txtSubsidioCliente_VentasCrear" layoutX="263.0" layoutY="338.0" prefHeight="70.0" prefWidth="266.0" promptText="Subsidio" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" />
-                                          <TextField fx:id="txtCorreoelectronicoCliente_VentasCrear" layoutX="18.0" layoutY="459.0" prefHeight="70.0" prefWidth="230.0" promptText="Correo electrónico" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
-                                          <TextField fx:id="txtTelefonoCliente_VentasCrear" layoutX="17.0" layoutY="559.0" prefHeight="70.0" prefWidth="248.0" promptText="Teléfono" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="panelDatosdeVenta_VentasCrear" layoutX="44.0" layoutY="76.0" prefHeight="210.0" prefWidth="582.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="1060.0" AnchorPane.topAnchor="40.0">
-                                       <children>
-                                          <Label fx:id="lblDatosdeVenta_VentasCrear" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="33.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos de Venta" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
-                                          <TextField fx:id="txtCuotasDatosVenta_crear" layoutX="20.0" layoutY="90.0" prefHeight="70.0" promptText="Cuotas" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" />
-                                          <TextField fx:id="txtInteresesDatosdeVenta_crear" layoutX="250.0" layoutY="90.0" prefHeight="70.0" prefWidth="216.0" promptText="Intereses" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" />
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </AnchorPane>
-                                    <Button fx:id="btnRealizarVenta_VentasCrear" layoutX="216.0" layoutY="729.0" mnemonicParsing="false" onAction="#GuardarProyectoCrear" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Realizar Venta" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="70.0" />
-                                    <Label fx:id="lblSeleccioneUnApartamento_Ventas" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="344.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Seleccione un apartamento" textAlignment="CENTER" AnchorPane.leftAnchor="70.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
+                            <children>
+                                <AnchorPane id="InformacionGeneralExt" fx:id="anchorPaneExterior_Ventas" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                    <children>
+                                        <AnchorPane id="InformacionGeneralInt" fx:id="anchorPaneInterior_Ventas" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <children>
+                                                <Label fx:id="lblVentas" layoutX="92.0" layoutY="79.0" styleClass="tituloLabelBig" stylesheets="@vistaprincipal.css" text="VENTAS" AnchorPane.bottomAnchor="680.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="50.0" />
+                                                <Button fx:id="btnAgregarVenta_Ventas" layoutX="170.0" layoutY="573.0" mnemonicParsing="false" onAction="#AbrirVentanaVentaNueva" prefWidth="280.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Agregar venta" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="80.0" />
+                                                <ImageView fx:id="imgChauxFondo_Ventas" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TableView fx:id="tableViewVentas_Ventas" editable="true" layoutX="84.0" layoutY="156.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="156.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="columnIdVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="ID" />
+                                                        <TableColumn fx:id="columnValorVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="VALOR" />
+                                                        <TableColumn fx:id="columnNumeroCuotasVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="NÚMERO CUOTAS" />
+                                                        <TableColumn fx:id="columnInteresVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="INTERÉS" />
+                                                        <TableColumn fx:id="columnIdApartamentoVentas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="ID APARTAMENTO" />
+                                                        <TableColumn fx:id="columnAccionesVentas" maxWidth="240.0" minWidth="75.0" prefWidth="240.0" resizable="false" text="ACCIONES" />
+                                                    </columns>
+                                                    <columnResizePolicy>
+                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                    </columnResizePolicy>
+                                                </TableView>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane id="MenuCrearProyecto" fx:id="anchorPaneInterior_VentasCrear" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <children>
+                                                <ImageView fx:id="imgChauxFondo_VentasCrear" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Button id="buttonCerrar" fx:id="btnCerrarAgregarVentas" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-25.0" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanaVentaNueva" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <TableView fx:id="tableViewApartamentosDisponibles_VentasCrear" editable="true" layoutX="18.0" layoutY="392.0" prefHeight="322.0" prefWidth="660.0" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="946.0" AnchorPane.topAnchor="392.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="columnApartamento_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="APARTAMENTO" />
+                                                        <TableColumn fx:id="columnTorre_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="TORRE" />
+                                                        <TableColumn fx:id="columnProyecto_VentasCrear" maxWidth="220.0" prefWidth="220.0" resizable="false" text="PROYECTO" />
+                                                    </columns>
+                                                </TableView>
+                                                <AnchorPane fx:id="panelDatosdelCliente_VentasCrear" layoutY="48.0" prefHeight="629.0" prefWidth="546.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="44.0">
+                                                    <children>
+                                                        <Label fx:id="lblRegistrar_VentasCrear" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Registrar" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                                                        <Label fx:id="lblDatosCliente_VentasCrear" layoutX="30.0" layoutY="30.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos del cliente" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="83.0" />
+                                                        <TextField fx:id="txtNombreCliente_VentasCrear" prefHeight="70.0" prefWidth="230.0" promptText="Nombre" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="170.0" />
+                                                        <TextField fx:id="txtApellidoCliente_VentasCrear" layoutX="318.0" layoutY="160.0" prefHeight="70.0" prefWidth="266.0" promptText="Apellido" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0" />
+                                                        <TextField fx:id="txtDireccionCliente_VentasCrear" layoutX="16.0" layoutY="267.0" prefHeight="70.0" prefWidth="506.0" promptText="Dirección" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="260.0" />
+                                                        <ChoiceBox fx:id="choiceBoxSISBENCliente_VentasCrear" layoutX="315.0" layoutY="459.0" prefHeight="70.0" prefWidth="221.0" styleClass="choiceBox" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="20.0" />
+                                                        <TextField fx:id="txtCedulaCliente_VentasCrear" layoutX="16.0" layoutY="373.0" prefHeight="70.0" prefWidth="230.0" promptText="Cédula" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" />
+                                                        <TextField fx:id="txtSubsidioCliente_VentasCrear" layoutX="263.0" layoutY="338.0" prefHeight="70.0" prefWidth="266.0" promptText="Subsidio" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" />
+                                                        <TextField fx:id="txtCorreoelectronicoCliente_VentasCrear" layoutX="18.0" layoutY="459.0" prefHeight="70.0" prefWidth="230.0" promptText="Correo electrónico" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
+                                                        <TextField fx:id="txtTelefonoCliente_VentasCrear" layoutX="10.0" layoutY="557.0" prefHeight="70.0" prefWidth="248.0" promptText="Teléfono" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="260.0" />
+                                                        <ImageView fx:id="imgCliente" fitHeight="250.0" fitWidth="100.0" layoutX="75.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="30.0">
+                                                            <image>
+                                                                <Image url="@../recursos/imagenes/Logo%20persona.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                </AnchorPane>
+                                                <AnchorPane fx:id="panelDatosdeVenta_VentasCrear" layoutX="44.0" layoutY="76.0" prefHeight="210.0" prefWidth="582.0" styleClass="paneVistaPrincipal" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="1060.0" AnchorPane.topAnchor="40.0">
+                                                    <children>
+                                                        <Label fx:id="lblDatosdeVenta_VentasCrear" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="33.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos de Venta" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
+                                                        <TextField fx:id="txtCuotasDatosVenta_crear" layoutX="20.0" layoutY="90.0" prefHeight="70.0" promptText="Número cuotas" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="90.0" />
+                                                        <TextField fx:id="txtInteresesDatosdeVenta_crear" layoutX="250.0" layoutY="90.0" prefHeight="70.0" prefWidth="216.0" promptText="Interés %" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
+                                                    </children>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                </AnchorPane>
+                                                <Button fx:id="btnRealizarVenta_VentasCrear" layoutX="216.0" layoutY="729.0" mnemonicParsing="false" onAction="#RealizarVenta" prefWidth="250.0" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Realizar Venta" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="70.0" />
+                                                <Label fx:id="lblSeleccioneUnApartamento_Ventas" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="557.0" layoutY="337.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Seleccione un" AnchorPane.leftAnchor="530.0" AnchorPane.topAnchor="330.0" />
+                                                <Label fx:id="lblSeleccioneUnApartamento_Ventas2" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="562.0" layoutY="363.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="Apartamento" textAlignment="RIGHT" AnchorPane.leftAnchor="535.0" AnchorPane.topAnchor="360.0" />
+                                                <Label fx:id="lblSeleccioneUnApartamento_Ventas1" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="369.0" styleClass="tituloLabelMid" stylesheets="@vistaprincipal.css" text="APARTAMENTOS DISPONIBLES" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="360.0" />
+                                                <AnchorPane fx:id="anchorPaneInterior_VentasCrearFactura" layoutX="499.0" layoutY="32.0" prefHeight="830.0" prefWidth="1680.0" styleClass="my-rounded-box" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="499.0" AnchorPane.rightAnchor="509.0" AnchorPane.topAnchor="32.0">
+                                                    <children>
+                                                        <HBox fx:id="HboxFactura_VentasCrearFactura" prefHeight="100.0" prefWidth="200.0" styleClass="footer-purple" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="661.0">
+                                                            <children>
+                                                                <Label fx:id="lblValorTotalDeLaCompra_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="67.0" prefWidth="400.0" styleClass="tituloLabelBlanco" stylesheets="@vistaprincipal.css" text="\$X" textAlignment="CENTER">
+                                                                    <padding>
+                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                    </padding>
+                                                                </Label>
+                                                                <Button fx:id="btnConfiramar_VentasCrearFactura" minHeight="50.0" mnemonicParsing="false" onAction="#ConfirmarVenta" prefHeight="67.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" text="Confirmar">
+                                                                    <styleClass>
+                                                                        <String fx:value="buttonConfirmAndCancel" />
+                                                                        <String fx:value="boton-contenedor button" />
+                                                                    </styleClass>
+                                                                    <padding>
+                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                    </padding>
+                                                                </Button>
+                                                            </children>
+                                                        </HBox>
+                                                        <Label fx:id="lblCliente_VentasCrearFactura" contentDisplay="CENTER" layoutX="30.0" layoutY="67.0" prefHeight="45.0" prefWidth="290.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Cliente :" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="346.0" AnchorPane.topAnchor="67.0" />
+                                                        <Label fx:id="lblNombreGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="32.0" prefWidth="283.0" stylesheets="@vistaprincipal.css" text="Cliente" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblTelefonoGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="45.0" prefWidth="291.0" stylesheets="@vistaprincipal.css" text="# Cliente" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblCompra_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="22.0" layoutY="215.0" prefHeight="45.0" prefWidth="158.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Compra :" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="488.0" AnchorPane.topAnchor="220.0" />
+                                                        <Label fx:id="lblTorreGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="45.0" prefWidth="220.0" stylesheets="@vistaprincipal.css" text="Torre:" textAlignment="CENTER" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="401.0" AnchorPane.topAnchor="263.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblApartamentoGenerado_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="45.0" prefWidth="366.0" stylesheets="@vistaprincipal.css" text="Apartamento:" textAlignment="CENTER" AnchorPane.leftAnchor="276.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="263.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblDatosDeCobro_VentasCreaFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="24.0" layoutY="324.0" prefHeight="45.0" prefWidth="251.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Datos de cobro:" textAlignment="CENTER" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="391.0" AnchorPane.topAnchor="310.0" />
+                                                        <Label fx:id="lblDiaDeCobro_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="24.0" layoutY="365.0" prefHeight="45.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" text="Día de cobro" textAlignment="CENTER" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="442.0" AnchorPane.topAnchor="350.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <TextField fx:id="txtDiaIngresar_VentasCrearFactura" alignment="CENTER" layoutX="342.0" layoutY="367.0" prefHeight="41.0" prefWidth="178.0" promptText="Día" styleClass="textField" stylesheets="@vistaprincipal.css" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="350.0" />
+                                                        <Label fx:id="lblNumeroDecuotas_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="24.0" layoutY="410.0" prefHeight="45.0" prefWidth="301.0" stylesheets="@vistaprincipal.css" text="Número de cuotas: " textAlignment="CENTER" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="390.0">
+                                                            <styleClass>
+                                                                <String fx:value="no-bold-text" />
+                                                                <String fx:value="tituloLabel" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblValorDeCadaCuota_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="24.0" layoutY="459.0" prefHeight="43.0" prefWidth="326.0" stylesheets="@vistaprincipal.css" text="Valor de cada cuota:" textAlignment="CENTER" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="430.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblValorGenerado_VentasCrearFactura" layoutX="362.0" layoutY="432.0" prefHeight="45.0" prefWidth="286.0" stylesheets="@vistaprincipal.css" text="\$X" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="431.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblFactura_VentasCrearFactura" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Factura de cuotas" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0" />
+                                                        <Label fx:id="lbPago_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="24.0" layoutY="512.0" prefHeight="45.0" prefWidth="91.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="Pago:" textAlignment="CENTER" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="500.0" />
+                                                        <Label fx:id="lblValorApto_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="259.0" layoutY="512.0" prefHeight="45.0" prefWidth="176.0" stylesheets="@vistaprincipal.css" text="Valor apto:" textAlignment="CENTER" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="495.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblValorAptoGenerado_VentasCrearFactura" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="434.0" layoutY="512.0" prefHeight="45.0" prefWidth="208.0" stylesheets="@vistaprincipal.css" text="\$X" textAlignment="CENTER" AnchorPane.leftAnchor="432.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="495.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblSISBEN_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="273.0" layoutY="557.0" prefHeight="45.0" prefWidth="162.0" stylesheets="@vistaprincipal.css" text="SISBEN" textAlignment="CENTER" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="548.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblSubsidio_VentasCrearFactura" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="273.0" layoutY="602.0" prefHeight="45.0" prefWidth="162.0" stylesheets="@vistaprincipal.css" text="Subsidio" textAlignment="CENTER" AnchorPane.leftAnchor="262.0" AnchorPane.topAnchor="600.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblSubsidioGenerado_VentasCrearFactura" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="434.0" layoutY="602.0" prefHeight="45.0" prefWidth="69.0" stylesheets="@vistaprincipal.css" text="--" textAlignment="CENTER" AnchorPane.leftAnchor="432.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblNumeroGenerado_VentasCrearFactura" alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" layoutY="410.0" prefHeight="45.0" prefWidth="171.0" stylesheets="@vistaprincipal.css" text="X" textAlignment="CENTER" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="390.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Label fx:id="lblSISIBENGeneradoRayitas_VentasCrearFactura" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="434.0" layoutY="554.0" prefHeight="45.0" prefWidth="214.0" stylesheets="@vistaprincipal.css" text="--" textAlignment="CENTER" AnchorPane.leftAnchor="433.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="548.0">
+                                                            <styleClass>
+                                                                <String fx:value="tituloLabel" />
+                                                                <String fx:value="no-bold-text" />
+                                                            </styleClass>
+                                                        </Label>
+                                                        <Separator layoutX="218.0" layoutY="66.0" prefWidth="200.0" style="-fx-background-color: #1a0b3c;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                                        <Separator layoutX="48.0" layoutY="214.0" prefWidth="200.0" style="-fx-background-color: #1a0b3c;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                                        <Separator layoutX="14.0" layoutY="310.0" prefWidth="200.0" style="-fx-background-color: #1a0b3c;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                                        <Separator layoutX="22.0" layoutY="487.0" prefWidth="200.0" style="-fx-background-color: #1a0b3c;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                                        <Separator layoutX="397.0" layoutY="545.0" prefWidth="200.0" style="-fx-background-color: #1a0b3c;" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" />
+                                                        <Separator layoutX="373.0" layoutY="595.0" prefWidth="200.0" style="-fx-background-color: #1a0b3c;" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane id="InformacionGeneralInt" fx:id="anchorPaneInterior_VerCuotas" layoutX="30.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <children>
+                                                <Label fx:id="lblCuotas_VerCuotas" layoutX="92.0" layoutY="79.0" styleClass="tituloLabelBig" stylesheets="@vistaprincipal.css" text="Cuotas" AnchorPane.bottomAnchor="680.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="50.0" />
+                                                <ImageView fx:id="imgChauxFondo_VerCuotas" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TableView fx:id="tableViewCuotas_VerCuotas" editable="true" layoutX="84.0" layoutY="156.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="156.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="columnIdValorCuotas_VerCuotas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="VALOR" />
+                                                        <TableColumn fx:id="columnFechaPagoCuotas_VerCuotas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="FECHA PAGO" />
+                                                        <TableColumn fx:id="columnFechaVencimientoCuotas_VerCuotas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="FECHA VENCIMIENTO" />
+                                                        <TableColumn fx:id="columnEstadoCuotas_VerCuotas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="ESTADO" />
+                                                        <TableColumn fx:id="columnNumeroDeCuotaCuotas_VerCuotas" maxWidth="252.0" minWidth="75.0" prefWidth="252.0" resizable="false" text="NÚMERO DE CUOTA" />
+                                                        <TableColumn fx:id="columnAccionesCuotas_VerCuotas" maxWidth="240.0" minWidth="75.0" prefWidth="240.0" resizable="false" text="ACCIONES" />
+                                                    </columns>
+                                                    <columnResizePolicy>
+                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                    </columnResizePolicy>
+                                                </TableView>
+                                                <Button id="buttonCerrar" fx:id="btnCerrarVentana_VerCuotas" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="25.0" maxHeight="50.0" maxWidth="50.0" mnemonicParsing="false" onAction="#CerrarVentanaCuotas" prefHeight="50.0" prefWidth="50.0" stylesheets="@vistaprincipal.css" text="X" />
+                                            </children>
+                                        </AnchorPane>
+                                    </children>
+                                </AnchorPane>
+                            </children>
                         </AnchorPane>
-                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="tabDashboard" text="Dashboard">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <AnchorPane id="InformacionGeneralInt" fx:id="anchorPaneInterior_Proyectos1" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                           <children>
-                              <ImageView fx:id="imgChauxFondo_Proyectos1" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
-                                 </image>
-                              </ImageView>
-                              <BarChart fx:id="GraficaCuotas" layoutX="1113.0" layoutY="97.0" prefHeight="808.0" prefWidth="528.0" title="Grafica Cuotas">
-                                <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis side="LEFT" />
-                                </yAxis>
-                              </BarChart>
-                           </children>
+                            <children>
+                                <AnchorPane id="InformacionGeneralExt" fx:id="anchorPaneInterior_Proyectos1" prefHeight="200.0" prefWidth="200.0" stylesheets="@vistaprincipal.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                    <children>
+                                        <ImageView fx:id="imgChauxFondo_Dashboard" fitHeight="420.0" fitWidth="439.0" layoutX="666.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../recursos/imagenes/Logo%20Chaux.png" />
+                                            </image>
+                                        </ImageView>
+                                        <BarChart fx:id="GraficaCuotas" layoutX="1113.0" layoutY="97.0" prefHeight="808.0" prefWidth="528.0" styleClass="chart-bar" stylesheets="@vistaprincipal.css" title="Cuotas" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+                                            <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                        </BarChart>
+                                        <GridPane fx:id="calendarioGrid" hgap="2.5" layoutX="120.0" layoutY="232.0" prefHeight="600.0" prefWidth="900.0" vgap="2.5" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                 </rowConstraints></GridPane>
+                              <Label layoutX="40.0" layoutY="157.0" styleClass="tituloLabel" stylesheets="@vistaprincipal.css" text="DE LOS CLIENTES" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="107.0" />
+                              <Label layoutX="40.0" layoutY="73.0" styleClass="tituloLabelBig" stylesheets="@vistaprincipal.css" text="FECHAS VENCIMIENTO" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="40.0" />
+                              <Button fx:id="btnGenerarReporte" layoutX="137.0" layoutY="835.0" mnemonicParsing="false" onAction="#GenerarReporte" styleClass="buttonDefault" stylesheets="@vistaprincipal.css" text="Generar Reporte" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
                         </AnchorPane>
-                     </children></AnchorPane>
                     </content>
                 </Tab>
             </tabs>

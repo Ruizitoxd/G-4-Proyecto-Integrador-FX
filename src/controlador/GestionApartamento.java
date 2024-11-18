@@ -3,7 +3,7 @@ package controlador;
 import datos.ApartamentoDAO;
 import java.util.ArrayList;
 import modelo.Apartamento;
-import modelo.datosGrafica;
+import modelo.DatosGrafica;
 
 public class GestionApartamento {
 
@@ -16,8 +16,8 @@ public class GestionApartamento {
     public int ObtenerApartamentos() {
         return apartamentoDAO.CantidadApartamentos();
     }
-    
-    public datosGrafica DatosGrafica(){
+
+    public DatosGrafica DatosGrafica() {
         return apartamentoDAO.DatosGraficaMenu();
     }
 
@@ -40,8 +40,24 @@ public class GestionApartamento {
     public int ObtenerIdTipoUnidad(String nombre) {
         return apartamentoDAO.ObtenerIdTipoUnidad(nombre);
     }
-    
-    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy){
+
+    public ArrayList<Apartamento> ObtenerApartamentosProyecto(int idProy) {
         return apartamentoDAO.ObtenerApartamentosProyecto(idProy);
+    }
+
+    public ArrayList<Apartamento> ObtenerApartamentosNoVendidos() {
+        return apartamentoDAO.ObtenerApartamentosNoVendidos();
+    }
+
+    public ArrayList<Apartamento> ObtenerApartamentosVendidos() {
+        return apartamentoDAO.ObtenerApartamentosVendidos();
+    }
+
+    public int ObtenerApartamentoUnico(String nomApartamento, String nomTorre, String nomProyecto) {
+        return apartamentoDAO.BuscarApartamentoUnico(nomApartamento, nomTorre, nomProyecto);
+    }
+    
+    public ArrayList<Apartamento> DatosReportes(){
+        return apartamentoDAO.DatosReportes();
     }
 }

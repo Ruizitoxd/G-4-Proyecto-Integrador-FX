@@ -1,109 +1,120 @@
-
 package modelo;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import datos.ApartamentoDAO;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+public class Reporte {
 
-
-public class reporte {
     Document documento;
     FileOutputStream fileOutputStream;
 
     // fuentes de Titulo y párrafo
-    Font fuenteTitulo = FontFactory.getFont(FontFactory.TIMES_ROMAN,16);
-    Font fuenteParrafo = FontFactory.getFont(FontFactory.HELVETICA,12);
-    
+    Font fuenteTitulo = FontFactory.getFont(FontFactory.TIMES_BOLD, 16);
+    Font fuenteNegrita = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
     public void crearDocumento() throws FileNotFoundException, DocumentException {
+        documento = new Document(PageSize.A4, 35, 30, 50, 50);
 
-        // creación del documento con sus márgenes
-        documento = new Document(PageSize.A4,35,30,50,50);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaActual = sdf.format(new Date());
 
-        // archivo pdf que vamos a generar
-        String ruta = System.getProperty("user.home");
-        fileOutputStream = new FileOutputStream(ruta + "/reportedia.pdf");
+        String ruta = System.getProperty("user.home") + "/Downloads";
+        String nombreArchivo = ruta + "/reportedia_" + fechaActual + ".pdf";
+        fileOutputStream = new FileOutputStream(nombreArchivo);
 
-        // obtener la instancia del PdfWriter
-        PdfWriter.getInstance(documento,fileOutputStream);
+        PdfWriter.getInstance(documento, fileOutputStream);
     }
 
-    public void abrirDocumento(){
+    public void abrirDocumento() {
         documento.open();
     }
 
     public void agregarTitulo() throws DocumentException {
         PdfPTable tabla = new PdfPTable(1);
-        PdfPCell celda = new PdfPCell(new Phrase("titulo reporte",fuenteTitulo));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaActual = sdf.format(new Date());
+
+        PdfPCell celda = new PdfPCell(new Phrase("Apartamentos vendidos este mes " + fechaActual, fuenteTitulo));
         celda.setColspan(5);
         celda.setBorderColor(BaseColor.WHITE);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         tabla.addCell(celda);
         documento.add(tabla);
     }
-    
-    public void agregarSaltosDeLinea() throws DocumentException{
+
+    public void agregarParrafo(String nombre) throws DocumentException {
+        Paragraph parrafo = new Paragraph();
+        parrafo.add(new Phrase("Chaux Construction-Group\n", fuenteNegrita));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaActual = sdf.format(new Date());
+        parrafo.add(new Phrase("Fecha: ", fuenteNegrita));
+        parrafo.add(new Phrase(fechaActual + "\n"));
+        parrafo.add(new Phrase("Asesor que reporta: ", fuenteNegrita));
+        parrafo.add(new Phrase(nombre + "\n"));
+        documento.add(parrafo);
+    }
+
+    public void agregarSaltosDeLinea() throws DocumentException {
         Paragraph saltosdelinea = new Paragraph();
         saltosdelinea.add(new Phrase(Chunk.NEWLINE));
         saltosdelinea.add(new Phrase(Chunk.NEWLINE));
         documento.add(saltosdelinea);
     }
+
     public void agregarTablaApartamentos(List<Apartamento> apartamentos) throws DocumentException {
         PdfPTable tabla = new PdfPTable(5);
-        tabla.addCell("ID");
-        tabla.addCell("Número");
-        tabla.addCell("Valor");
-        tabla.addCell("Área");
-        tabla.addCell("Matrícula");
+        tabla.addCell(new PdfPCell(new Phrase("ID", fuenteNegrita)));
+        tabla.addCell(new PdfPCell(new Phrase("Número", fuenteNegrita)));
+        tabla.addCell(new PdfPCell(new Phrase("Valor", fuenteNegrita)));
+        tabla.addCell(new PdfPCell(new Phrase("Área", fuenteNegrita)));
+        tabla.addCell(new PdfPCell(new Phrase("Matrícula", fuenteNegrita)));
 
-    
         for (Apartamento apa : apartamentos) {
-            
+
             tabla.addCell(String.valueOf(apa.getId()));
             tabla.addCell(apa.getNumero());
             tabla.addCell(String.valueOf(apa.getValor()));
-            tabla.addCell(apa.getArea()+" M²");
+            tabla.addCell(apa.getArea() + " M²");
             tabla.addCell(apa.getMatricula());
         }
 
         documento.add(tabla);
-  
     }
-    
-   public void cerrarDocumento() {
+
+    public void cerrarDocumento() {
         if (documento != null) {
             documento.close();
         }
     }
-    
-        public static void main(String[] args) {
-        ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
-        ArrayList<Apartamento> apartamentos = apartamentoDAO.MostrarApartamentos(4); // Cambia 1 por el ID de torre que necesites
 
-        reporte reportePdf = new reporte();
- 
+    public boolean generarPdf(ArrayList<Apartamento> apartamentos, String nombreAsesor) {
+        Reporte reportePdf = new Reporte();
         try {
             reportePdf.crearDocumento();
             reportePdf.abrirDocumento();
+            reportePdf.agregarParrafo(nombreAsesor);
+            reportePdf.agregarSaltosDeLinea();
             reportePdf.agregarTitulo();
             reportePdf.agregarSaltosDeLinea();
-            reportePdf.agregarSaltosDeLinea();
 
-            // Agregar la tabla de apartamentos
             reportePdf.agregarTablaApartamentos(apartamentos);
 
             reportePdf.cerrarDocumento();
             System.out.println("PDF generado exitosamente.");
+            return true;
         } catch (FileNotFoundException | DocumentException e) {
             e.printStackTrace();
+            return false;
         }
     }
-    
-    
+
 }
