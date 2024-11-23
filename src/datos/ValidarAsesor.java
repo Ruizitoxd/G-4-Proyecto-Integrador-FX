@@ -14,10 +14,9 @@ public class ValidarAsesor implements Validar {
     ResultSet rs;
     ConexionBD conexion = new ConexionBD();
 
-
     public RolUsuario validar(String correo, String identificacion) {
         RolUsuario RU = new RolUsuario();
-        String sqlAsesor = "SELECT ID, IDENTIFICACION, NOMBRE, DIRECCION, CORREOELECTRONICO FROM ASESOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
+        String sqlAsesor = "SELECT ID, IDENTIFICACION, NOMBRE, APELLIDO, DIRECCION, CORREOELECTRONICO FROM ASESOR WHERE CORREOELECTRONICO = ? AND IDENTIFICACION = ?";
 
         try {
             con = conexion.getConnection();
@@ -30,6 +29,7 @@ public class ValidarAsesor implements Validar {
                 RU.setId(rs.getString("ID"));
                 RU.setIdentificacion(rs.getString("IDENTIFICACION"));
                 RU.setNombre(rs.getString("NOMBRE"));
+                RU.setApellido(rs.getString("APELLIDO"));
                 RU.setDireccion(rs.getString("DIRECCION"));
                 RU.setCorreo(rs.getString("CORREOELECTRONICO"));
                 RU.setRol("Asesor");

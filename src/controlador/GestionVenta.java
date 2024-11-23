@@ -20,8 +20,16 @@ public class GestionVenta {
         return ventaDAO.CantidadGanancias();
     }
 
-    public boolean GuardarVenta(Venta vt,int idApartamento, int idAsesor, int idCliente) {
-        return ventaDAO.CrearVenta(vt,idApartamento, idAsesor, idCliente);
+    public int obtenerIdUltimaVenta() {
+        return ventaDAO.ConsultarIdUltimaVenta();
+    }
+
+    public boolean GuardarVenta(Venta vt, int idApartamento, int idAsesor, int idCliente, boolean SISBEN) {
+        if (SISBEN) {
+            vt.setValor(vt.getValor() * 0.90); //Aplicar 10% de descuento si tiene SISBEN
+        }
+
+        return ventaDAO.CrearVenta(vt, idApartamento, idAsesor, idCliente);
     }
 
     public boolean EditarVenta(int idVenta, double valor, int cantCuotas, double interes) {

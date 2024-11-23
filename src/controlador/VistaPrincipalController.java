@@ -2,7 +2,10 @@ package controlador;
 
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,10 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -27,10 +33,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.RowConstraints;
 import modelo.Apartamento;
-import modelo.Cliente;
 
 //Modelos
 import modelo.Proyecto;
@@ -38,6 +45,7 @@ import modelo.RolUsuario;
 import modelo.Torre;
 import modelo.Venta;
 import modelo.DatosGrafica;
+import modelo.Pago;
 
 public class VistaPrincipalController implements Initializable {
 
@@ -47,7 +55,9 @@ public class VistaPrincipalController implements Initializable {
     private GestionApartamento gestorApartamentos = new GestionApartamento();
     private GestionVenta gestorVentas = new GestionVenta();
     private RolUsuario usuario;
-    private GestionCliente gestionCliente = new GestionCliente();
+    private GestionCliente gestorClientes = new GestionCliente();
+    private GestionPago gestorPagos = new GestionPago();
+    private GenerarPDF generarPDF = new GenerarPDF();
 
     //Atributos de la vista
     ArrayList<Proyecto> proyectos = new ArrayList<>();
@@ -57,10 +67,10 @@ public class VistaPrincipalController implements Initializable {
     Torre torreTemporal;
     Apartamento apartamentoTemporal;
     Venta ventaTemporal;
-    Cliente clienteTemporal;
 
-    //Formato
-    DecimalFormat formato = new DecimalFormat("##,###");
+    //Formatos
+    DecimalFormat numberFormat = new DecimalFormat("##,###");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     //Componentes FXML
     @FXML
@@ -117,16 +127,6 @@ public class VistaPrincipalController implements Initializable {
     private Label lblInfoAptos;
     @FXML
     private Separator separatorInfoAptos;
-    @FXML
-    private Label lblApartamentos;
-    @FXML
-    private Label lblTorre;
-    @FXML
-    private Label lblValor;
-    @FXML
-    private Label lblEstado;
-    @FXML
-    private Label lblTempralNoDisponible;
     @FXML
     private AnchorPane anchorPaneBaseProyectos;
     @FXML
@@ -370,10 +370,6 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private ImageView imgCliente;
     @FXML
-    private VBox VboxFactura_VentasCrearFactura;
-    @FXML
-    private Label lblNumeroFacturaGenerado_VentasCrearFactura;
-    @FXML
     private Label lblCliente_VentasCrearFactura;
     @FXML
     private Label lblNombreGenerado_VentasCrearFactura;
@@ -412,10 +408,6 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private Button btnConfiramar_VentasCrearFactura;
     @FXML
-    private Button btnCancelar_VentasCrearFactura;
-    @FXML
-    private Label lblValorTotalDeCadaCuota_VentasCrearFactura;
-    @FXML
     private Label lblNumeroGenerado_VentasCrearFactura;
     @FXML
     private AnchorPane anchorPaneInterior_VentasCrearFactura;
@@ -426,13 +418,11 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private AnchorPane anchorPaneInterior_Proyectos1;
     @FXML
-    private ImageView imgChauxFondo_Proyectos1;
-    @FXML
-    private BarChart<?, ?> GraficaCuotas;
+    private BarChart<String, Number> GraficaCuotas;
     @FXML
     private PieChart GraficaVenta;
     @FXML
-    private TableView<?> tableViewApartamentosVendidos_Chaux;
+    private TableView<Apartamento> tableViewApartamentosVendidos_Chaux;
     @FXML
     private Label lblSeleccioneUnApartamento_Ventas1;
     @FXML
@@ -444,19 +434,39 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private ImageView imgChauxFondo_VerCuotas;
     @FXML
-    private TableView<?> tableViewCuotas_VerCuotas;
+    private TableView<Pago> tableViewCuotas_VerCuotas;
     @FXML
-    private TableColumn<?, ?> columnIdValorCuotas_VerCuotas;
+    private TableColumn<Pago, Double> columnIdValorCuotas_VerCuotas;
     @FXML
-    private TableColumn<?, ?> columnFechaPagoCuotas_VerCuotas;
+    private TableColumn<Pago, LocalDate> columnFechaPagoCuotas_VerCuotas;
     @FXML
-    private TableColumn<?, ?> columnFechaVencimientoCuotas_VerCuotas;
+    private TableColumn<Pago, LocalDate> columnFechaVencimientoCuotas_VerCuotas;
     @FXML
-    private TableColumn<?, ?> columnEstadoCuotas_VerCuotas;
+    private TableColumn<Pago, String> columnEstadoCuotas_VerCuotas;
     @FXML
-    private TableColumn<?, ?> columnNumeroDeCuotaCuotas_VerCuotas;
+    private TableColumn<Pago, Integer> columnNumeroDeCuotaCuotas_VerCuotas;
+    @FXML
+    private TableColumn<Pago, Void> columnAccionesCuotas_VerCuotas;
     @FXML
     private Button btnCerrarVentana_VerCuotas;
+    @FXML
+    private HBox HboxFactura_VentasCrearFactura;
+    @FXML
+    private Label lblValorTotalDeLaCompra_VentasCrearFactura;
+    @FXML
+    private TableColumn<Apartamento, String> columnApartamentos_Chaux;
+    @FXML
+    private TableColumn<Apartamento, String> columnTorre_Chaux;
+    @FXML
+    private TableColumn<Apartamento, Double> columnValor_Chaux;
+    @FXML
+    private TableColumn<Apartamento, LocalDate> columnFechaEscritura_Chaux;
+    @FXML
+    private ImageView imgChauxFondo_Dashboard;
+    @FXML
+    private GridPane calendarioGrid;
+    @FXML
+    private Button btnGenerarReporte;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -465,10 +475,11 @@ public class VistaPrincipalController implements Initializable {
         ActualizarCantidadApartamentos();
         ActualizarCantidadVentas();
         ActualizarGanancias();
+        ActualizarTabla(gestorApartamentos.ObtenerApartamentosVendidos(), tableViewApartamentosVendidos_Chaux);
         GraficMenu();
+        llenarGraficaCuotas();
+        llenarCalendario();
 
-
-        //ActualizarTabla(gestorApartamentos.ObtenerApartamentosVendidos(), );
         //Setear los datos de las columnas de la tabla proyecto a los valores correspondientes
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -504,9 +515,17 @@ public class VistaPrincipalController implements Initializable {
         columnTorre_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("idTorre"));
         columnProyecto_VentasCrear.setCellValueFactory(new PropertyValueFactory<>("idProyecto"));
 
-        //Añadir valores al choiceBox
-        ActualizarChoiceBoxVentana();
-gestorApartamentos.ObtenerApartamento(0);
+        columnIdValorCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        columnEstadoCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        columnFechaPagoCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("fechaPago"));
+        columnFechaVencimientoCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
+        columnNumeroDeCuotaCuotas_VerCuotas.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        columnApartamentos_Chaux.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        columnTorre_Chaux.setCellValueFactory(new PropertyValueFactory<>("idTorre"));
+        columnFechaEscritura_Chaux.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        columnValor_Chaux.setCellValueFactory(new PropertyValueFactory<>("valor"));
+
         //Agregar botones en la columna de acciones|1
         columnAcciones.setCellFactory(columna -> new TableCell<Proyecto, Void>() {
             private final Button btnEditar = new Button("Editar");
@@ -653,39 +672,28 @@ gestorApartamentos.ObtenerApartamento(0);
         });
 
         columnAccionesVentas.setCellFactory(columna -> new TableCell<Venta, Void>() {
-            private final Button btnEditarVenta = new Button("Editar");
             private final Button btnBorrarVenta = new Button("Borrar");
             private final Button btnCuotaVenta = new Button("Cuotas");
 
             {
                 //Agregar estilo de CSS a los botones
-                btnEditarVenta.getStyleClass().add("buttonTableViewMiniMini");
-                btnBorrarVenta.getStyleClass().add("buttonTableViewMiniMini");
-                btnCuotaVenta.getStyleClass().add("buttonTableViewMiniMini");
-
-                btnEditarVenta.setOnAction(event -> {
-                    //Lógica para editar venta
-                    ventaTemporal = getTableView().getItems().get(getIndex());
-                    
-                    
-                    
-                });
+                btnBorrarVenta.getStyleClass().add("buttonTableViewMini");
+                btnCuotaVenta.getStyleClass().add("buttonTableViewMini");
 
                 btnBorrarVenta.setOnAction(event -> {
-                    //Lógica para borrar venta  
-                    Venta venta =  getTableView().getItems().get(getIndex());
-                    
+                    //Lógica para borrar venta
+                    Venta venta = getTableView().getItems().get(getIndex());
                     boolean elim = gestorVentas.EliminarVenta(venta.getId());
                     if (elim) {
                         getTableView().getItems().remove(venta);
                     } else {
                         MostrarAlertaError("No se pudo eliminar correctamente la venta");
-
                     }
                 });
 
                 btnCuotaVenta.setOnAction(event -> {
-                    //Logica para abrir cuotas
+                    ventaTemporal = getTableView().getItems().get(getIndex());
+                    AbrirVentanaCuotas(event);
                 });
             }
 
@@ -695,9 +703,50 @@ gestorApartamentos.ObtenerApartamento(0);
                 if (vacio) {
                     setGraphic(null);
                 } else {
-                    HBox buttons = new HBox(btnEditarVenta, btnBorrarVenta, btnCuotaVenta);
-                    buttons.getStyleClass().add("hboxBotonesMini");
+                    HBox buttons = new HBox(btnBorrarVenta, btnCuotaVenta);
+                    buttons.getStyleClass().add("hboxBotones");
                     setGraphic(buttons);
+                }
+            }
+        });
+
+        columnAccionesCuotas_VerCuotas.setCellFactory(columnna -> new TableCell<Pago, Void>() {
+            private final Button btnPagar = new Button("Pagar");
+            private final DatePicker datePicker = new DatePicker();
+
+            {
+                btnPagar.getStyleClass().add("buttonTableView");
+                datePicker.getStyleClass().add("date-picker");
+
+                btnPagar.setOnAction(event -> {
+                    // Obtener la fecha seleccionada del DatePicker
+                    LocalDate fechaSeleccionada = datePicker.getValue();
+                    if (fechaSeleccionada != null) {
+                        Date fechaSqlDate = Date.valueOf(fechaSeleccionada);
+
+                        // Lógica para pagar la cuota con la fecha seleccionada
+                        gestorPagos.EditarPago(getTableView().getItems().get(getIndex()).getId(), fechaSqlDate);
+
+                        // Actualizar la tabla
+                        ActualizarTabla(gestorPagos.ObtenerCuotas(ventaTemporal.getId()), tableViewCuotas_VerCuotas);
+                    } else {
+                        // Manejo si no se selecciona ninguna fecha
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione una fecha antes de pagar.");
+                        alert.showAndWait();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean vacio) {
+                super.updateItem(item, vacio);
+                if (vacio) {
+                    setGraphic(null);
+                } else {
+                    // Crear un HBox para contener el botón y el DatePicker
+                    HBox hbox = new HBox(5, datePicker, btnPagar);
+                    hbox.getStyleClass().add("hboxBotones");
+                    setGraphic(hbox);
                 }
             }
         });
@@ -711,25 +760,97 @@ gestorApartamentos.ObtenerApartamento(0);
         imgChauxFondo_Proyectos_Editar.setEffect(colorAdjust);
         imgChauxFondo_Ventas.setEffect(colorAdjust);
         imgChauxFondo_VentasCrear.setEffect(colorAdjust);
+        imgChauxFondo_VerCuotas.setEffect(colorAdjust);
+        imgChauxFondo_Dashboard.setEffect(colorAdjust);
     }
 
     public void GraficMenu() {
         GraficaVenta.getData().clear();
-
         // Obtiene los datos de ventas y no vendido
         DatosGrafica dg = gestorApartamentos.DatosGrafica();
-        int ventas = dg.getDato1();
-        int noVendido = dg.getDato2();
+        int dato1 = dg.getDato1();
+        int dato2 = dg.getDato2();
 
         // Agrega los datos al gráfico circular (PieChart)
-        PieChart.Data vendidos = new PieChart.Data("Vendidos", ventas);
-        PieChart.Data noVendidos = new PieChart.Data("No vendido", noVendido);
+        PieChart.Data vendidos = new PieChart.Data("Vendidos", dato1);
+        PieChart.Data noVendidos = new PieChart.Data("No vendido", dato2);
 
         GraficaVenta.getData().add(vendidos);
         GraficaVenta.getData().add(noVendidos);
 
         vendidos.getNode().setStyle("-fx-pie-color: #f9560b;");
         noVendidos.getNode().setStyle("-fx-pie-color: #060f22;");
+    }
+
+    public void llenarGraficaCuotas() {
+        GraficaCuotas.getData().clear();
+
+        DatosGrafica dg = gestorPagos.datosGraficaDash();
+        int cuotasPagadas = dg.getDato1();
+        int cuotasVencidas = dg.getDato2();
+
+        XYChart.Series<String, Number> serieCuotas = new XYChart.Series<>();
+        serieCuotas.setName("Estado de Cuotas");
+
+        serieCuotas.getData().add(new XYChart.Data<>("Pagadas", cuotasPagadas));
+        serieCuotas.getData().add(new XYChart.Data<>("Vencidas", cuotasVencidas));
+
+        GraficaCuotas.getData().add(serieCuotas);
+    }
+
+    public void llenarCalendario() {
+        // Dimensiones del GridPane
+        double gridWidth = 850;
+        double gridHeight = 550;
+
+        // Cantidad de columnas y filas
+        int totalColumns = 7; // Una semana tiene 7 días
+        int totalRows = 5; // Suponiendo 5 filas para acomodar días del mes
+
+        // Calcular tamaños de celdas
+        double cellWidth = gridWidth / totalColumns;
+        double cellHeight = gridHeight / totalRows;
+
+        // Configurar proporciones de columnas y filas
+        calendarioGrid.getColumnConstraints().clear();
+        calendarioGrid.getRowConstraints().clear();
+        for (int i = 0; i < totalColumns; i++) {
+            ColumnConstraints col = new ColumnConstraints(cellWidth);
+            calendarioGrid.getColumnConstraints().add(col);
+        }
+        for (int i = 0; i < totalRows; i++) {
+            RowConstraints row = new RowConstraints(cellHeight);
+            calendarioGrid.getRowConstraints().add(row);
+        }
+        //Llenar de botones
+        for (int day = 1; day <= 30; day++) {
+            Button dayButton = new Button(String.valueOf(day));
+            dayButton.getStyleClass().add("btnCalendario");
+            dayButton.setStyle("-fx-min-width: " + cellWidth * 0.8 + "px; -fx-min-height: " + cellHeight * 0.8 + "px;");
+
+            // Agregar evento al botón
+            int finalDay = day; // Variable para usar dentro de la lambda
+            dayButton.setOnAction(event -> mostrarMensajeCuota(finalDay));
+
+            // Añadir botón al GridPane (distribuir en filas y columnas)
+            int row = (day - 1) / totalColumns; // Suponiendo una semana de 7 días
+            int col = (day - 1) % totalColumns;
+            calendarioGrid.add(dayButton, col, row);
+        }
+    }
+
+    // Método para mostrar el diálogo
+    private void mostrarMensajeCuota(int day) {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Cuotas del día " + day);
+
+        // Contenido de la ventana
+        dialog.getDialogPane().setContent(new Label("Cuotas pendientes para el día " + day));
+
+        // Botón para cerrar
+        dialog.getDialogPane().getButtonTypes().addAll(javafx.scene.control.ButtonType.CLOSE);
+
+        dialog.showAndWait();
     }
 
     //Funcion para obtener el usuario registrado en el login y sus dependencias
@@ -741,10 +862,15 @@ gestorApartamentos.ObtenerApartamento(0);
 
         //Información de los proyectos del administrador
         if (usuario.getRol().equals("Administrador")) {
+            tabVentas.disableProperty().set(true);
+            tabDashboard.disableProperty().set(true);
             ActualizarTabla(gestorProyectos.ObtenerProyectosAdmin(Integer.parseInt(usuario.getId())), tableViewProyectos_Proyectos);
         } else {
+            tabProyectos.disableProperty().set(true);
             ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas);
         }
+
+        ActualizarChoiceBoxVentana();
     }
 
     //Actualizaciones de información del programa
@@ -761,7 +887,7 @@ gestorApartamentos.ObtenerApartamento(0);
     }
 
     void ActualizarGanancias() {
-        lblGananciasNum.setText(formato.format(gestorVentas.obtenerGanancias()) + "");
+        lblGananciasNum.setText(numberFormat.format(gestorVentas.obtenerGanancias()) + "");
     }
 
     <T> void ActualizarTabla(ArrayList<T> listaItems, TableView<T> tabla) {
@@ -771,13 +897,17 @@ gestorApartamentos.ObtenerApartamento(0);
     }
 
     private void ActualizarChoiceBoxVentana() {
-        //Actualizar ChoiceBox ventana Crear
-        ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
-        choiceBoxTipoUnidad_Crear.setItems(tipoUnidades);
+        if (usuario.getRol().equals("Administrador")) {
+            //Actualizar ChoiceBox ventana Crear
+            ObservableList<String> tipoUnidades = FXCollections.observableArrayList(gestorApartamentos.obtenerTipoUnidades());
+            choiceBoxTipoUnidad_Crear.setItems(tipoUnidades);
 
-        //Actualizar ChoiceBox ventana Editar
-        choiceBoxTipoUnidad_Editar.setItems(tipoUnidades);
-
+            //Actualizar ChoiceBox ventana Editar
+            choiceBoxTipoUnidad_Editar.setItems(tipoUnidades);
+        } else {
+            choiceBoxSISBENCliente_VentasCrear.setValue("SISBEN");
+            choiceBoxSISBENCliente_VentasCrear.setItems(FXCollections.observableArrayList("Si", "No"));
+        }
     }
 
     private void MostrarAlertaError(String mensaje) {
@@ -855,7 +985,7 @@ gestorApartamentos.ObtenerApartamento(0);
         //Reinicar compoentes torre
         txtNumeroTorre_Editar.setText("");
 
-        //Reiniciar componentes aprtamento
+        //Reiniciar componentes apartamento
         txtNumeroApto_Editar.setText("");
         txtValorApto_Editar.setText("");
 
@@ -863,7 +993,6 @@ gestorApartamentos.ObtenerApartamento(0);
         choiceBoxTipoUnidad_Editar.setValue("Tipo unidad");
 
     }
-    
 
     //Logica para añadir torre
     @FXML
@@ -995,11 +1124,6 @@ gestorApartamentos.ObtenerApartamento(0);
             //Soltar mensaje de error
         }
     }
-    
-   // private void GuargarVentaEditado(ActionEvent){
-        
-    
-    
 
     @FXML
     private void AlternarTablasApartamentosCrear(ActionEvent event) {
@@ -1043,34 +1167,92 @@ gestorApartamentos.ObtenerApartamento(0);
     @FXML
     private void CerrarVentanaVentaNueva(ActionEvent event) {
         anchorPaneInterior_VentasCrear.setVisible(false);
+
+        //Reiniciar componentes de la venta
+        txtCuotasDatosVenta_crear.setText("");
+        txtInteresesDatosdeVenta_crear.setText("");
+
+        //Reiniciar componentes del cliente
+        txtNombreCliente_VentasCrear.setText("");
+        txtApellidoCliente_VentasCrear.setText("");
+        txtDireccionCliente_VentasCrear.setText("");
+        txtCedulaCliente_VentasCrear.setText("");
+        txtSubsidioCliente_VentasCrear.setText("");
+        txtCorreoelectronicoCliente_VentasCrear.setText("");
+        choiceBoxSISBENCliente_VentasCrear.setValue("SISBEN");
+        txtTelefonoCliente_VentasCrear.setText("");
     }
 
     @FXML
     private void RealizarVenta(ActionEvent event) {
         ventaTemporal = new Venta();
         ventaTemporal.setNumCuotas(Integer.parseInt(txtCuotasDatosVenta_crear.getText()));
-        ventaTemporal.setInteres(Integer.parseInt(txtInteresesDatosdeVenta_crear.getText()));
+        ventaTemporal.setInteres(Double.parseDouble(txtInteresesDatosdeVenta_crear.getText()) / 100);
+        ventaTemporal.setValor(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getValor() * (1 + ventaTemporal.getInteres()));
 
-        if (gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()) != 0) {
+        int idCliente = gestorClientes.IdentificarCliente(txtCedulaCliente_VentasCrear.getText());
+
+        if (idCliente != 0) {
             //Agregar la venta al cliente
-            
-            //gestorVentas.GuardarVenta(v, Integer.parseInt(usuario.getId()), gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()));
+            ventaTemporal.setValor(ventaTemporal.getValor() - gestorClientes.obtenerSubsidio(idCliente));
+            gestorVentas.GuardarVenta(ventaTemporal, gestorApartamentos.ObtenerApartamentoUnico(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getNumero(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdTorre(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdProyecto()), Integer.parseInt(usuario.getId()), idCliente, gestorClientes.ObtenerSISBEN(idCliente));
         } else {
-            clienteTemporal = new Cliente();
-            clienteTemporal.setNombre(txtNombreCliente_VentasCrear.getText());
-            clienteTemporal.setApellido(txtApellidoCliente_VentasCrear.getText());
-            clienteTemporal.setCorreo(txtCorreoelectronicoCliente_VentasCrear.getText());
-            clienteTemporal.setDireccion(txtDireccionCliente_VentasCrear.getText());
-            clienteTemporal.setIdentificacion(txtCedulaCliente_VentasCrear.getText());
-            clienteTemporal.setSISBEN(choiceBoxSISBENCliente_VentasCrear.getValue());
-            clienteTemporal.setSubsidio(txtSubsidioCliente_VentasCrear.getText());
-            gestionCliente.GuardarCliente(clienteTemporal);
-            
-         
-            //gestionCliente.GuardarNuemroCliente(gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()), txtTelefonoCliente_VentasCrear.getText());
-            
-            //gestorVentas.GuardarVenta(ventaTemporal, id_apartamento, Integer.parseInt(usuario.getId()), gestionCliente.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()));
+            //Crear el cliente
+            gestorClientes.GuardarCliente(txtNombreCliente_VentasCrear.getText(), txtApellidoCliente_VentasCrear.getText(), txtDireccionCliente_VentasCrear.getText(), txtCedulaCliente_VentasCrear.getText(), Double.parseDouble(txtSubsidioCliente_VentasCrear.getText()), txtCorreoelectronicoCliente_VentasCrear.getText(), choiceBoxSISBENCliente_VentasCrear.getValue());
+            idCliente = gestorClientes.IdentificarCliente(txtCedulaCliente_VentasCrear.getText());
+            gestorClientes.GuardarNumeroCliente(idCliente, txtTelefonoCliente_VentasCrear.getText());
+            //Agregar la venta al cliente
+            ventaTemporal.setValor(ventaTemporal.getValor() - gestorClientes.obtenerSubsidio(idCliente));
+            gestorVentas.GuardarVenta(ventaTemporal, gestorApartamentos.ObtenerApartamentoUnico(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getNumero(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdTorre(), tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdProyecto()), Integer.parseInt(usuario.getId()), idCliente, gestorClientes.ObtenerSISBEN(idCliente));
         }
 
+        //Setear componentes de la factura
+        //Info cliente
+        lblNombreGenerado_VentasCrearFactura.setText(gestorClientes.obtenerNombre(idCliente));
+        lblTelefonoGenerado_VentasCrearFactura.setText(gestorClientes.obtenerNumero(idCliente));
+        //Info compra
+        lblTorreGenerado_VentasCrearFactura.setText("Torre: " + tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getIdTorre());
+        lblApartamentoGenerado_VentasCrearFactura.setText("Apartamento: " + tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getNumero());
+        //Info datos cobro0
+        lblNumeroGenerado_VentasCrearFactura.setText(ventaTemporal.getNumCuotas() + "");
+        lblValorGenerado_VentasCrearFactura.setText("$" + ventaTemporal.getValor() / ventaTemporal.getNumCuotas());
+        //Info pago
+        lblValorAptoGenerado_VentasCrearFactura.setText(tableViewApartamentosDisponibles_VentasCrear.getSelectionModel().getSelectedItem().getValor() + "");
+        String texto = gestorClientes.ObtenerSISBEN(idCliente) ? "-10%" : "--";
+        lblSISIBENGeneradoRayitas_VentasCrearFactura.setText(texto);
+        lblSubsidioGenerado_VentasCrearFactura.setText(gestorClientes.obtenerSubsidio(idCliente) + "");
+        //Valor final de la venta
+        lblValorTotalDeLaCompra_VentasCrearFactura.setText(ventaTemporal.getValor() + "");
+
+        anchorPaneInterior_VentasCrearFactura.setVisible(true);
+
+        //Actualizar tablas
+        ActualizarTabla(gestorApartamentos.ObtenerApartamentosNoVendidos(), tableViewApartamentosDisponibles_VentasCrear); //Tabla de apartamentos disponibles
+        ActualizarTabla(gestorVentas.ObtenerVentas(Integer.parseInt(usuario.getId())), tableViewVentas_Ventas); //Tabla de ventas
+    }
+
+    @FXML
+    private void ConfirmarVenta(ActionEvent event) {
+        //Registrar las cuotas
+        gestorPagos.GuardarPago(ventaTemporal.getNumCuotas(), txtDiaIngresar_VentasCrearFactura.getText(), ventaTemporal.getValor() / ventaTemporal.getNumCuotas(), Integer.parseInt(usuario.getId()), gestorVentas.obtenerIdUltimaVenta(), gestorClientes.IdentificarCliente(txtCedulaCliente_VentasCrear.getText()));
+
+        anchorPaneInterior_VentasCrearFactura.setVisible(false);
+        CerrarVentanaVentaNueva(event);
+    }
+
+    private void AbrirVentanaCuotas(ActionEvent event) {
+        ActualizarTabla(gestorPagos.ObtenerCuotas(ventaTemporal.getId()), tableViewCuotas_VerCuotas);
+        anchorPaneInterior_VerCuotas.setVisible(true);
+    }
+
+    @FXML
+    private void CerrarVentanaCuotas(ActionEvent event) {
+        anchorPaneInterior_VerCuotas.setVisible(false);
+    }
+
+    @FXML
+    private void GenerarReporte(ActionEvent event) {
+        generarPDF.geneararpdf(gestorApartamentos.DatosReportes(), usuario.getNombre() + " " + usuario.getApellido());
+        MostrarMensajeConfirmacion("PDF generado exitosamente.");
     }
 }

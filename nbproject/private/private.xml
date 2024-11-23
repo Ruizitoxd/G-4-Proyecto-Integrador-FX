@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/GenerarPDF.java</file>
-            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/Reporte.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/modelo/Pago.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/GestionCliente.java</file>
             <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/ApartamentoDAO.java</file>
             <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/VistaPrincipalController.java</file>
-            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/controlador/GestionApartamento.java</file>
-            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/ProyectoDAO.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/PagoDAO.java</file>
+            <file>file:/C:/Users/josem/OneDrive/Documentos/NetBeansProjects/G-4-Proyecto-Integrador-FX/src/datos/ClienteDAO.java</file>
         </group>
     </open-files>
 </project-private>

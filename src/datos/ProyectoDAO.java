@@ -62,13 +62,12 @@ public class ProyectoDAO {
     }
 
     public boolean CrearProyecto(Proyecto pr, int idAdmin) {
-        String sql = "INSERT INTO constructoraG_4.proyecto(id, nombre, id_admin) "
+        String sql = "INSERT INTO proyecto(id, nombre, id_admin) "
                 + "VALUES (SEQ_IDPROYECTO.NEXTVAL, ?, ?)";
 
         try {
             conexion = new ConexionBD();
-            //con = conexion.getConnection();
-            con = conexion.getAdminConnection();
+            con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, pr.getNombre());
             ps.setInt(2, idAdmin);
@@ -146,7 +145,4 @@ public class ProyectoDAO {
         }
         return id;
     }
-    
-    
-
 }

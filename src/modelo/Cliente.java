@@ -1,8 +1,7 @@
-
 package modelo;
 
-
 public class Cliente {
+
     private String id;
     private String identificacion;
     private String correo;
@@ -11,29 +10,17 @@ public class Cliente {
     private String direccion;
     private String SISBEN;
     private String subsidio;
-    private int numeroTelef;
-    
-    public Cliente(){
+
+    public Cliente() {
         this.id = "";
         this.identificacion = "";
         this.correo = "";
         this.nombre = "";
-        this.apellido="";
+        this.apellido = "";
         this.direccion = "";
         this.SISBEN = "";
         this.subsidio = "";
-        this.numeroTelef = 0;
     }
-
-    public int getNumeroTelef() {
-        return numeroTelef;
-    }
-
-    public void setNumeroTelef(int numeroTelef) {
-        this.numeroTelef = numeroTelef;
-    }
-
-
 
     public String getId() {
         return id;
@@ -109,6 +96,4 @@ public class Cliente {
         this.SISBEN = SISBEN;
         this.subsidio = subsidio;
     }
-
-
 }

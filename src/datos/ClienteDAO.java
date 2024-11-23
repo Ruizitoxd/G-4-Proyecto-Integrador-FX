@@ -1,82 +1,79 @@
-
 package datos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import modelo.Cliente;
 
 public class ClienteDAO {
-        Connection con;
+
+    Connection con;
     PreparedStatement ps;
     ResultSet rs;
     ConexionBD conexion;
-    
-    public boolean CrearCliente(Cliente cl){
-    String sql="insert into cliente (id, identificacion, nombre, apellido, SISBEN, subsidio,direccion,correoElectronico) "+
-            "set values(SEQ_IDCLIENTE.NEXTVAL, ?,?,?,?,?,?,?)";
-    try{
-        conexion= new ConexionBD();
-        con = conexion.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setString(1, cl.getIdentificacion());
-        ps.setString(2, cl.getNombre());
-        ps.setString(3, cl.getApellido());
-        ps.setString(4, cl.getSISBEN());
-        ps.setString(5, cl.getSubsidio());
-        ps.setString(6, cl.getDireccion());
-        ps.setString(7, cl.getCorreo());
-        int resultado = ps.executeUpdate();
+
+    public boolean CrearCliente(String nombre, String apellido, String direccion, String identificacion, Double subsidio, String correoElectronico, String sisben) {
+        String sql = "insert into cliente (id, identificacion, nombre, apellido, SISBEN, subsidio, direccion, correoElectronico) "
+                + "values(SEQ_IDCLIENTE.NEXTVAL, ?,?,?,?,?,?,?)";
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, identificacion);
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, sisben);
+            ps.setDouble(5, subsidio);
+            ps.setString(6, direccion);
+            ps.setString(7, correoElectronico);
+            int resultado = ps.executeUpdate();
 
             if (resultado > 0) {
                 return true;
-         }
-        }catch (SQLException ex) {
-            System.out.println("Error al añadir el apartamento: " + ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al añadir al cliente: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
         return false;
     }
-    
-    public int BuscarCliente(String cedula){
-        String sql="select id "+ 
-                    "from cliente "+   
-                    "where cudula = ?";
-        int id_cliente=0;
-        try{
+
+    public int BuscarCliente(String cedula) {
+        String sql = "select id "
+                + "from cliente "
+                + "where identificacion = ?";
+        int id_cliente = 0;
+        try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, cedula);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 id_cliente = rs.getInt("id");
                 return id_cliente;
             }
-        }catch (SQLException ex) {
-            System.out.println("Error al añadir el cliente: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar el cliente: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
-        return id_cliente ;
+        return id_cliente;
     }
-    
+
     public boolean numeroDeTelefonoDelCliente(int id_cliente, String numero) {
-        String sql = "INSERT INTO telefono_cliente (id, telefono, id_cliente) " +
-                     "VALUES (SEQ_IDTELEFO_CLIENTE.NEXTVAL, ?, ?)";
+        String sql = "INSERT INTO telefono_cliente (id, telefono, id_cliente) "
+                + "VALUES (SEQ_IDTELEFO_CLIENTE.NEXTVAL, ?, ?)";
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, numero); 
-            ps.setInt(2, id_cliente); 
-
+            ps.setString(1, numero);
+            ps.setInt(2, id_cliente);
 
             int resultado = ps.executeUpdate();
-
 
             return resultado > 0;
         } catch (SQLException ex) {
@@ -87,69 +84,60 @@ public class ClienteDAO {
         }
         return false;
     }
-    
-    
-    
+
     public boolean ConsultarSISBEN(int id_cliente) {
-       String sql = "SELECT SISBEN " +
-                    "FROM Cliente " +
-                    "WHERE id = ?";
-       try {
-           conexion = new ConexionBD();
-           con = conexion.getConnection();
-           ps = con.prepareStatement(sql);
-           ps.setInt(1, id_cliente);
-           rs = ps.executeQuery();
-           if (rs.next()) {
-               if (rs.getString("SISBEN").equals("NO")) {
-                   return false;
-               } else {
-                   return true;
-               }
-           }
-       } catch (SQLException ex) {
-           System.out.println("Error al consultar SISBEN del cliente: " + ex.getMessage());
-       } finally {
-           conexion.closeConnection();
-       }
-       return false;
- 
-   }
-    
-    public Cliente buscarDatosCliente(int idIdentificacion) {
+        String sql = "SELECT SISBEN "
+                + "FROM Cliente "
+                + "WHERE id = ?";
+        try {
+            conexion = new ConexionBD();
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id_cliente);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                if (rs.getString("SISBEN").equals("NO")) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar SISBEN del cliente: " + ex.getMessage());
+        } finally {
+            conexion.closeConnection();
+        }
+        return false;
+    }
+
+    public String consultarNombre(int idCliente) {
         Cliente cliente = null;
-        String sql = "SELECT c.nombre AS nombre, c.apellido AS apellido, tc.numero AS numero " +
-                     "FROM cliente c " +
-                     "JOIN telefono_cliente tc ON c.id = tc.id_cliente " +
-                     "WHERE c.identificacion = ?";
+        String sql = "SELECT nombre||' '||apellido AS nombreCompleto "
+                + "FROM cliente "
+                + "WHERE id = ?";
 
         try {
             conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idIdentificacion);
+            ps.setInt(1, idCliente);
             rs = ps.executeQuery();
 
-            if (rs.next()) { 
-                cliente = new Cliente();
-                cliente.setNombre(rs.getString("nombre"));
-                cliente.setApellido(rs.getString("apellido"));
-                cliente.setNumeroTelef(rs.getInt("numero"));
+            if (rs.next()) {
+                return rs.getString("nombreCompleto");
             }
         } catch (SQLException ex) {
-            System.out.println("Error al buscar los datos del cliente: " + ex.getMessage());
+            System.out.println("Error al buscar el nombre del cliente: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
-        return cliente; 
+        return "";
     }
 
-
-    
     public double consultarSubsidio(int idCliente) {
-        String sql = "SELECT subsidio " + 
-                     "FROM Cliente " +
-                     "WHERE id = ?";
+        String sql = "SELECT subsidio "
+                + "FROM Cliente "
+                + "WHERE id = ?";
         double subsidio = 0;
         try {
             conexion = new ConexionBD();
@@ -159,7 +147,7 @@ public class ClienteDAO {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                subsidio = rs.getInt("subcidio");
+                subsidio = rs.getDouble("subsidio");
             }
         } catch (SQLException ex) {
             System.out.println("Error al consultar subsidio del cliente: " + ex.getMessage());
@@ -168,30 +156,26 @@ public class ClienteDAO {
         }
         return subsidio;
     }
-    
-    
-    public int BuscarLaIDdelCliente(){
-        String sql="SELECT id " +
-"                   FROM venta " +
-"                   WHERE id = (SELECT MAX(id) FROM ventas)";
-        int id_venta =0;
-        try{
-            conexion = new  ConexionBD();
+
+    public String consultarNumero(int idCliente) {
+        String sql = "SELECT tc.telefono as celular "
+                + "FROM TELEFONO_CLIENTE tc JOIN CLIENTE c ON c.ID = tc.ID_CLIENTE "
+                + "WHERE c.ID  = ?";
+        try {
+            conexion = new ConexionBD();
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
             rs = ps.executeQuery();
-            
-            if(rs.next()){
-                id_venta = rs.getInt("id");
-                return id_venta;
+
+            if (rs.next()) {
+                return rs.getString("celular");
             }
-        }catch (SQLException ex) {
-            System.out.println("Error al buscar la venta: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar telefono del cliente: " + ex.getMessage());
         } finally {
             conexion.closeConnection();
         }
-        return id_venta ;
+        return "";
     }
-
-
 }

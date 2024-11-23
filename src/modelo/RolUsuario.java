@@ -6,6 +6,7 @@ public class RolUsuario {
     private String identificacion;
     private String correo;
     private String nombre;
+    private String apellido;
     private String direccion;
     private String rol;
 
@@ -15,15 +16,17 @@ public class RolUsuario {
         this.identificacion = "";
         this.correo = "";
         this.nombre = "";
+        this.apellido = "";
         this.direccion = "";
     }
 
     // Constructor con parámetros
-    public RolUsuario(String id, String identificacion, String correo, String nombre, String direccion, String rol) {
+    public RolUsuario(String id, String identificacion, String correo, String nombre, String apellido, String direccion, String rol) {
         this.id = id;
         this.identificacion = identificacion;
         this.correo = correo;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.direccion = direccion;
         this.rol = rol;
     }
@@ -61,6 +64,14 @@ public class RolUsuario {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -75,6 +86,5 @@ public class RolUsuario {
 
     public void setRol(String rol) {
         this.rol = rol;
-
     }
 }
