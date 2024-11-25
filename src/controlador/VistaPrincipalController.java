@@ -1044,9 +1044,8 @@ public class VistaPrincipalController implements Initializable {
         boolean editT = gestorTorres.ActualizarTorre(torreTemporal.getId(), torreTemporal.getNombre());
 
         if (editT) {
-
             ActualizarTabla(gestorTorres.ObtenerTorre(proyectoTemporal.getId()), tableViewTorres_Editar);
-
+            ActualizarTabla(gestorApartamentos.ObtenerApartamentosProyecto(proyectoTemporal.getId()), tableViewApartamentos_Editar);
         } else {
             MostrarAlertaError("Error no se pudo editar la torre correctamente");
         }
@@ -1098,7 +1097,7 @@ public class VistaPrincipalController implements Initializable {
         boolean editA = gestorApartamentos.ActualizarApartamento(apartamentoTemporal.getId(), apartamentoTemporal.getNumero(), apartamentoTemporal.getValor(), apartamentoTemporal.getArea(), gestorApartamentos.ObtenerIdTipoUnidad(apartamentoTemporal.getTipoUnidad()));
 
         if (editA) {
-            ActualizarTabla(apartamentos, tableViewApartamentos_Editar);
+            ActualizarTabla(gestorApartamentos.ObtenerApartamentosProyecto(proyectoTemporal.getId()), tableViewApartamentos_Editar);
         } else {
             MostrarAlertaError("Error no se pudo editar el apartamento correctamente");
         }

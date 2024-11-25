@@ -147,7 +147,7 @@ public class PagoDAO {
                 + "c.nombre||' '||c.apellido AS nombreCliente "
                 + "FROM pago p "
                 + "JOIN cliente c ON p.id_cliente = c.id "
-                + "WHERE TO_CHAR(p.fechaVencimiento, 'dd') = ?";
+                + "WHERE TO_CHAR(p.fechaVencimiento, 'dd') = ? AND p.fechaVenciminto IS NULL AND  TO_CHAR(p.fechaVencimiento, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')";
 
         LocalDate fechaActual = LocalDate.now();
 
